@@ -43,16 +43,23 @@ Gravity -Composizione- Piece
 ```mermaid
 classDiagram
 
-class Map
+class Map 
 <<interface>> Map
 
-class Piece
+class Piece {
+    +move(Square): boolean
+}
 <<interface>> Piece
 
-class Board
+class Board {
+    +getSquare(int, int)
+}
 <<interface>> Board
 
-class Square
+class Square {
+    +isFree(): boolean
+    +setPiece(Piece)
+}
 <<interface>> Square
 
 class Obstacle
@@ -75,3 +82,9 @@ Board --* Square
 Square --o Obstacle
 Gravity -- Square
 ```
+
+Le dificcoltà da gestire saranno:
+-  Le interazioni tra i pezzi e le case della scacchiera in modo efficiente. Allo stesso tempo mantenere la consistenza dei dati.
+-  La modularità ed il riuso dei movimenti e della gravità.
+
+I requisiti non funzionali tali menù di navigazione e generazione dinamica della mappa non sarà possibile implementarli setando nel monte ore previsto.
