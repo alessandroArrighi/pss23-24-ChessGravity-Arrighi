@@ -43,44 +43,40 @@ Gravity -Composizione- Piece
 ```mermaid
 classDiagram
 
-class Map 
+class Map {
+    +move(Piece, Square): boolean
+}
 <<interface>> Map
 
 class Piece {
-    +move(Square): boolean
+    +move(Board, Square): boolean
+    +getSquare(): Square
 }
 <<interface>> Piece
 
 class Board {
-    +getSquare(int, int)
+    +getSquare(): Square
 }
 <<interface>> Board
 
 class Square {
     +isFree(): boolean
+    +getPiece(): Piece
     +setPiece(Piece)
 }
 <<interface>> Square
 
-class Obstacle
+class Obstacle {
+    +getSquare(): Square
+}
 <<interface>> Obstacle
 
-class Movement
-<<interface>> Movement
-
-class Gravity
-<<interface>> Gravity
-
-Square --o Piece
+Square -- Piece
 Map --* Board
-Gravity -- Piece
 Map --* Obstacle
-Square -- Movement
 Map --* Piece
-Piece -- Movement
 Board --* Square
-Square --o Obstacle
-Gravity -- Square
+Square -- Obstacle
 ```
 
 Le dificcoltà da gestire saranno:
