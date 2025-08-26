@@ -66,17 +66,14 @@ class Square {
 }
 <<interface>> Square
 
-class Obstacle {
-    +getSquare(): Square
-}
+class Obstacle
 <<interface>> Obstacle
 
 Square -- Piece
 Map --* Board
-Map --* Obstacle
 Map --* Piece
 Board --* Square
-Square -- Obstacle
+Square <|-- Obstacle
 ```
 
 Le dificcoltà da gestire saranno:
@@ -84,3 +81,68 @@ Le dificcoltà da gestire saranno:
 -  La modularità ed il riuso dei movimenti e della gravità.
 
 I requisiti non funzionali tali menù di navigazione e generazione dinamica della mappa non sarà possibile implementarli setando nel monte ore previsto.
+
+# Design
+
+## Architettura
+
+L'archiettura adottata segue le regole del pattern MVC. In questo caso il modello si sviluppa partendo da Map. Da qui è possibile accedere allo stato di tutta la logica applicativa del software. Map è un'interfaccia che viene implementata da MapImpl. Così facendo è possibile astrarre quando si va ad utilizzare il modello è possibile astrarre dall'implementazione e lavorare solo con il contratto definito. E' perciò possible, con futuri aggiornamenti, implementare diverse versioni di Map. Più in dettaglio sono state modellate due tipologie Square una per gli ostacoli, che essendo "statici" (non hanno un comportamento specifico ma definiscono solo uno stato di Square), possono essere definiti come una specializzazione di Square. Per le altre dove si ottiene un dinamismo dovuto dallo spostamento dei pezzi, si è creato un sotto tipo specifico per gestire tutte le interazione tra Square e Piece.
+
+```mermaid
+classDiagram
+
+class Map {
+    +move(Piece, Square)
+}
+<<interface>> Map
+
+class MapImpl {
+    -List~Piece~ pieces
+    -Board borad
+}
+
+class Piece {
+    +move(Board, Square): boolean
+    +getSquare(): Square
+}
+<<interface>> Piece
+
+class Board {
+    +getSquare()
+}
+<<interface>> Board
+
+class Square {
+    +isFree(): boolean
+}
+<<interface>> Square
+
+class SquareObstacle {
+    +setObstacle()
+}
+<<interface>> SquareObstacle
+
+class SquarePiece {
+    +getPiece(): Piece
+    +setPiece(Piece)
+}
+<<interface>> SquarePiece
+
+class Controller
+<<interface>> Controller
+
+class View
+<<interface>> View
+
+MapImpl --|> Map
+MapImpl *-- Board
+Board *-- Square
+Map -- Piece
+Map -- Square
+Piece --* MapImpl
+SquarePiece --|> Square
+SquareObstacle --|> Square
+Controller *-- View
+Controller *-- Map
+Map --o View
+```
