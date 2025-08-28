@@ -182,3 +182,58 @@ PieceFactory <|-- PieceStandardFacotory
 PieceFactory <|-- PiecePoisonedFactory
 Piece -- PieceFactory
 ```
+
+Strategy pattern per la gestione dinamica dei movimenti dei pezzi
+
+```mermid
+classDiagram
+
+class Map
+<<interface>> Map
+
+class Piece {
+    move(Square, Board): boolean
+}
+<<interface>> Piece
+
+class PieceImpl {
+    -MoveStrategy mover
+    +PieceImpl(MoveStrategy)
+    +move(Square, Board): boolean
+}
+
+class MoveStrategy {
+    move(Square, Square, Board): boolean
+}
+<<interface>> MoveStrategy
+
+class BaseMove
+<<interface>> BaseMove
+
+class MovePiece
+<<interface>> MovePiece
+
+class MoveTop {
+    +move(Square, Square, Board): boolean
+}
+
+class MoveBottom {
+    +move(Square, Square, Board): boolean
+}
+
+class MoveRook {
+    -BaseMove moveTop
+    -BaseMove moveBottom
+    +move(Square, Square, Board): boolean
+}
+
+Map *-- Piece
+Piece <|-- PieceImpl
+Map -- MovePiece
+MoveStrategy <|-- BaseMove
+MoveStrategy <|-- MovePiece
+MovePiece <|-- MoveRook
+BaseMove <|-- MoveTop
+BaseMove <|-- MoveBottom
+MoveRook *-- BaseMove
+```
