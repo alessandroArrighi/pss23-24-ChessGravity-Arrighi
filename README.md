@@ -98,7 +98,7 @@ class Map {
 
 class MapImpl {
     -List~Piece~ pieces
-    -Board borad
+    -Board board
 }
 
 class Piece {
@@ -145,4 +145,40 @@ SquareObstacle --|> Square
 Controller *-- View
 Controller *-- Map
 Map --o View
+```
+
+## Design dettagliato
+
+Factory method per la creazione dei pezzi
+
+```mermaid
+classDiagram
+
+class Piece
+<<interface>> Piece
+
+class PieceStandard
+<<interface>> PieceStandard
+
+class PiecePoisoned
+<<abstract>> PiecePoisoned
+
+class PieceFactory {
+    +createPiece(): Piece
+}
+<<interface>> PieceFactory
+
+class PieceStandardFacotory {
+    +createPiece(): Piece
+}
+
+class PiecePoisonedFactory {
+    +createPiece(): Piece
+}
+
+Piece <|-- PieceStandard
+Piece <|-- PiecePoisoned
+PieceFactory <|-- PieceStandardFacotory
+PieceFactory <|-- PiecePoisonedFactory
+Piece -- PieceFactory
 ```
