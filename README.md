@@ -185,7 +185,7 @@ Piece -- PieceFactory
 
 Strategy pattern per la gestione dinamica dei movimenti dei pezzi
 
-```mermid
+```mermaid
 classDiagram
 
 class Client
