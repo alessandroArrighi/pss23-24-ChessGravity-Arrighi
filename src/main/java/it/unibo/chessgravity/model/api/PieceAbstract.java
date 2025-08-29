@@ -6,8 +6,8 @@ package it.unibo.chessgravity.model.api;
  */
 
 public abstract class PieceAbstract implements Piece {
-    private Square square;
-    private final Board board;
+    protected Square square;
+    protected final Board board;
     
     public PieceAbstract(final Board board, final Square square) {
         this.board = board;
