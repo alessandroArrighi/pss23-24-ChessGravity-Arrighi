@@ -13,4 +13,9 @@ public abstract class PieceAbstract implements Piece {
         this.board = board;
         this.square = square;
     }
+
+    @Override
+    public Square getSquare() {
+        return this.square;
+    }
 }
