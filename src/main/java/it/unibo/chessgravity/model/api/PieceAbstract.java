@@ -6,10 +6,10 @@ package it.unibo.chessgravity.model.api;
  */
 
 public abstract class PieceAbstract implements Piece {
-    private Board board;
     private Square square;
-
-    public PieceAbstract(Board board, Square square) {
+    private final Board board;
+    
+    public PieceAbstract(final Board board, final Square square) {
         this.board = board;
         this.square = square;
     }
@@ -17,5 +17,9 @@ public abstract class PieceAbstract implements Piece {
     @Override
     public Square getSquare() {
         return this.square;
+    }
+
+    protected void setSquare(final Square square) {
+        this.square = square;
     }
 }

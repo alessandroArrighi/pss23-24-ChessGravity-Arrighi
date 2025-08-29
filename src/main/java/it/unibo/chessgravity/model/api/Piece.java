@@ -6,9 +6,7 @@ package it.unibo.chessgravity.model.api;
  */
 
 public interface Piece {
-    boolean move(Board board, Square destSquare);
-
     Square getSquare();
 
-    void setSquare(Square square);
+    boolean move(Board board, Square destSquare);
 }
