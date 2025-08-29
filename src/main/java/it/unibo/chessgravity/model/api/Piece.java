@@ -1,7 +1,7 @@
 package it.unibo.chessgravity.model.api;
 
 /**
- * Interfaccia utilizzata per definire il più generico
+ * Interfaccia utilizzata per definire il
  * contratto d'uso di un pezzo.
  */
 
