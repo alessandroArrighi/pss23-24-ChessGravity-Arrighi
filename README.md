@@ -160,8 +160,8 @@ class Piece
 class PieceStandard
 <<interface>> PieceStandard
 
-class PiecePoisoned
-<<abstract>> PiecePoisoned
+class PieceTypeA
+<<abstract>> PieceTypeA
 
 class PieceFactory {
     +createPiece(): Piece
@@ -172,14 +172,14 @@ class PieceStandardFacotory {
     +createPiece(): Piece
 }
 
-class PiecePoisonedFactory {
+class PieceTypeAFactory {
     +createPiece(): Piece
 }
 
 Piece <|-- PieceStandard
-Piece <|-- PiecePoisoned
+Piece <|-- PieceTypeA
 PieceFactory <|-- PieceStandardFacotory
-PieceFactory <|-- PiecePoisonedFactory
+PieceFactory <|-- PieceTypeAFactory
 Piece -- PieceFactory
 ```
 
@@ -188,13 +188,7 @@ Strategy pattern per la gestione dinamica dei movimenti dei pezzi
 ```mermid
 classDiagram
 
-class Map
-<<interface>> Map
-
-class Piece {
-    move(Square, Board): boolean
-}
-<<interface>> Piece
+class Client
 
 class PieceImpl {
     -MoveStrategy mover
@@ -227,13 +221,13 @@ class MoveRook {
     +move(Square, Square, Board): boolean
 }
 
-Map *-- Piece
-Piece <|-- PieceImpl
-Map -- MovePiece
+Client -- PieceImpl
+Client -- MovePiece
 MoveStrategy <|-- BaseMove
 MoveStrategy <|-- MovePiece
 MovePiece <|-- MoveRook
 BaseMove <|-- MoveTop
 BaseMove <|-- MoveBottom
 MoveRook *-- BaseMove
+PieceImpl *-- MoveStrategy
 ```
