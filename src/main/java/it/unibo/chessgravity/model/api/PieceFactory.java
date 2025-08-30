@@ -7,5 +7,5 @@ import it.unibo.chessgravity.model.utils.PieceType;
  */
 
 public interface PieceFactory {
-    Piece creatPiece(final PieceType type);
+    Piece createPiece(final PieceType type);
 }
