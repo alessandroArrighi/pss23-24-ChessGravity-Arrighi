@@ -16,24 +16,50 @@ public class PieceStandardFactory implements PieceFactory {
 
         switch (type) {
             case KING:
+                res = this.createKing();
                 break;
             
             case QUEEN:
+                res = this.createQueen();
                 break;
 
             case ROOK:
+                res = this.createRook();
                 break;
             
             case BISHOP:
+                res = this.createBishop();
                 break;
             
             case KNIGHT:
+                res = this.createKnight();
                 break;
         
             default:
+                res = null;
                 break;
         }
 
         throw new UnsupportedOperationException("Unimplemented method 'createPiece'");
+    }
+
+    private Piece createKing() {
+        throw new UnsupportedOperationException("Unimplemented method 'createKing'");
+    }
+
+    private Piece createQueen() {
+        throw new UnsupportedOperationException("Unimplemented method 'createQueen'");
+    }
+
+    private Piece createRook() {
+        throw new UnsupportedOperationException("Unimplemented method 'createRook'");
+    }
+
+    private Piece createBishop() {
+        throw new UnsupportedOperationException("Unimplemented method 'createBishop'");
+    }
+
+    private Piece createKnight() {
+        throw new UnsupportedOperationException("Unimplemented method 'createKnight'");
     }
 }
