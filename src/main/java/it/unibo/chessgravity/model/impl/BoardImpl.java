@@ -3,6 +3,7 @@ package it.unibo.chessgravity.model.impl;
 import java.util.*;
 
 import it.unibo.chessgravity.model.api.*;
+import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -60,8 +61,12 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public Square getSquare(SquarePosition pos) {
-        List<Square> lst = squareList.get(pos.getPosY() - 1);
-        return lst.get(pos.getPosX() - 1);
+    public Square getSquare(SquarePosition pos) throws IllegalSquarePositionException {
+        if (isValidPos(pos)) {
+            List<Square> lst = squareList.get(pos.getPosY() - MIN_LEN);
+            return lst.get(pos.getPosX() - MIN_LEN);
+        }
+
+        throw new IllegalSquarePositionException(pos);
     }
 }
