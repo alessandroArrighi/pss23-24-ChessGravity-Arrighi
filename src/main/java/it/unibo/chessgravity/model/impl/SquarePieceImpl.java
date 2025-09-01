@@ -15,26 +15,24 @@ public class SquarePieceImpl implements SquarePiece {
     private Piece piece;
     private boolean free;
 
-    public SquarePieceImpl(SquarePosition pos) {
+    public SquarePieceImpl(final SquarePosition pos) {
         this.pos = pos;
+        this.free = true;
     }
     
     @Override
     public boolean isFree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isFree'");
+        return this.free;
     }
 
     @Override
     public SquarePosition getPos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPos'");
+        return this.pos;
     }
 
     @Override
     public Piece getPiece() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPiece'");
+        return this.piece;
     }
 
     @Override
