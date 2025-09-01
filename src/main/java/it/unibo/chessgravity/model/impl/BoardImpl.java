@@ -9,7 +9,7 @@ import it.unibo.chessgravity.model.api.*;
  * avviene la creazione e tutta la loro gestione.
  */
 
-public class BoardImp implements Board {
+public class BoardImpl implements Board {
 
     @Override
     public Square getSquare(SquarePosition pos) {
