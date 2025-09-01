@@ -10,5 +10,5 @@ import it.unibo.chessgravity.model.api.Piece;
 public interface SquarePiece extends Square {
     Piece getPiece();
 
-    void setPiece(Piece piece);
+    void setPiece(Piece piece) throws Exception;
 }
