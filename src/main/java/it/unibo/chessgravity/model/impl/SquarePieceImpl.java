@@ -10,7 +10,15 @@ import it.unibo.chessgravity.model.api.square.*;
  */
 
 public class SquarePieceImpl implements SquarePiece {
+    private final SquarePosition pos;
+    
+    private Piece piece;
+    private boolean free;
 
+    public SquarePieceImpl(SquarePosition pos) {
+        this.pos = pos;
+    }
+    
     @Override
     public boolean isFree() {
         // TODO Auto-generated method stub
