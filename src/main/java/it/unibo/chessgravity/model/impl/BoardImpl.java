@@ -14,27 +14,33 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 
 public class BoardImpl implements Board {
+    public static final int MIN_LEN = 1;
+
     /*
      * squareList is a List that contains a List<Square>. All the Squares in
      * the List<Square> are the whole squares that will compose one board's row
      */
     private final List<List<Square>> squareList;
+    private final int xLen;
+    private final int yLen;
 
-    public BoardImpl(final int xLen, final int yLen, final Set<Piece> pieces, final Set<SquarePosition> obstacles) {
-        if (xLen < 0 || yLen < 0) {
+    public BoardImpl(final int xLen, final int yLen, final Set<SquarePosition> obstacles) {
+        if (xLen < MIN_LEN || yLen < MIN_LEN) {
             throw new IllegalArgumentException("the board length argument must be greater then 0");
         }
 
         this.squareList = new ArrayList<>();
+        this.xLen = xLen;
+        this.yLen = yLen;
 
         /*
          * double for loop to cicle evry row and column and create the
          * appropriate square.
          */
-        for(int y = 1; y <= yLen; ++y) {
+        for(int y = MIN_LEN; y <= yLen; ++y) {
             final List<Square> xLst = new ArrayList<>();
 
-            for(int x = 1; x <= xLen; ++x) {
+            for(int x = MIN_LEN; x <= xLen; ++x) {
                 final SquarePosition pos = new SquarePosition(x, y);
                 
                 if (obstacles.contains(pos)) {
@@ -48,10 +54,14 @@ public class BoardImpl implements Board {
         }
     }
 
+    private boolean isValidPos(SquarePosition pos) {
+        return (pos.getPosX() >= MIN_LEN && pos.getPosY() >= MIN_LEN &&
+            pos.getPosX() <= xLen && pos.getPosY() <= yLen);
+    }
+
     @Override
     public Square getSquare(SquarePosition pos) {
-        List<Square> lst = squareList.get(pos.getPosY());
-        return lst.get(pos.getPosX());
+        List<Square> lst = squareList.get(pos.getPosY() - 1);
+        return lst.get(pos.getPosX() - 1);
     }
-    
 }
