@@ -26,6 +26,26 @@ public class BoardImpl implements Board {
         }
 
         this.squareList = new ArrayList<>();
+
+        /*
+         * double for loop to cicle evry row and column and create the
+         * appropriate square.
+         */
+        for(int row = 1; row <= yLen; ++row) {
+            final List<Square> rowLst = new ArrayList<>();
+
+            for(int col = 1; col <= xLen; ++col) {
+                final SquarePosition pos = new SquarePosition(row, col);
+                
+                if (obstacles.contains(pos)) {
+                    rowLst.add(new SquareObstacleImpl(pos));
+                } else {
+                    rowLst.add(new SquarePieceImpl(pos));
+                }
+            }
+
+            this.squareList.add(rowLst);
+        }
     }
 
     @Override
