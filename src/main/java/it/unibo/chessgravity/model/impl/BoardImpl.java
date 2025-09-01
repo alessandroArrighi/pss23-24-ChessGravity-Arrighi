@@ -31,27 +31,27 @@ public class BoardImpl implements Board {
          * double for loop to cicle evry row and column and create the
          * appropriate square.
          */
-        for(int row = 1; row <= yLen; ++row) {
-            final List<Square> rowLst = new ArrayList<>();
+        for(int y = 1; y <= yLen; ++y) {
+            final List<Square> xLst = new ArrayList<>();
 
-            for(int col = 1; col <= xLen; ++col) {
-                final SquarePosition pos = new SquarePosition(row, col);
+            for(int x = 1; x <= xLen; ++x) {
+                final SquarePosition pos = new SquarePosition(x, y);
                 
                 if (obstacles.contains(pos)) {
-                    rowLst.add(new SquareObstacleImpl(pos));
+                    xLst.add(new SquareObstacleImpl(pos));
                 } else {
-                    rowLst.add(new SquarePieceImpl(pos));
+                    xLst.add(new SquarePieceImpl(pos));
                 }
             }
 
-            this.squareList.add(rowLst);
+            this.squareList.add(xLst);
         }
     }
 
     @Override
     public Square getSquare(SquarePosition pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSquare'");
+        List<Square> lst = squareList.get(pos.getPosY());
+        return lst.get(pos.getPosX());
     }
     
 }
