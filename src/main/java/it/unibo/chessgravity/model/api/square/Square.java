@@ -1,4 +1,4 @@
-package it.unibo.chessgravity.model.api;
+package it.unibo.chessgravity.model.api.square;
 
 /**
  * Interfaccia per il contratto di una casa generica.

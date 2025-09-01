@@ -1,4 +1,4 @@
-package it.unibo.chessgravity.model.api;
+package it.unibo.chessgravity.model.api.square;
 
 /**
  * Classe che incapsula le informazioni di una posizione nella scacchiera.

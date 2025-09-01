@@ -2,7 +2,7 @@ package it.unibo.chessgravity.model.impl;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.Piece;
-import it.unibo.chessgravity.model.api.Square;
+import it.unibo.chessgravity.model.api.square.Square;
 
 /**
  * Implementazione dell'interfaccia Piece
