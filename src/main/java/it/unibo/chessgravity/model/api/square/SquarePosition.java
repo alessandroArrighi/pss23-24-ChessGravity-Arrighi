@@ -22,4 +22,10 @@ public class SquarePosition {
     public int getPosY() {
         return this.posY;
     }
+
+    @Override
+    public String toString() {
+        return "Position: (" + Integer.toString(posX) + 
+                ", " + Integer.toString(posY) + ")";
+    }
 }
