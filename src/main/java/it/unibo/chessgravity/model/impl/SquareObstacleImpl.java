@@ -12,11 +12,15 @@ import it.unibo.chessgravity.model.api.square.SquareObstacle;
  */
 
 public class SquareObstacleImpl implements SquareObstacle {
+    private final boolean free;
+
+    public SquareObstacleImpl() {
+        this.free = false;
+    }
 
     @Override
     public void setObstacle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setObstacle'");
+        return;
     }
     
 }
