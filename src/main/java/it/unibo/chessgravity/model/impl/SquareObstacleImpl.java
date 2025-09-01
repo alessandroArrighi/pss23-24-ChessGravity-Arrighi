@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.impl;
 
 import it.unibo.chessgravity.model.api.square.SquareObstacle;
+import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
  * Implementazione dell'interfaccia SquareObstacle.
@@ -13,14 +14,25 @@ import it.unibo.chessgravity.model.api.square.SquareObstacle;
 
 public class SquareObstacleImpl implements SquareObstacle {
     private final boolean free;
+    private final SquarePosition pos;
 
-    public SquareObstacleImpl() {
+    public SquareObstacleImpl(final SquarePosition pos) {
         this.free = false;
+        this.pos = pos;
+    }
+
+    @Override
+    public SquarePosition getPos() {
+        return this.pos;
+    }
+
+    @Override
+    public boolean isFree() {
+        return this.free;
     }
 
     @Override
     public void setObstacle() {
         return;
     }
-    
 }

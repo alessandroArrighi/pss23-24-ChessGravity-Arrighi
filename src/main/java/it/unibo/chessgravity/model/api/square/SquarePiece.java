@@ -7,7 +7,7 @@ import it.unibo.chessgravity.model.api.Piece;
  * di una casa che può contenere pezzi
  */
 
-public interface SquarePiece {
+public interface SquarePiece extends Square {
     Piece getPiece();
 
     void setPiece(Piece piece);

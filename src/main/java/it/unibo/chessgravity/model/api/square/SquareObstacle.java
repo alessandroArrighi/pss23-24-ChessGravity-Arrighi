@@ -5,6 +5,6 @@ package it.unibo.chessgravity.model.api.square;
  * di un casa che contiene un'ostacolo.
  */
 
-public interface SquareObstacle {
+public interface SquareObstacle extends Square {
     void setObstacle();
 }
