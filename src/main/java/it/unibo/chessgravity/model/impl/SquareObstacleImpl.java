@@ -22,13 +22,13 @@ public class SquareObstacleImpl implements SquareObstacle {
     }
 
     @Override
-    public SquarePosition getPos() {
-        return this.pos;
+    public boolean isFree() {
+        return this.free;
     }
 
     @Override
-    public boolean isFree() {
-        return this.free;
+    public SquarePosition getPos() {
+        return this.pos;
     }
 
     @Override
