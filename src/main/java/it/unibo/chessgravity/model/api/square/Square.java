@@ -6,4 +6,6 @@ package it.unibo.chessgravity.model.api.square;
 
 public interface Square {
     boolean isFree();
+
+    SquarePosition getPos();
 }
