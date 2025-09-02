@@ -10,7 +10,5 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 
 public interface BaseMove {
-    public static final int STEP = 1;
-
     SquarePosition move(SquarePosition start, Board board);
 }
