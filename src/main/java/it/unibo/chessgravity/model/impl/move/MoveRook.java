@@ -4,10 +4,7 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
-import it.unibo.chessgravity.model.impl.move.base.MoveBottom;
-import it.unibo.chessgravity.model.impl.move.base.MoveLeft;
-import it.unibo.chessgravity.model.impl.move.base.MoveRight;
-import it.unibo.chessgravity.model.impl.move.base.MoveTop;
+import it.unibo.chessgravity.model.impl.move.base.*;
 
 /**
  * Class that models the movement strategy that has to be done by a rook piece.
@@ -27,8 +24,25 @@ public class MoveRook implements MoveStrategy {
 
     @Override
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        BaseMove move = null;
+
+        if (start.getPosX() == dest.getPosX()) {
+            // check for verticals movement
+            if (start.getPosY() < dest.getPosY()) {
+                move = moveTop;
+            } else {
+                move = moveBottom;
+            }
+        } else if (start.getPosY() == dest.getPosX()) {
+            // check for horizontals
+            if (start.getPosX() < dest.getPosX()) {
+                move = moveRight;
+            } else {
+                move = moveLeft;
+            }
+        }
+
+        return movePiece(start, dest, board, move);
     }
 
     private boolean movePiece(SquarePosition start, SquarePosition dest, 
