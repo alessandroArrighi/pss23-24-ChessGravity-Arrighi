@@ -2,7 +2,7 @@ package it.unibo.chessgravity.model.impl.move;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
-import it.unibo.chessgravity.model.api.move.MoveStrategy;
+import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.*;
 
@@ -11,7 +11,7 @@ import static it.unibo.chessgravity.model.utils.SquarePositions.*;
 /**
  * Class that models the movement strategy that has to be done by a rook piece.
  */
-public class MoveRook implements MoveStrategy {
+public class MoveRook implements MovePiece {
     private final BaseMove moveTop;
     private final BaseMove moveBottom;
     private final BaseMove moveRight;
