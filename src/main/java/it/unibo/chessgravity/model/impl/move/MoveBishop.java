@@ -5,6 +5,7 @@ import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.*;
+import static it.unibo.chessgravity.model.utils.SquarePositions.*;
 
 /**
  * Class that models the movement strategy that has to be done by a bishop piece.
@@ -24,7 +25,18 @@ public class MoveBishop implements MovePiece {
     
     @Override
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        BaseMove move = null;
+
+        if (onTopLeftDiagonal(dest, start)) {
+            move = moveTopLeft;
+        } else if (onTopRightDiagonal(dest, start)) {
+            move = moveTopRight;
+        } else if (onBottomLeftDiagonal(dest, start)) {
+            move = moveBottomLeft;
+        } else if (onBottomRightDiagonal(dest, start)) {
+            move = moveBottomRight;
+        }
+
+        throw new UnsupportedOperationException("Not implemented method");
     }
 }
