@@ -1,6 +1,5 @@
 package it.unibo.chessgravity.model.api;
 
-import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
@@ -13,5 +12,5 @@ public interface Piece {
 
     void setPos(SquarePosition pos);
 
-    boolean move(Board board, SquarePosition dest);
+    boolean move(SquarePosition dest);
 }
