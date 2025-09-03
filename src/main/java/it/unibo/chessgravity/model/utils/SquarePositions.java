@@ -23,4 +23,14 @@ public final class SquarePositions {
     private static boolean gratherOrEqualY(SquarePosition a, SquarePosition b) {
         return gratherOrEqual(a.getPosY(), b.getPosY());
     }
+
+    // true if a and b has thee same posX value
+    public static boolean sameColumn(SquarePosition a, SquarePosition b) {
+        return Integer.compare(a.getPosX(), b.getPosX()) == 0;
+    }
+
+    // true if a and b has the same posY value
+    public static boolean sameRow(SquarePosition a, SquarePosition b) {
+        return Integer.compare(a.getPosY(), b.getPosY()) == 0;
+    }
 }
