@@ -8,4 +8,19 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 public final class SquarePositions {
     private SquarePositions() { }
+
+    // return true if a is >= b
+    private static boolean gratherOrEqual(int a, int b) {
+        return Integer.compare(a, b) >= 0;
+    }
+
+    // check if posX a is >= posX b
+    private static boolean gratherOrEqualX(SquarePosition a, SquarePosition b) {
+        return gratherOrEqual(a.getPosX(), b.getPosX());
+    }
+
+    // check if posY a is >= posY b
+    private static boolean gratherOrEqualY(SquarePosition a, SquarePosition b) {
+        return gratherOrEqual(a.getPosY(), b.getPosY());
+    }
 }
