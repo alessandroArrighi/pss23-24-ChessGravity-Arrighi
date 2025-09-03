@@ -5,6 +5,7 @@ import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.*;
+import static it.unibo.chessgravity.model.utils.SquarePositions.*;
 
 /**
  * Class that models the movement strategy that has to be done by a king piece.
@@ -32,8 +33,30 @@ public class MoveKing implements MovePiece {
 
     @Override
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        BaseMove move = null;
+
+        if (onTopLeftDiagonal(dest, start)) {
+            move = moveTopLeft;
+        } else if (onTopColumn(dest, start)) {
+            move = moveTop;
+        } else if (onTopRightDiagonal(dest, start)) {
+            move = moveTopRight;
+        } else if (onLeftRow(dest, start)) {
+            move = moveLeft;
+        } else if (onRightRow(dest, start)) {
+            move = moveRight;
+        } else if (onBottomLeftDiagonal(dest, start)) {
+            move = moveBottomLeft;
+        } else if (onBottomColumn(dest, start)) {
+            move = moveBottom;
+        } else if (onBottomRightDiagonal(dest, start)) {
+            move = moveBottomRight;
+        }
+
+        if (move == null) {
+            return false;
+        }
+
+        return move.move(start, board) != null;
     }
-    
 }
