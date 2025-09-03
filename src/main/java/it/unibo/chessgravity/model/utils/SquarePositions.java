@@ -33,4 +33,24 @@ public final class SquarePositions {
     public static boolean sameRow(SquarePosition a, SquarePosition b) {
         return Integer.compare(a.getPosY(), b.getPosY()) == 0;
     }
+
+    // true if a and b are on the same column and posY a is grather than posY b
+    public static boolean onTopColumn(SquarePosition a, SquarePosition b) {
+        return sameColumn(a, b) && gratherOrEqualY(a, b);
+    }
+
+    // true if both positions are on the same column and the first 
+    public static boolean onBottomColumn(SquarePosition a, SquarePosition b) {
+        return sameColumn(a, b) && gratherOrEqualY(b, a);
+    }
+
+    // true if both are on the same row and a posX is grather than b posX
+    public static boolean onLeftRow(SquarePosition a, SquarePosition b) {
+        return sameRow(a, b) && gratherOrEqualX(a, b);
+    }
+
+    // true if both are on the same row and a posX is smaller than b posX
+    public static boolean onRightRow(SquarePosition a, SquarePosition b) {
+        return sameRow(a, b) && gratherOrEqualX(b, a);
+    }
 }
