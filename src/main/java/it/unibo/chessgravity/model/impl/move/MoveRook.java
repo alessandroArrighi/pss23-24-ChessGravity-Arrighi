@@ -6,6 +6,8 @@ import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.*;
 
+import static it.unibo.chessgravity.model.utils.SquarePositions.*;
+
 /**
  * Class that models the movement strategy that has to be done by a rook piece.
  */
@@ -26,20 +28,14 @@ public class MoveRook implements MoveStrategy {
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
         BaseMove move = null;
 
-        if (start.getPosX() == dest.getPosX()) {
-            // check for verticals movement
-            if (start.getPosY() < dest.getPosY()) {
-                move = moveTop;
-            } else {
-                move = moveBottom;
-            }
-        } else if (start.getPosY() == dest.getPosX()) {
-            // check for horizontals
-            if (start.getPosX() < dest.getPosX()) {
-                move = moveRight;
-            } else {
-                move = moveLeft;
-            }
+        if (onTopColumn(dest, start)) {
+            move = moveTop;
+        } else if (onBottomColumn(dest, start)) {
+            move = moveBottom;
+        } else if (onLeftRow(dest, start)) {
+            move = moveLeft;
+        } else if (onRightRow(dest, start)) {
+            move = moveRight;
         }
 
         return movePiece(start, dest, board, move);
