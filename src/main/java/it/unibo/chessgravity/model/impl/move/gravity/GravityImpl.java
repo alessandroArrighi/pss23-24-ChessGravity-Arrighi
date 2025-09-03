@@ -20,8 +20,14 @@ public class GravityImpl implements Gravity {
 
     @Override
     public SquarePosition gravity(SquarePosition start, Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'gravity'");
+        SquarePosition current = start;
+        SquarePosition next = start;
+
+        while (next != null) {
+            current = next;
+            next = moveBottom.move(current, board);
+        }
+
+        return current;
     }
-    
 }

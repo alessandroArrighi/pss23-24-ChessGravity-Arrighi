@@ -42,4 +42,9 @@ public class SquarePosition {
 
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(posX, posY);
+    }
 }
