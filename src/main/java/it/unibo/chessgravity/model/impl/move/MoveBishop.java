@@ -37,6 +37,20 @@ public class MoveBishop implements MovePiece {
             move = moveBottomRight;
         }
 
-        throw new UnsupportedOperationException("Not implemented method");
+        return movePiece(start, dest, board, move);
+    }
+
+    private boolean movePiece(SquarePosition start, SquarePosition dest, 
+                                Board board, BaseMove move) {
+        if (move == null) {
+            return false;
+        }
+
+        SquarePosition next = start;
+        while (!dest.equals(next) && next != null) {
+            next = move.move(next, board);
+        }
+
+        return next != null;
     }
 }
