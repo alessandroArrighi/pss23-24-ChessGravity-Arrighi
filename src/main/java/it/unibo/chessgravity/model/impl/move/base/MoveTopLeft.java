@@ -9,8 +9,7 @@ public class MoveTopLeft extends BaseMoveAbstract {
 
     @Override
     protected SquarePosition calculatePos(int posX, int posY) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'calculatePos'");
+        return new SquarePosition(posX - STEP, posY + STEP);
     }
     
 }
