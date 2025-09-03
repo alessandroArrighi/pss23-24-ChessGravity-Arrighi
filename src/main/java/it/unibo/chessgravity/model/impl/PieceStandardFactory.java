@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.model.impl;
 
+import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.Piece;
 import it.unibo.chessgravity.model.api.PieceFactory;
 import it.unibo.chessgravity.model.utils.PieceType;
@@ -10,6 +11,12 @@ import it.unibo.chessgravity.model.utils.PieceType;
  */
 
 public class PieceStandardFactory implements PieceFactory {
+    private final Board board;
+
+    public PieceStandardFactory(Board board) {
+        this.board = board;
+    }
+
     @Override
     public Piece createPiece(final PieceType type) {
         final Piece res;

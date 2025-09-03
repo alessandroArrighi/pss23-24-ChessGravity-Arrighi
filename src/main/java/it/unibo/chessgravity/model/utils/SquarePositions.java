@@ -44,14 +44,14 @@ public final class SquarePositions {
         return onSameColumn(a, b) && gratherOrEqualY(b, a);
     }
 
-    // true if a and b has same posY and a posX >= b posX
+    // true if a and b has same posY and a posX <= b posX
     public static boolean onLeftRow(SquarePosition a, SquarePosition b) {
-        return onSameRow(a, b) && gratherOrEqualX(a, b);
+        return onSameRow(a, b) && gratherOrEqualX(b, a);
     }
 
-    // true if a and b has same posY and a posX <= b posX
+    // true if a and b has same posY and a posX >= b posX
     public static boolean onRightRow(SquarePosition a, SquarePosition b) {
-        return onSameRow(a, b) && gratherOrEqualX(b, a);
+        return onSameRow(a, b) && gratherOrEqualX(a, b);
     }
 
     // true if a and b are on the same diagonal (not speficated which one)
