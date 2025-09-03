@@ -34,30 +34,54 @@ public final class SquarePositions {
         return Integer.compare(a.getPosY(), b.getPosY()) == 0;
     }
 
-    // true if a and b are on the same column and posY a is grather than posY b
+    // true if a and b has same posX value and posY a >= posY b
     public static boolean onTopColumn(SquarePosition a, SquarePosition b) {
         return onSameColumn(a, b) && gratherOrEqualY(a, b);
     }
 
-    // true if both positions are on the same column and the first 
+    // true if a and b has same posX value and posY a <= posY b
     public static boolean onBottomColumn(SquarePosition a, SquarePosition b) {
         return onSameColumn(a, b) && gratherOrEqualY(b, a);
     }
 
-    // true if both are on the same row and a posX is grather than b posX
+    // true if a and b has same posY and a posX >= b posX
     public static boolean onLeftRow(SquarePosition a, SquarePosition b) {
         return onSameRow(a, b) && gratherOrEqualX(a, b);
     }
 
-    // true if both are on the same row and a posX is smaller than b posX
+    // true if a and b has same posY and a posX <= b posX
     public static boolean onRightRow(SquarePosition a, SquarePosition b) {
         return onSameRow(a, b) && gratherOrEqualX(b, a);
     }
 
+    // true if a and b are on the same diagonal (not speficated which one)
     public static boolean onSameDiagonal(SquarePosition a, SquarePosition b) {
         final int xDelta = Math.abs(a.getPosX() - b.getPosX());
         final int yDelta = Math.abs(a.getPosY() - b.getPosY());
 
         return xDelta == yDelta;
+    }
+
+    // true if a is on top left b diagonal
+    public static boolean onTopLeftDiagonal(SquarePosition a, SquarePosition b) {
+        return onSameDiagonal(a, b) && gratherOrEqualX(b, a) && 
+                gratherOrEqualY(a, b);
+    }
+
+    // true if a is on top right b diagonal
+    public static boolean onTopRightDiagonal(SquarePosition a, SquarePosition b) {
+        return onSameDiagonal(a, b) && gratherOrEqualX(a, b) && gratherOrEqualY(a, b);
+    }
+
+    // true if a is on bottom left diagonal
+    public static boolean onBottomLeftDiagonal(SquarePosition a, SquarePosition b) {
+        return onSameDiagonal(a, b) && gratherOrEqualX(b, a) &&
+                gratherOrEqualY(b, a);
+    }
+
+    // true if a is on bottom right diagonal
+    public static boolean onBottomRightDiagonal(SquarePosition a, SquarePosition b) {
+        return onSameDiagonal(a, b) && gratherOrEqualX(a, b) &&
+                gratherOrEqualY(b, a);
     }
 }
