@@ -19,10 +19,13 @@ public abstract class BaseMoveAbstract implements BaseMove {
 
     private final MoveChecker checker;
 
+    public BaseMoveAbstract() {
+        this.checker = (a, b) -> checkMove(a, b);
+    }
+
     public BaseMoveAbstract(MoveChecker cheker) {
         this.checker = cheker;
     }
-
 
     @Override
     public SquarePosition move(SquarePosition start, Board board) {

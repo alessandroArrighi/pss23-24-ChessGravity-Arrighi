@@ -6,6 +6,10 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  * Class that implement the BaseMoveAbstract template method for the bottom movement.
  */
 public class MoveBottom extends BaseMoveAbstract {
+    public MoveBottom() {
+        super();
+    }
+
     public MoveBottom(MoveChecker checker) {
         super(checker);
     }
