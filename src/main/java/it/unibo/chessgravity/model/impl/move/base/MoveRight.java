@@ -8,6 +8,10 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 public class MoveRight extends BaseMoveAbstract {
 
+    public MoveRight(MoveChecker cheker) {
+        super(cheker);
+    }
+
     @Override
     protected SquarePosition calculatePos(int posX, int posY) {
         return new SquarePosition(posX + STEP, posY);

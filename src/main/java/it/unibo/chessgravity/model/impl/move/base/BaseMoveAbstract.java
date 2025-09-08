@@ -1,9 +1,7 @@
 package it.unibo.chessgravity.model.impl.move.base;
 
 import it.unibo.chessgravity.model.api.Board;
-import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.move.BaseMove;
-import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
@@ -17,18 +15,21 @@ public abstract class BaseMoveAbstract implements BaseMove {
     private final int DEFAULT_STEP = 1;
     protected int STEP = DEFAULT_STEP;
 
+    private final MoveChecker checker;
+
+    public BaseMoveAbstract(MoveChecker cheker) {
+        this.checker = cheker;
+    }
+
+
     @Override
     public SquarePosition move(SquarePosition start, Board board) {
         // calculate new position
         SquarePosition pos = calculatePos(start.getPosX(), start.getPosY());
 
-        try {
-            Square square = board.getSquare(pos);
-
-            if (square.isFree()) {
-                return pos;
-            }
-        } catch (IllegalSquarePositionException e) { }
+        if (checker.checkMove(pos, board)) {
+            return pos;
+        }
 
         /*
          * return null if the getSquare method throws IllegalSquarePositionException
@@ -56,4 +57,8 @@ public abstract class BaseMoveAbstract implements BaseMove {
      * The template method that calculate a specific type of movement for a piece.
      */
     abstract protected SquarePosition calculatePos(int posX, int posY);
+
+    public interface MoveChecker {
+        boolean checkMove(SquarePosition pos, Board board);
+    }
 }
