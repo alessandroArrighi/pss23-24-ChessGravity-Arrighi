@@ -3,14 +3,15 @@ package it.unibo.chessgravity.model.impl;
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.Piece;
 import it.unibo.chessgravity.model.api.PieceFactory;
+import it.unibo.chessgravity.model.impl.move.*;
 import it.unibo.chessgravity.model.utils.PieceType;
 
 /**
  * Implementazione standard dell'interfaccia PieceFactory.
  * Questa classe si occupa di creare tutti i pezzi standard del gioco.
  */
-
 public class PieceStandardFactory implements PieceFactory {
+    
     private final Board board;
 
     public PieceStandardFactory(Board board) {
@@ -47,26 +48,26 @@ public class PieceStandardFactory implements PieceFactory {
                 break;
         }
 
-        throw new UnsupportedOperationException("Unimplemented method 'createPiece'");
+        return res;
     }
 
     private Piece createKing() {
-        throw new UnsupportedOperationException("Unimplemented method 'createKing'");
+        return new PieceImpl(board, null, new MoveKing());
     }
 
     private Piece createQueen() {
-        throw new UnsupportedOperationException("Unimplemented method 'createQueen'");
+        return new PieceImpl(board, null, new MoveQueen());
     }
 
     private Piece createRook() {
-        throw new UnsupportedOperationException("Unimplemented method 'createRook'");
+        return new PieceImpl(board, null, new MoveRook());
     }
 
     private Piece createBishop() {
-        throw new UnsupportedOperationException("Unimplemented method 'createBishop'");
+        return new PieceImpl(board, null, new MoveBishop());
     }
 
     private Piece createKnight() {
-        throw new UnsupportedOperationException("Unimplemented method 'createKnight'");
+        return new PieceImpl(board, null, new MoveKnight());
     }
 }
