@@ -6,7 +6,7 @@ package it.unibo.chessgravity.model.api.exceptions;
 public class InvalidSettingsException extends Exception {
     
     public InvalidSettingsException() {
-        super("Settaggi inseriti non validi");
+        super("Found not valid settings");
     }
     
     public InvalidSettingsException(final String message) {
