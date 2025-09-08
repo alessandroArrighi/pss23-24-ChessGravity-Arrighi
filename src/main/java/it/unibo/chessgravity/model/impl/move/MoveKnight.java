@@ -1,5 +1,9 @@
 package it.unibo.chessgravity.model.impl.move;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.MovePiece;
@@ -31,6 +35,16 @@ public class MoveKnight implements MovePiece {
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
+    }
+
+    private List<List<BaseMove>> prepareMoves() {
+        final List<List<BaseMove>> lst = new ArrayList<>();
+        lst.add(Arrays.asList(moveTop, moveLeft, moveRight));
+        lst.add(Arrays.asList(moveLeft, moveTop, moveBottom));
+        lst.add(Arrays.asList(moveRight, moveTop, moveBottom));
+        lst.add(Arrays.asList(moveBottom, moveLeft, moveRight));
+
+        return lst;
     }
     
 }
