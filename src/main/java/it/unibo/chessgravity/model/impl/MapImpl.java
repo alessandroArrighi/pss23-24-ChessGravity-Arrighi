@@ -6,8 +6,10 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.Map;
 import it.unibo.chessgravity.model.api.PieceFactory;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
+import it.unibo.chessgravity.model.api.move.Gravity;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 
 /**
@@ -16,12 +18,18 @@ import it.unibo.chessgravity.model.utils.PieceSetting;
 public class MapImpl implements Map {
 
     private final Board board;
+    private final Gravity gravity;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
                     final int xLen, final int yLen) throws Exception {
         board = new BoardImpl(xLen, yLen, obstacles);
-        final PieceFactory factory = new PieceStandardFactory(board);
+        gravity = new GravityImpl();
 
+        createPieces(pieces);
+    }
+    
+    private void createPieces(final Set<PieceSetting> pieces) throws Exception {
+        final PieceFactory factory = new PieceStandardFactory(board);
         try {
             for (PieceSetting piece : pieces) {
                 final SquarePiece square = (SquarePiece) board.getSquare(piece.getPos());
