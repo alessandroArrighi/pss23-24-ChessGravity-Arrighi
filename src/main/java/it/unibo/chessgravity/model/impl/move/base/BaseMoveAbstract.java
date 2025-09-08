@@ -14,7 +14,8 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 
 public abstract class BaseMoveAbstract implements BaseMove {
-    protected static final int STEP = 1;
+    private final int DEFAULT_STEP = 1;
+    protected int STEP = DEFAULT_STEP;
 
     @Override
     public SquarePosition move(SquarePosition start, Board board) {
@@ -34,6 +35,21 @@ public abstract class BaseMoveAbstract implements BaseMove {
          * or the square to move the piece is not free
          */
         return null;
+    }
+
+    /*
+     * takes the step value to be used for a different movement caluclation.
+     * If the step moves the
+     */
+    @Override
+    public SquarePosition move(SquarePosition start, Board board, int step) {
+        STEP = step;
+        
+        final SquarePosition pos = move(start, board);
+
+        STEP = DEFAULT_STEP;
+
+        return pos;
     }
 
     /*
