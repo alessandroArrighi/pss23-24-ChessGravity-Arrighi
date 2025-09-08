@@ -1,7 +1,9 @@
 package it.unibo.chessgravity.model.impl.move.base;
 
 import it.unibo.chessgravity.model.api.Board;
+import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.move.BaseMove;
+import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
@@ -40,7 +42,8 @@ public abstract class BaseMoveAbstract implements BaseMove {
 
     /*
      * takes the step value to be used for a different movement caluclation.
-     * If the step moves the
+     * After the movement is completed, the stap variable will be restored at its
+     * default value.
      */
     @Override
     public SquarePosition move(SquarePosition start, Board board, int step) {
@@ -52,6 +55,19 @@ public abstract class BaseMoveAbstract implements BaseMove {
 
         return pos;
     }
+
+    public static boolean checkMove(SquarePosition pos, Board board) {
+        try {
+            Square square = board.getSquare(pos);
+
+            if (square.isFree()) {
+                return true;
+            }
+        } catch (IllegalSquarePositionException e) { }
+
+        return false;
+    }
+
 
     /*
      * The template method that calculate a specific type of movement for a piece.
