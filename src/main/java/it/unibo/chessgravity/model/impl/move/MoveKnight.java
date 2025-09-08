@@ -30,11 +30,22 @@ public class MoveKnight implements MovePiece {
         moveBottom = new MoveBottom(unCheck);
     }
 
-
     @Override
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        final List<List<BaseMove>> moves = prepareMoves();
+
+        for (List<BaseMove> move : moves) {
+            var pos = move.get(0).move(start, board, 3);
+
+            for (int i = 1; i < move.size(); ++i) {
+                var finalPos = move.get(i).move(pos, board);
+                if (dest.equals(finalPos) && BaseMoveAbstract.checkMove(finalPos, board)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private List<List<BaseMove>> prepareMoves() {
