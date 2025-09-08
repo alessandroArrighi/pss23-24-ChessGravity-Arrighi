@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.api.square;
 
 import it.unibo.chessgravity.model.api.Piece;
+import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 
 /**
  * Interfaccia che definisce il contratto d'uso
@@ -10,5 +11,5 @@ import it.unibo.chessgravity.model.api.Piece;
 public interface SquarePiece extends Square {
     Piece getPiece();
 
-    void setPiece(Piece piece) throws Exception;
+    void setPiece(Piece piece) throws SquareFullException;
 }
