@@ -49,6 +49,20 @@ public class MapImpl implements Map {
         }
     }
 
+    private void pieceGravity(Piece piece, SquarePiece startSquare) throws Exception {
+        final SquarePosition result;
+        final SquarePiece destSquare;
+
+        startSquare.setPiece(null);
+        
+        result = gravity.gravity(piece.getPos(), board);
+
+        destSquare = (SquarePiece) board.getSquare(result);
+        destSquare.setPiece(piece);
+
+        piece.setPos(result);
+    }
+
     @Override
     public SquarePosition move(SquarePosition start, SquarePosition dest) {
         final SquarePiece square;
