@@ -22,4 +22,12 @@ public class Enemy {
 
         return instance;
     }
+
+    public static Enemy getIstance() {
+        return instance;
+    }
+
+    public SquarePosition getPosition() {
+        return this.pos;
+    }
 }
