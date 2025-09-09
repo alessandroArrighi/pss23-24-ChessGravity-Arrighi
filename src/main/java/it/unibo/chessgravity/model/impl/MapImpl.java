@@ -4,8 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.*;
+import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.move.Gravity;
+import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
@@ -21,11 +23,33 @@ public class MapImpl implements Map {
     private Set<PieceSetting> pieces;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
-                    final int xLen, final int yLen) throws InvalidSettingsException {
+                    final int xLen, final int yLen, SquarePosition enemy)
+                                                        throws InvalidSettingsException {
         board = new BoardImpl(xLen, yLen, obstacles);
         gravity = new GravityImpl();
 
         createPieces(pieces);
+
+        createEnemy(enemy);
+    }
+
+    private void createEnemy(final SquarePosition enemy) throws InvalidSettingsException {
+        final Square square;
+        try {
+            square = board.getSquare(enemy);
+            
+            if (!square.isFree()) {
+                throw new IllegalSquarePositionException(enemy);
+            }
+
+            if (Enemy.getIstance() != null) {
+                throw new InvalidSettingsException("Enemy king has been alredy instantiated");
+            }
+
+            Enemy.createInstace(enemy);
+        } catch (IllegalSquarePositionException e) {
+            throw new InvalidSettingsException(e.getMessage());
+        }
     }
     
     private void createPieces(final Set<PieceSetting> pieces) throws InvalidSettingsException {
