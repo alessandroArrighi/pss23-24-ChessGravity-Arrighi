@@ -1,10 +1,13 @@
 package it.unibo.chessgravity.model.api;
 
+import java.util.Set;
+
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.utils.PieceSetting;
 
 /**
  * Interface mapping the map of the game.
  */
 public interface Map {
-    SquarePosition move(SquarePosition start, SquarePosition dest) throws Exception;
+    Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception;
 }

@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.model.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.*;
@@ -17,6 +18,7 @@ public class MapImpl implements Map {
 
     private final Board board;
     private final Gravity gravity;
+    private Set<PieceSetting> pieces;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
                     final int xLen, final int yLen) throws InvalidSettingsException {
@@ -61,6 +63,8 @@ public class MapImpl implements Map {
         destSquare.setPiece(piece);
 
         piece.setPos(result);
+
+        this.pieces.add(piece.info());
     }
 
     private void gravityChain(SquarePosition start) {
@@ -100,10 +104,12 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public SquarePosition move(SquarePosition start, SquarePosition dest) throws Exception {
+    public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
         final SquarePiece startSquare;
         final SquarePiece destSquare;
         final Piece piece;
+
+        this.pieces = new HashSet<>();
         
         /*
          * Try to get the sqaure from the board with the given position (start).
@@ -124,13 +130,11 @@ public class MapImpl implements Map {
             return null;
         }
 
-        if (!movePiece(piece, destSquare)) {
-            return null;
-        }
+        if (movePiece(piece, destSquare)) {
+            pieceGravity(piece, destSquare);
+            gravityChain(start);
+        } else this.pieces = null;
 
-        pieceGravity(piece, destSquare);
-        gravityChain(start);
-
-        return piece.getPos();
+        return this.pieces;
     }
 }
