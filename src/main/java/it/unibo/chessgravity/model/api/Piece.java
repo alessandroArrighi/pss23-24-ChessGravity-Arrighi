@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.api;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.utils.PieceSetting;
 
 /**
  * Interfaccia utilizzata per definire il
@@ -8,6 +9,8 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 
 public interface Piece {
+    PieceSetting info();
+
     SquarePosition getPos();
 
     void setPos(SquarePosition pos);

@@ -25,23 +25,23 @@ public class PieceStandardFactory implements PieceFactory {
 
         switch (type) {
             case KING:
-                res = this.createKing();
+                res = this.createKing(type);
                 break;
             
             case QUEEN:
-                res = this.createQueen();
+                res = this.createQueen(type);
                 break;
 
             case ROOK:
-                res = this.createRook();
+                res = this.createRook(type);
                 break;
             
             case BISHOP:
-                res = this.createBishop();
+                res = this.createBishop(type);
                 break;
             
             case KNIGHT:
-                res = this.createKnight();
+                res = this.createKnight(type);
                 break;
         
             default:
@@ -53,23 +53,23 @@ public class PieceStandardFactory implements PieceFactory {
         return res;
     }
 
-    private Piece createKing() {
-        return new PieceImpl(board, null, new MoveKing());
+    private Piece createKing(final PieceType type) {
+        return new PieceImpl(board, null, new MoveKing(), type);
     }
 
-    private Piece createQueen() {
-        return new PieceImpl(board, null, new MoveQueen());
+    private Piece createQueen(final PieceType type) {
+        return new PieceImpl(board, null, new MoveQueen(), type);
     }
 
-    private Piece createRook() {
-        return new PieceImpl(board, null, new MoveRook());
+    private Piece createRook(final PieceType type) {
+        return new PieceImpl(board, null, new MoveRook(), type);
     }
 
-    private Piece createBishop() {
-        return new PieceImpl(board, null, new MoveBishop());
+    private Piece createBishop(final PieceType type) {
+        return new PieceImpl(board, null, new MoveBishop(), type);
     }
 
-    private Piece createKnight() {
-        return new PieceImpl(board, null, new MoveKnight());
+    private Piece createKnight(final PieceType type) {
+        return new PieceImpl(board, null, new MoveKnight(), type);
     }
 }
