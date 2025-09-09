@@ -67,13 +67,13 @@ public class MapImpl implements Map {
         this.pieces.add(piece.info());
     }
 
-    private void gravityChain(SquarePosition start) {
+    private void gravityChain(SquarePosition start) throws Exception {
         boolean flag = true;
 
         for(int i = start.getPosY() + 1; flag; ++i) {
             final SquarePosition pos = new SquarePosition(start.getPosX(), i);
-            final SquarePiece square;
-            final Piece piece;
+            SquarePiece square = null;
+            Piece piece = null;
 
             try {
                 square = (SquarePiece) board.getSquare(pos);
@@ -81,11 +81,13 @@ public class MapImpl implements Map {
 
                 if (piece == null) {
                     flag = false;
-                } else {
-                    pieceGravity(piece, square);
                 }
             } catch (Exception e) {
                 flag = false;
+            }
+
+            if (flag) {
+                pieceGravity(piece, square);
             }
         }
     }
