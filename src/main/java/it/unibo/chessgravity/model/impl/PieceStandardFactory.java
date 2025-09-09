@@ -3,6 +3,7 @@ package it.unibo.chessgravity.model.impl;
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.Piece;
 import it.unibo.chessgravity.model.api.PieceFactory;
+import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.*;
 import it.unibo.chessgravity.model.utils.PieceType;
 
@@ -19,7 +20,7 @@ public class PieceStandardFactory implements PieceFactory {
     }
 
     @Override
-    public Piece createPiece(final PieceType type) {
+    public Piece createPiece(final PieceType type, final SquarePosition pos) {
         final Piece res;
 
         switch (type) {
@@ -45,9 +46,10 @@ public class PieceStandardFactory implements PieceFactory {
         
             default:
                 res = null;
-                break;
+                throw new IllegalArgumentException("Not a standrd piece type: " + type);
         }
 
+        res.setPos(pos);
         return res;
     }
 

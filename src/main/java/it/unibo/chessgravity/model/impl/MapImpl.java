@@ -19,30 +19,30 @@ public class MapImpl implements Map {
     private final Gravity gravity;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
-                    final int xLen, final int yLen) throws Exception {
+                    final int xLen, final int yLen) throws InvalidSettingsException {
         board = new BoardImpl(xLen, yLen, obstacles);
         gravity = new GravityImpl();
 
         createPieces(pieces);
     }
     
-    private void createPieces(final Set<PieceSetting> pieces) throws Exception {
+    private void createPieces(final Set<PieceSetting> pieces) throws InvalidSettingsException {
         final PieceFactory factory = new PieceStandardFactory(board);
         try {
             for (PieceSetting piece : pieces) {
                 final SquarePiece square = (SquarePiece) board.getSquare(piece.getPos());
-            
-                square.setPiece(factory.createPiece(piece.getType()));
+                square.setPiece(factory.createPiece(piece.getType(), piece.getPos()));
             }
         } catch (ClassCastException e) {
             throw new InvalidSettingsException(
                 "Found a position of a sqaure that cannot be SquarePiece type");
         } catch (Exception e) {
             final InvalidSettingsException exception;
-            if (e.getMessage().isBlank()) {
+            final String message = e.getMessage();
+            if (message.isBlank()) {
                 exception = new InvalidSettingsException();
             } else {
-                exception = new InvalidSettingsException(e.getMessage());
+                exception = new InvalidSettingsException(message);
             }
 
             throw exception;
