@@ -63,7 +63,7 @@ public class MapImpl implements Map {
         piece.setPos(result);
     }
 
-    private void handleGravity(SquarePosition start) {
+    private void gravityChain(SquarePosition start) {
         boolean flag = true;
 
         for(int i = start.getPosY() + 1; flag; ++i) {
@@ -84,6 +84,19 @@ public class MapImpl implements Map {
                 flag = false;
             }
         }
+    }
+
+    private boolean movePiece(Piece piece, SquarePiece square) throws Exception {
+        final SquarePiece startSquare = (SquarePiece) board.getSquare(piece.getPos());
+        
+        if (!piece.move(square.getPos())) {
+            return false;
+        }
+
+        startSquare.setPiece(null);
+        square.setPiece(piece);
+
+        return true;
     }
 
     @Override
