@@ -2,9 +2,7 @@ package it.unibo.chessgravity.model.impl;
 
 import java.util.Set;
 
-import it.unibo.chessgravity.model.api.Board;
-import it.unibo.chessgravity.model.api.Map;
-import it.unibo.chessgravity.model.api.PieceFactory;
+import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.move.Gravity;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
@@ -52,8 +50,32 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public boolean move(SquarePosition start, SquarePosition dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    public SquarePosition move(SquarePosition start, SquarePosition dest) {
+        final SquarePiece square;
+        final Piece piece;
+        final SquarePosition result;
+        
+        /*
+         * Try to get the sqaure from the board with the given position (start).
+         * If the position is not valid, the Square is not a SquarePiece type or
+         * the square has no piece placed, return false.
+         * This beacause the movement cannot be done.
+         */
+        try {
+            square = (SquarePiece) board.getSquare(start);
+            piece = square.getPiece();
+
+            if (piece == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        
+        if (piece.move(dest)) {
+            result = gravity.gravity(piece.getPos(), board);
+        } else result = null;
+
+        return result;
     }
 }
