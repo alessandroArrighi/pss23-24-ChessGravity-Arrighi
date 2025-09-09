@@ -100,32 +100,37 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public SquarePosition move(SquarePosition start, SquarePosition dest) {
-        final SquarePiece square;
+    public SquarePosition move(SquarePosition start, SquarePosition dest) throws Exception {
+        final SquarePiece startSquare;
+        final SquarePiece destSquare;
         final Piece piece;
-        final SquarePosition result;
         
         /*
          * Try to get the sqaure from the board with the given position (start).
          * If the position is not valid, the Square is not a SquarePiece type or
-         * the square has no piece placed, return false.
+         * the square has no piece placed, return null.
          * This beacause the movement cannot be done.
          */
         try {
-            square = (SquarePiece) board.getSquare(start);
-            piece = square.getPiece();
+            startSquare = (SquarePiece) board.getSquare(start);
+            piece = startSquare.getPiece();
 
             if (piece == null) {
                 throw new Exception();
             }
+
+            destSquare = (SquarePiece) board.getSquare(dest);
         } catch (Exception e) {
             return null;
         }
-        
-        if (piece.move(dest)) {
-            result = gravity.gravity(piece.getPos(), board);
-        } else result = null;
 
-        return result;
+        if (!movePiece(piece, destSquare)) {
+            return null;
+        }
+
+        pieceGravity(piece, destSquare);
+        gravityChain(start);
+
+        return piece.getPos();
     }
 }
