@@ -81,12 +81,26 @@ public class BoardImpl implements Board {
 
         pieces.add(piece);
     }
-    
+
     @Override
     public void move(SquarePosition start, SquarePosition dest) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        final SquarePiece startSquare;
+        final SquarePiece destSquare;
+        final Piece piece;
+
+        startSquare = getSquare(start);
+        destSquare = getSquare(dest);
+
+        piece = startSquare.getPiece();
+
+        if (piece == null) {
+            throw new Exception("Piece not found at " + start);
+        }
+
+        destSquare.setPiece(piece);
+        startSquare.setPiece(null);
     }
+
     
     @Override
     public boolean isSquareFree(SquarePosition pos) {
