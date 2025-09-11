@@ -52,18 +52,34 @@ public class BoardImpl implements Board {
         Piece piece;
 
         try {
-            piece = ((SquarePiece) getSquare(pos)).getPiece();
+            piece = getSquare(pos).getPiece();
         } catch (Exception e) {
             piece = null;
         }
         
         return piece;
     }
-        
+
     @Override
     public void setPiece(Piece piece) throws IllegalSquarePositionException, SquareFullException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPiece'");
+        final SquarePosition pos = piece.getPos();
+        SquarePiece square;
+        
+        // if piece is alredy on the board
+        if (pieces.contains(piece)) {
+            return;
+        }
+
+        square = getSquare(pos);
+
+        // if there's an obstacle
+        if (square == null) {
+            throw new SquareFullException(pos);
+        }
+
+        square.setPiece(piece);
+
+        pieces.add(piece);
     }
     
     @Override
