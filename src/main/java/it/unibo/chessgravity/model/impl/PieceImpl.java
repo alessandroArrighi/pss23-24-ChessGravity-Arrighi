@@ -34,17 +34,17 @@ public class PieceImpl implements Piece {
         return this.pos;
     }
 
-    @Override
-    public void setPos(final SquarePosition pos) {
+    private void setPos(final SquarePosition pos) throws Exception {
+        board.move(this.pos, pos);
         this.pos = pos;
     }
 
     @Override
-    public boolean move(SquarePosition dest) {
+    public boolean move(SquarePosition dest) throws Exception {
         final boolean canMove = move.move(pos, dest, board);
 
         if (canMove) {
-            pos = dest;
+            setPos(dest);
         }
 
         return canMove;

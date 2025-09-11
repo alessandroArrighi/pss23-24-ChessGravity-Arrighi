@@ -25,23 +25,23 @@ public class PieceStandardFactory implements PieceFactory {
 
         switch (type) {
             case KING:
-                res = this.createKing(type);
+                res = this.createKing(type, pos);
                 break;
             
             case QUEEN:
-                res = this.createQueen(type);
+                res = this.createQueen(type, pos);
                 break;
 
             case ROOK:
-                res = this.createRook(type);
+                res = this.createRook(type, pos);
                 break;
             
             case BISHOP:
-                res = this.createBishop(type);
+                res = this.createBishop(type, pos);
                 break;
             
             case KNIGHT:
-                res = this.createKnight(type);
+                res = this.createKnight(type, pos);
                 break;
         
             default:
@@ -49,27 +49,26 @@ public class PieceStandardFactory implements PieceFactory {
                 throw new IllegalArgumentException("Not a standrd piece type: " + type);
         }
 
-        res.setPos(pos);
         return res;
     }
 
-    private Piece createKing(final PieceType type) {
-        return new PieceImpl(board, null, new MoveKing(), type);
+    private Piece createKing(final PieceType type, final SquarePosition pos) {
+        return new PieceImpl(board, pos, new MoveKing(), type);
     }
 
-    private Piece createQueen(final PieceType type) {
-        return new PieceImpl(board, null, new MoveQueen(), type);
+    private Piece createQueen(final PieceType type, final SquarePosition pos) {
+        return new PieceImpl(board, pos, new MoveQueen(), type);
     }
 
-    private Piece createRook(final PieceType type) {
-        return new PieceImpl(board, null, new MoveRook(), type);
+    private Piece createRook(final PieceType type, final SquarePosition pos) {
+        return new PieceImpl(board, pos, new MoveRook(), type);
     }
 
-    private Piece createBishop(final PieceType type) {
-        return new PieceImpl(board, null, new MoveBishop(), type);
+    private Piece createBishop(final PieceType type, final SquarePosition pos) {
+        return new PieceImpl(board, pos, new MoveBishop(), type);
     }
 
-    private Piece createKnight(final PieceType type) {
-        return new PieceImpl(board, null, new MoveKnight(), type);
+    private Piece createKnight(final PieceType type, final SquarePosition pos) {
+        return new PieceImpl(board, pos, new MoveKnight(), type);
     }
 }

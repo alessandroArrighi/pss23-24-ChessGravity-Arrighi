@@ -114,6 +114,8 @@ public class BoardImpl implements Board {
             return square.isFree();
         } catch (IllegalSquarePositionException e) {
             return false;
+        } catch (SquareFullException e) {
+            return false;
         }
     }
 
@@ -122,7 +124,7 @@ public class BoardImpl implements Board {
             pos.getPosX() <= xLen && pos.getPosY() <= yLen);
     }
 
-    private SquarePiece getSquare(SquarePosition pos) throws IllegalSquarePositionException {
+    private SquarePiece getSquare(SquarePosition pos) throws IllegalSquarePositionException, SquareFullException {
         if (!isValidPos(pos)) {
             throw new IllegalSquarePositionException(pos);
         }
@@ -133,7 +135,7 @@ public class BoardImpl implements Board {
             .findFirst()
             .get();
         } catch (NoSuchElementException e) {
-            return null;
+            throw new SquareFullException(pos);
         }
     }
 }

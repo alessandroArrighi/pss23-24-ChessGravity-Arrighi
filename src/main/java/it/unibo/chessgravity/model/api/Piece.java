@@ -13,7 +13,5 @@ public interface Piece {
 
     SquarePosition getPos();
 
-    void setPos(SquarePosition pos);
-
-    boolean move(SquarePosition dest);
+    boolean move(SquarePosition dest) throws Exception;
 }

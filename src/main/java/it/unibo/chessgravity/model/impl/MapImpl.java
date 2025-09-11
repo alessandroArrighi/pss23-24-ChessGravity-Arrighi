@@ -34,7 +34,7 @@ public class MapImpl implements Map {
 
     private void createEnemy(final SquarePosition enemy) throws InvalidSettingsException {
         try {
-            if (board.isSquareFree(enemy)) {
+            if (!board.isSquareFree(enemy)) {
                 throw new IllegalSquarePositionException(enemy);
             }
 
