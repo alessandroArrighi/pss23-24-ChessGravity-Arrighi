@@ -47,7 +47,7 @@ public class SquarePieceImpl implements SquarePiece {
          * and it has to be set a new piece
          */
         if (!isFree() && piece != null) {
-            throw new SquareFullException(this);
+            throw new SquareFullException(this.pos);
         }
 
         /*
