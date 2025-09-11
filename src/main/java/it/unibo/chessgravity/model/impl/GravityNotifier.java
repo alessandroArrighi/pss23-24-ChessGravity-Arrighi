@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.unibo.chessgravity.model.api.GravityObservable;
 import it.unibo.chessgravity.model.api.GravityObserver;
+import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
  * GravityObserver implementation: this class follow the Observer pattern to handle
@@ -20,12 +21,12 @@ public class GravityNotifier implements GravityObservable {
     }
 
     @Override
-    public void subscribe(GravityObserver observer) {
+    public void subscribe(final GravityObserver observer) {
         observers.add(observer);
     }
 
     @Override
-    public void unsubsribe(GravityObserver observer) {
+    public void unsubsribe(final GravityObserver observer) {
         final int i = observers.indexOf(observer);
 
         if (i >= 0) {
@@ -34,7 +35,7 @@ public class GravityNotifier implements GravityObservable {
     }
 
     @Override
-    public void subscribeAll(Collection<GravityObserver> observer) {
+    public void subscribeAll(final Collection<GravityObserver> observer) {
         observers.addAll(observer);
     }
 
@@ -44,8 +45,13 @@ public class GravityNotifier implements GravityObservable {
     }
 
     @Override
-    public void notifyObservers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'notifyObservers'");
+    public void notifyObservers(final SquarePosition pos) {
+        final int posX = pos.getPosX();
+        final int posY = pos.getPosY();
+
+        observers.parallelStream()
+        .filter(x -> x.getPos().getPosX() == posX)
+        .filter(x -> x.getPos().getPosY() > posY)
+        .forEachOrdered(x -> x.gravity());
     }
 }
