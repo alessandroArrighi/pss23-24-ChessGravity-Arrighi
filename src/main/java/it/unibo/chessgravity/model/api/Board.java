@@ -1,5 +1,7 @@
 package it.unibo.chessgravity.model.api;
 
+import java.util.Set;
+
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
@@ -16,4 +18,6 @@ public interface Board {
     void move(SquarePosition start, SquarePosition dest) throws Exception;
 
     boolean isSquareFree(SquarePosition pos);
+
+    Set<Piece> getAllPieces();
 }

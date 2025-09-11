@@ -5,7 +5,6 @@ import java.util.*;
 import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
-import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -15,8 +14,8 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  * le istanze di Square che comporrano la scacchiera. Qui ne
  * avviene la creazione e tutta la loro gestione.
  */
-
 public class BoardImpl implements Board {
+    
     public static final int MIN_LEN = 1;
 
     private final Set<SquarePiece> squareList;
@@ -45,6 +44,11 @@ public class BoardImpl implements Board {
                 }
             }
         }
+    }
+
+    @Override
+    public Set<Piece> getAllPieces() {
+        return this.pieces;
     }
 
     @Override
