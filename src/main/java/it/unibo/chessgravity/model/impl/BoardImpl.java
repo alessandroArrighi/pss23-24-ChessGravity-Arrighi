@@ -6,6 +6,7 @@ import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.square.Square;
+import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
@@ -18,11 +19,8 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 public class BoardImpl implements Board {
     public static final int MIN_LEN = 1;
 
-    /*
-     * squareList is a List that contains a List<Square>. All the Squares in
-     * the List<Square> are the whole squares that will compose one board's row
-     */
-    private final List<List<Square>> squareList;
+    private final Set<SquarePiece> squareList;
+    private final Set<Piece> pieces;
     private final int xLen;
     private final int yLen;
 
@@ -31,28 +29,21 @@ public class BoardImpl implements Board {
             throw new IllegalArgumentException("the board length argument must be greater then 0");
         }
 
-        this.squareList = new ArrayList<>();
+        this.pieces = new HashSet<>();
+        this.squareList = new HashSet<>();
         this.xLen = xLen;
         this.yLen = yLen;
 
-        /*
-         * double for loop to cicle evry row and column and create the
-         * appropriate square.
-         */
-        for(int y = MIN_LEN; y <= yLen; ++y) {
-            final List<Square> xLst = new ArrayList<>();
 
-            for(int x = MIN_LEN; x <= xLen; ++x) {
+        // double for loop to cicle evry row and column and create the square.
+        for(int x = MIN_LEN; x <= xLen; ++x) {
+            for(int y = MIN_LEN; y <= yLen; ++y) {
                 final SquarePosition pos = new SquarePosition(x, y);
                 
-                if (obstacles.contains(pos)) {
-                    xLst.add(new SquareObstacleImpl(pos));
-                } else {
-                    xLst.add(new SquarePieceImpl(pos));
+                if (!obstacles.contains(pos)) {
+                    this.squareList.add(new SquarePieceImpl(pos));
                 }
             }
-
-            this.squareList.add(xLst);
         }
     }
 
