@@ -44,9 +44,9 @@ public class SquarePieceImpl implements SquarePiece {
     public void setPiece(Piece piece) throws SquareFullException {
         /*
          * if there's already another piece on this sqaure
-         * and it has to be set a new piece
+         * and it has to be set a piece that is not the current piece
          */
-        if (!isFree() && piece != null) {
+        if (!isFree() && piece != null && !this.piece.equals(piece)) {
             throw new SquareFullException(this.pos);
         }
 
