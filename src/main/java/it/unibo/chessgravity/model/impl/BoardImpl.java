@@ -49,10 +49,17 @@ public class BoardImpl implements Board {
 
     @Override
     public Piece getPiece(SquarePosition pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPiece'");
+        Piece piece;
+
+        try {
+            piece = ((SquarePiece) getSquare(pos)).getPiece();
+        } catch (Exception e) {
+            piece = null;
+        }
+        
+        return piece;
     }
-    
+        
     @Override
     public void setPiece(Piece piece) throws IllegalSquarePositionException, SquareFullException {
         // TODO Auto-generated method stub
