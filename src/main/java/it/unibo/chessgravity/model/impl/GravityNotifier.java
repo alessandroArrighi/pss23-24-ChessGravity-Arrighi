@@ -35,14 +35,12 @@ public class GravityNotifier implements GravityObservable {
 
     @Override
     public void subscribeAll(Collection<GravityObserver> observer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'subscribeAll'");
+        observers.addAll(observer);
     }
 
     @Override
     public void unsubsribeAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unsubsribeAll'");
+        observers.removeAll(observers);
     }
 
     @Override
@@ -50,5 +48,4 @@ public class GravityNotifier implements GravityObservable {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'notifyObservers'");
     }
-    
 }
