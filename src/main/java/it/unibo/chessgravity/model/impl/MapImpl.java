@@ -7,7 +7,6 @@ import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.move.Gravity;
-import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
@@ -34,11 +33,8 @@ public class MapImpl implements Map {
     }
 
     private void createEnemy(final SquarePosition enemy) throws InvalidSettingsException {
-        final Square square;
         try {
-            square = board.getSquare(enemy);
-            
-            if (!square.isFree()) {
+            if (board.isSquareFree(enemy)) {
                 throw new IllegalSquarePositionException(enemy);
             }
 
@@ -56,86 +52,83 @@ public class MapImpl implements Map {
         final PieceFactory factory = new PieceStandardFactory(board);
         try {
             for (PieceSetting piece : pieces) {
-                final SquarePiece square = (SquarePiece) board.getSquare(piece.getPos());
-                square.setPiece(factory.createPiece(piece.getType(), piece.getPos()));
+                final Piece p = factory.createPiece(piece.getType(), piece.getPos());
+                board.setPiece(p);
             }
-        } catch (ClassCastException e) {
-            throw new InvalidSettingsException(
-                "Found a position of a sqaure that cannot be SquarePiece type");
         } catch (Exception e) {
-            final InvalidSettingsException exception;
-            final String message = e.getMessage();
-            if (message.isBlank()) {
-                exception = new InvalidSettingsException();
-            } else {
-                exception = new InvalidSettingsException(message);
-            }
-
-            throw exception;
+            throw new InvalidSettingsException(e.getMessage());
         }
-    }
-
-    private void pieceGravity(Piece piece, SquarePiece startSquare) throws Exception {
-        final SquarePosition result;
-        final SquarePiece destSquare;
-
-        startSquare.setPiece(null);
-        
-        result = gravity.gravity(piece.getPos(), board);
-
-        destSquare = (SquarePiece) board.getSquare(result);
-        destSquare.setPiece(piece);
-
-        piece.setPos(result);
-
-        this.pieces.add(piece.info());
-    }
-
-    private void gravityChain(SquarePosition start) throws Exception {
-        boolean flag = true;
-
-        for(int i = start.getPosY() + 1; flag; ++i) {
-            final SquarePosition pos = new SquarePosition(start.getPosX(), i);
-            SquarePiece square = null;
-            Piece piece = null;
-
-            try {
-                square = (SquarePiece) board.getSquare(pos);
-                piece = square.getPiece();
-
-                if (piece == null) {
-                    flag = false;
-                }
-            } catch (Exception e) {
-                flag = false;
-            }
-
-            if (flag) {
-                pieceGravity(piece, square);
-            }
-        }
-    }
-
-    private boolean movePiece(Piece piece, SquarePiece square) throws Exception {
-        final SquarePiece startSquare = (SquarePiece) board.getSquare(piece.getPos());
-        
-        if (!piece.move(square.getPos())) {
-            return false;
-        }
-
-        startSquare.setPiece(null);
-        square.setPiece(piece);
-
-        return true;
     }
 
     @Override
     public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
-        final SquarePiece startSquare;
-        final SquarePiece destSquare;
-        final Piece piece;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    }
 
-        this.pieces = new HashSet<>();
+    // private void pieceGravity(Piece piece, SquarePiece startSquare) throws Exception {
+    //     final SquarePosition result;
+    //     final SquarePiece destSquare;
+
+    //     startSquare.setPiece(null);
+        
+    //     result = gravity.gravity(piece.getPos(), board);
+
+    //     destSquare = (SquarePiece) board.getSquare(result);
+    //     destSquare.setPiece(piece);
+
+    //     piece.setPos(result);
+
+    //     this.pieces.add(piece.info());
+    // }
+
+    // private void gravityChain(SquarePosition start) throws Exception {
+    //     boolean flag = true;
+
+    //     for(int i = start.getPosY() + 1; flag; ++i) {
+    //         final SquarePosition pos = new SquarePosition(start.getPosX(), i);
+    //         SquarePiece square = null;
+    //         Piece piece = null;
+
+    //         try {
+    //             square = (SquarePiece) board.getSquare(pos);
+    //             piece = square.getPiece();
+
+    //             if (piece == null) {
+    //                 flag = false;
+    //             }
+    //         } catch (Exception e) {
+    //             flag = false;
+    //         }
+
+    //         if (flag) {
+    //             pieceGravity(piece, square);
+    //         }
+    //     }
+    // }
+
+    // private boolean movePiece(Piece piece, SquarePiece square) throws Exception {
+    //     final SquarePiece startSquare = (SquarePiece) board.getSquare(piece.getPos());
+        
+    //     if (!piece.move(square.getPos())) {
+    //         return false;
+    //     }
+
+    //     startSquare.setPiece(null);
+    //     square.setPiece(piece);
+
+    //     return true;
+    // }
+
+    // @Override
+    // public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
+    //     final SquarePiece startSquare;
+    //     final SquarePiece destSquare;
+    //     final Piece piece;
+
+    //     this.pieces = new HashSet<>();
+
+
         
         /*
          * Try to get the sqaure from the board with the given position (start).
@@ -143,24 +136,24 @@ public class MapImpl implements Map {
          * the square has no piece placed, return null.
          * This beacause the movement cannot be done.
          */
-        try {
-            startSquare = (SquarePiece) board.getSquare(start);
-            piece = startSquare.getPiece();
+        // try {
+        //     startSquare = (SquarePiece) board.getSquare(start);
+        //     piece = startSquare.getPiece();
 
-            if (piece == null) {
-                throw new Exception();
-            }
+        //     if (piece == null) {
+        //         throw new Exception();
+        //     }
 
-            destSquare = (SquarePiece) board.getSquare(dest);
-        } catch (Exception e) {
-            return null;
-        }
+        //     destSquare = (SquarePiece) board.getSquare(dest);
+        // } catch (Exception e) {
+        //     return null;
+        // }
 
-        if (movePiece(piece, destSquare)) {
-            pieceGravity(piece, destSquare);
-            gravityChain(start);
-        } else this.pieces = null;
+        // if (movePiece(piece, destSquare)) {
+        //     pieceGravity(piece, destSquare);
+        //     gravityChain(start);
+        // } else this.pieces = null;
 
-        return this.pieces;
-    }
+        // return this.pieces;
+    // }
 }

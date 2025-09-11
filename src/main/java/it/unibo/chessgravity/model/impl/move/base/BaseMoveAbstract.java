@@ -60,17 +60,8 @@ public abstract class BaseMoveAbstract implements BaseMove {
     }
 
     public static boolean checkMove(SquarePosition pos, Board board) {
-        try {
-            Square square = board.getSquare(pos);
-
-            if (square.isFree()) {
-                return true;
-            }
-        } catch (IllegalSquarePositionException e) { }
-
-        return false;
+        return board.isSquareFree(pos);
     }
-
 
     /*
      * The template method that calculate a specific type of movement for a piece.

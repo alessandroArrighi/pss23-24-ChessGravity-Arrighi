@@ -4,6 +4,7 @@ import java.util.*;
 
 import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
+import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -61,12 +62,26 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public Square getSquare(SquarePosition pos) throws IllegalSquarePositionException {
-        if (isValidPos(pos)) {
-            List<Square> lst = squareList.get(pos.getPosY() - MIN_LEN);
-            return lst.get(pos.getPosX() - MIN_LEN);
-        }
+    public Piece getPiece(SquarePosition pos) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPiece'");
+    }
 
-        throw new IllegalSquarePositionException(pos);
+    @Override
+    public void setPiece(Piece piece) throws IllegalSquarePositionException, SquareFullException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPiece'");
+    }
+
+    @Override
+    public void move(SquarePosition start, SquarePosition dest) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    }
+
+    @Override
+    public boolean isSquareFree(SquarePosition pos) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isSquareFree'");
     }
 }
