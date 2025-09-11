@@ -62,8 +62,18 @@ public class MapImpl implements Map {
 
     @Override
     public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        final Piece piece = board.getPiece(start);
+
+        if (piece == null) {
+            return null;
+        }
+
+        if (piece.move(dest)) {
+            // call gravity notifier and return the result
+            // gravityNotifier.callGravity(board.getAllPieces(), start, piece);
+        }
+
+        return null;
     }
 
     // private void pieceGravity(Piece piece, SquarePiece startSquare) throws Exception {
