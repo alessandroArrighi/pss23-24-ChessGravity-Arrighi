@@ -1,20 +1,27 @@
 package it.unibo.chessgravity.model.impl;
 
+import java.util.HashSet;
+
 import it.unibo.chessgravity.model.api.Board;
+import it.unibo.chessgravity.model.api.GravityObserver;
 import it.unibo.chessgravity.model.api.Piece;
+import it.unibo.chessgravity.model.api.move.Gravity;
 import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.impl.move.MoveRook;
+import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 import it.unibo.chessgravity.model.utils.PieceType;
 
 /**
  * Implementazione dell'interfaccia Piece
  */
-public class PieceImpl implements Piece {
+public class PieceImpl implements Piece, GravityObserver {
     private SquarePosition pos;
     private final Board board;
     private final MoveStrategy move;
     private final PieceType type;
+    private final Gravity gravity;
     
     public PieceImpl(final Board board, final SquarePosition pos,
                     final MoveStrategy move, final PieceType type) {
@@ -22,6 +29,7 @@ public class PieceImpl implements Piece {
         this.pos = pos;
         this.move = move;
         this.type = type;
+        this.gravity = new GravityImpl();
     }
 
     @Override
@@ -45,8 +53,18 @@ public class PieceImpl implements Piece {
 
         if (canMove) {
             setPos(dest);
+            this.gravity();
         }
 
         return canMove;
+    }
+
+    @Override
+    public void gravity() {
+        try {
+            setPos(gravity.gravity(pos, board));
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
