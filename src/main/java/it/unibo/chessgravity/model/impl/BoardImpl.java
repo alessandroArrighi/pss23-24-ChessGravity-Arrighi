@@ -101,11 +101,16 @@ public class BoardImpl implements Board {
         startSquare.setPiece(null);
     }
 
-    
     @Override
     public boolean isSquareFree(SquarePosition pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isSquareFree'");
+        final SquarePiece square;
+        try {
+            square = getSquare(pos);
+
+            return square.isFree();
+        } catch (IllegalSquarePositionException e) {
+            return false;
+        }
     }
 
     private boolean isValidPos(SquarePosition pos) {
