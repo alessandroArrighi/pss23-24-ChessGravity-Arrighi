@@ -47,32 +47,47 @@ public class BoardImpl implements Board {
         }
     }
 
-    private boolean isValidPos(SquarePosition pos) {
-        return (pos.getPosX() >= MIN_LEN && pos.getPosY() >= MIN_LEN &&
-            pos.getPosX() <= xLen && pos.getPosY() <= yLen);
-    }
-
     @Override
     public Piece getPiece(SquarePosition pos) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPiece'");
     }
-
+    
     @Override
     public void setPiece(Piece piece) throws IllegalSquarePositionException, SquareFullException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPiece'");
     }
-
+    
     @Override
     public void move(SquarePosition start, SquarePosition dest) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
-
+    
     @Override
     public boolean isSquareFree(SquarePosition pos) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isSquareFree'");
+    }
+
+    private boolean isValidPos(SquarePosition pos) {
+        return (pos.getPosX() >= MIN_LEN && pos.getPosY() >= MIN_LEN &&
+            pos.getPosX() <= xLen && pos.getPosY() <= yLen);
+    }
+
+    private SquarePiece getSquare(SquarePosition pos) throws IllegalSquarePositionException {
+        if (!isValidPos(pos)) {
+            throw new IllegalSquarePositionException(pos);
+        }
+
+        try {
+            return this.squareList.stream()
+            .filter(x -> x.getPos().equals(pos))
+            .findFirst()
+            .get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 }
