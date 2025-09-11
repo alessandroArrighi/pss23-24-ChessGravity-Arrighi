@@ -26,8 +26,11 @@ public class GravityNotifier implements GravityObservable {
 
     @Override
     public void unsubsribe(GravityObserver observer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unsubsribe'");
+        final int i = observers.indexOf(observer);
+
+        if (i >= 0) {
+            observers.remove(i);
+        }
     }
 
     @Override

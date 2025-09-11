@@ -1,14 +1,11 @@
 package it.unibo.chessgravity.model.impl;
 
-import java.util.HashSet;
-
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.GravityObserver;
 import it.unibo.chessgravity.model.api.Piece;
 import it.unibo.chessgravity.model.api.move.Gravity;
 import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
-import it.unibo.chessgravity.model.impl.move.MoveRook;
 import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 import it.unibo.chessgravity.model.utils.PieceType;
