@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.api;
 
 import java.util.Collection;
+import java.util.List;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -17,5 +18,5 @@ public interface GravityObservable {
 
     void unsubsribeAll();
 
-    void notifyObservers(SquarePosition pos);
+    List<GravityObserver> notifyObservers(SquarePosition pos);
 }

@@ -45,13 +45,24 @@ public class GravityNotifier implements GravityObservable {
     }
 
     @Override
-    public void notifyObservers(final SquarePosition pos) {
+    public List<GravityObserver> notifyObservers(final SquarePosition pos) {
         final int posX = pos.getPosX();
         final int posY = pos.getPosY();
+        final List<GravityObserver> res;
 
-        observers.parallelStream()
+        res = observers.parallelStream()
         .filter(x -> x.getPos().getPosX() == posX)
         .filter(x -> x.getPos().getPosY() > posY)
-        .forEachOrdered(x -> x.gravity());
+        .sorted((a, b) -> {
+            return Integer.compare(
+                a.getPos().getPosY(),
+                b.getPos().getPosY()
+            );
+        })
+        .toList();
+        
+        res.forEach(x -> x.gravity());
+
+        return res;
     }
 }
