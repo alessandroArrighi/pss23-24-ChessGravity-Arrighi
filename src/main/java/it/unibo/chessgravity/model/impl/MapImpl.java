@@ -6,10 +6,7 @@ import java.util.Set;
 import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
-import it.unibo.chessgravity.model.api.move.Gravity;
-import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
-import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 
 /**
@@ -18,17 +15,20 @@ import it.unibo.chessgravity.model.utils.PieceSetting;
 public class MapImpl implements Map {
 
     private final Board board;
-    private final Gravity gravity;
-    private Set<PieceSetting> pieces;
+    private final GravityNotifier notifier;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
                     final int xLen, final int yLen, SquarePosition enemy)
                                                         throws InvalidSettingsException {
         board = new BoardImpl(xLen, yLen, obstacles);
-        gravity = new GravityImpl();
 
         createPieces(pieces);
-
+        
+        notifier = new GravityNotifier();
+        board.getAllPieces().stream()
+        .filter(x -> x instanceof GravityObserver)
+        .forEach(x -> notifier.subscribe((GravityObserver) x));
+        
         createEnemy(enemy);
     }
 
@@ -68,102 +68,23 @@ public class MapImpl implements Map {
             return null;
         }
 
-        if (piece.move(dest)) {
-            // call gravity notifier and return the result
-            // gravityNotifier.callGravity(board.getAllPieces(), start, piece);
+        if (!piece.move(dest)) {
+            return null;
         }
 
-        return null;
-    }
-
-    // private void pieceGravity(Piece piece, SquarePiece startSquare) throws Exception {
-    //     final SquarePosition result;
-    //     final SquarePiece destSquare;
-
-    //     startSquare.setPiece(null);
-        
-    //     result = gravity.gravity(piece.getPos(), board);
-
-    //     destSquare = (SquarePiece) board.getSquare(result);
-    //     destSquare.setPiece(piece);
-
-    //     piece.setPos(result);
-
-    //     this.pieces.add(piece.info());
-    // }
-
-    // private void gravityChain(SquarePosition start) throws Exception {
-    //     boolean flag = true;
-
-    //     for(int i = start.getPosY() + 1; flag; ++i) {
-    //         final SquarePosition pos = new SquarePosition(start.getPosX(), i);
-    //         SquarePiece square = null;
-    //         Piece piece = null;
-
-    //         try {
-    //             square = (SquarePiece) board.getSquare(pos);
-    //             piece = square.getPiece();
-
-    //             if (piece == null) {
-    //                 flag = false;
-    //             }
-    //         } catch (Exception e) {
-    //             flag = false;
-    //         }
-
-    //         if (flag) {
-    //             pieceGravity(piece, square);
-    //         }
-    //     }
-    // }
-
-    // private boolean movePiece(Piece piece, SquarePiece square) throws Exception {
-    //     final SquarePiece startSquare = (SquarePiece) board.getSquare(piece.getPos());
-        
-    //     if (!piece.move(square.getPos())) {
-    //         return false;
-    //     }
-
-    //     startSquare.setPiece(null);
-    //     square.setPiece(piece);
-
-    //     return true;
-    // }
-
-    // @Override
-    // public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
-    //     final SquarePiece startSquare;
-    //     final SquarePiece destSquare;
-    //     final Piece piece;
-
-    //     this.pieces = new HashSet<>();
-
-
+        // Set contains the pieces that will be moved for the gravity by the notifier
+        final Set<PieceSetting> movedPieces = new HashSet<>();
         
         /*
-         * Try to get the sqaure from the board with the given position (start).
-         * If the position is not valid, the Square is not a SquarePiece type or
-         * the square has no piece placed, return null.
-         * This beacause the movement cannot be done.
+         * Call gravity notifier and return the result.
+         * Creat a stram of Piece and save each piece info
          */
-        // try {
-        //     startSquare = (SquarePiece) board.getSquare(start);
-        //     piece = startSquare.getPiece();
+        notifier.notifyObservers(start).stream()
+        .filter(x -> x instanceof Piece)
+        .forEach(
+            x -> movedPieces.add(((Piece) x).info())
+        );
 
-        //     if (piece == null) {
-        //         throw new Exception();
-        //     }
-
-        //     destSquare = (SquarePiece) board.getSquare(dest);
-        // } catch (Exception e) {
-        //     return null;
-        // }
-
-        // if (movePiece(piece, destSquare)) {
-        //     pieceGravity(piece, destSquare);
-        //     gravityChain(start);
-        // } else this.pieces = null;
-
-        // return this.pieces;
-    // }
+        return movedPieces;
+    }
 }
