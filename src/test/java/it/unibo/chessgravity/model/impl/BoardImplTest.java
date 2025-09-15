@@ -148,8 +148,8 @@ public class BoardImplTest {
     }
 
     /**
-     * Checks if the board throws {@link SquareFullException} after attempting to
-     * move a piece in a square that is not valid.
+     * Checks if the board throws {@link IllegalSquarePositionException}
+     * after attempting to move a piece in a square that is not valid.
      * 
      * Then, it verifies that the state has not changed.
      */
@@ -159,6 +159,24 @@ public class BoardImplTest {
         assertThrows(
             IllegalSquarePositionException.class,
             () -> { board.move(piece1.getPos(), illegalPos); }
+        );
+
+        assertEquals(board.getPiece(piece1.getPos()), piece1);
+    }
+
+    /**
+     * Checks if the board throws {@link IllegalSquarePositionException}
+     * after attempting to move a piece from a square that is not valid.
+     * 
+     * Then, it verifies that the state has not changed.
+     */
+    @Test
+    void testIllegalStart() {
+        // check illegal start position
+        final SquarePosition pos = illegalPos;
+        assertThrows(
+            IllegalSquarePositionException.class,
+            () -> { board.move(pos, piece1.getPos()); }
         );
 
         assertEquals(board.getPiece(piece1.getPos()), piece1);
