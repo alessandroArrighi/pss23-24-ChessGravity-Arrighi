@@ -35,6 +35,11 @@ public class MoveKing implements MovePiece {
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
         BaseMove move = null;
 
+
+        if (start.equals(dest)) {
+            return true;
+        }
+
         if (onTopLeftDiagonal(dest, start)) {
             move = moveTopLeft;
         } else if (onTopColumn(dest, start)) {
