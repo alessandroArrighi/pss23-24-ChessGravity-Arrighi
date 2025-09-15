@@ -3,6 +3,7 @@ package it.unibo.chessgravity.model.impl.move.base;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
+import it.unibo.chessgravity.model.impl.PieceImpl;
 
 /**
  * Test class for BaseMoveAbstract class.
@@ -62,7 +64,7 @@ public class BaseMoveAbstractTest {
     }
 
     /**
-     * Checks if the BaseMoveAbstract class handle an illegal move
+     * Checks if the class handle an illegal move
      */
     @Test
     void testIllegalMove() {
@@ -73,4 +75,20 @@ public class BaseMoveAbstractTest {
         assertEquals(move.move(startPos, board), null);
     }
 
+    /**
+     * Checks if the class handle a collision with an obstacle and a piece
+     */
+    @Test
+    void testMoveCollision() throws Exception {
+        // Obstacle collision
+        Set<SquarePosition> obs = new HashSet<>();
+        obs.add(endPos);
+        board = new BoardImpl(LEN, LEN, obs);
+        assertEquals(move.move(startPos, board), null);
+
+        // Piece collision
+        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        board.setPiece(new PieceImpl(board, endPos, null, null));
+        assertEquals(move.move(startPos, board), null);
+    }
 }
