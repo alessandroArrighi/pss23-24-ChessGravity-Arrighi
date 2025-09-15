@@ -61,4 +61,16 @@ public class BaseMoveAbstractTest {
         assertEquals(move.move(startPos, board), endPos);
     }
 
+    /**
+     * Checks if the BaseMoveAbstract class handle an illegal move
+     */
+    @Test
+    void testIllegalMove() {
+        LEN = 3;
+        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        startPos = new SquarePosition(LEN, LEN);
+
+        assertEquals(move.move(startPos, board), null);
+    }
+
 }
