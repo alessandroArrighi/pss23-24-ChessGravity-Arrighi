@@ -99,4 +99,19 @@ public class BoardImplTest {
         assertNull(board.getPiece(obstacle));
     }
 
+    /**
+     * Checks if the move works correctly
+     */
+    @Test
+    void testMove() throws Exception {
+        final SquarePosition pos = new SquarePosition(LEN, LEN);
+        board.move(piece1.getPos(), pos);
+        assertTrue(board.isSquareFree(piece1.getPos()));
+        assertFalse(board.isSquareFree(pos));
+
+        // move piece1 in the same position
+        board.move(pos, pos);
+        assertFalse(board.isSquareFree(pos));
+    }
+
 }
