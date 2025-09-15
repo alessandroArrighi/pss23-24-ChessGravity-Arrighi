@@ -182,4 +182,21 @@ public class BoardImplTest {
         assertEquals(board.getPiece(piece1.getPos()), piece1);
     }
 
+    /**
+     * Checks if the board throws {@link Exception}
+     * after attempting to move a piece from a square that ha no piece saved.
+     * 
+     * Then, it verifies that the state has not changed.
+     */
+    @Test
+    void testPieceNotFound() {
+        final SquarePosition pos = new SquarePosition(LEN, LEN);
+        assertThrows(
+            Exception.class,
+            () -> { board.move(pos, piece1.getPos()); }
+        );
+
+        assertEquals(board.getPiece(piece1.getPos()), piece1);
+        assertTrue(board.isSquareFree(pos));
+    }
 }
