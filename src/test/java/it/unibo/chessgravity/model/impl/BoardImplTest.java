@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,12 +30,14 @@ public class BoardImplTest {
     private Piece piece1;
     private Piece piece2;
     private SquarePosition illegalPos;
+    private SquarePosition obstacle;
 
     @BeforeEach
     void setup() throws Exception {
+        obstacle = new SquarePosition(3, 3);
         obs = new HashSet<>();
         obs.addAll(Arrays.asList(
-            new SquarePosition(3, 3),
+            obstacle,
             new SquarePosition(5, 5),
             new SquarePosition(8, 2)
         ));
@@ -75,6 +78,25 @@ public class BoardImplTest {
         assertThrows(IllegalSquarePositionException.class, () -> { board.setPiece(piece); });
 
         assertNull(board.getPiece(illegalPos));
+    }
+
+    /**
+     * Checks if the board throws {@link SquareFullException} after attempting to
+     * place a piece in a square that is not free (occupied by another piece or an obstacle).
+     * 
+     * Then, it verifies that the state has not changed.
+     */
+    @Test
+    void testSquareFull() {
+        // place p1Test in the same position of piece1
+        final Piece p1Test = new PieceImpl(board, piece1.getPos(), null, null);
+        assertThrows(SquareFullException.class, () -> { board.setPiece(p1Test); });
+        assertEquals(board.getPiece(piece1.getPos()), piece1);
+
+        // place the piece in the same position of an obstacle
+        final Piece p2Test = new PieceImpl(board, obstacle, null, null);
+        assertThrows(SquareFullException.class, () -> { board.setPiece(p2Test); });
+        assertNull(board.getPiece(obstacle));
     }
 
 }
