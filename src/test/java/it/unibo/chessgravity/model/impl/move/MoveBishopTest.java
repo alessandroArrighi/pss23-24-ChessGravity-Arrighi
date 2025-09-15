@@ -1,10 +1,14 @@
 package it.unibo.chessgravity.model.impl.move;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.MovePiece;
@@ -30,5 +34,26 @@ public class MoveBishopTest {
         dest = new ArrayList<>();
     }
 
-    
+    /**
+     * Checks if the movement works correctly
+     */
+    @Test
+    void testSimpleMoves() {
+        dest.addAll(Arrays.asList(
+            // Move top left
+            new SquarePosition(start.getPosX() - 3, start.getPosY() + 3),
+            // Move top right
+            new SquarePosition(start.getPosX() + 3, start.getPosY() + 3),
+            // Move bottom left
+            new SquarePosition(start.getPosX() - 3, start.getPosY() - 3),
+            // Move bottom right
+            new SquarePosition(start.getPosX() + 3, start.getPosY() - 3),
+            // Don't move
+            start
+        ));
+        
+        for (SquarePosition pos : dest) {
+            assertTrue(move.move(start, pos, board));
+        }
+    }
 }
