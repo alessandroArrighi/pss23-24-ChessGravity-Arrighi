@@ -137,7 +137,7 @@ public class MoveKnightTest {
      * Checks if the collision is handled correctly on the two top left squares
      */
     @Test
-    void collisionsMoveTopLeftTest() throws Exception {
+    void testCollisionsMoveTopLeft() throws Exception {
         for (SquarePosition pos: topLeft) {
             collisionMove(pos);
         }
@@ -147,7 +147,7 @@ public class MoveKnightTest {
      * Checks if the collision is handled correctly on the two top right squares
      */
     @Test
-    void collisionsMoveTopRightTest() throws Exception {
+    void testCollisionsMoveTopRight() throws Exception {
         for (SquarePosition pos : topRight) {
             collisionMove(pos);
         }
@@ -157,7 +157,7 @@ public class MoveKnightTest {
      * Checks if the collision is handled correctly on the two bottom left squares
      */
     @Test
-    void collisionsMoveBottomLeftTest() throws Exception {
+    void testCollisionsMoveBottomLeft() throws Exception {
         for (SquarePosition pos : bottomLeft) {
             collisionMove(pos);
         }
@@ -167,7 +167,7 @@ public class MoveKnightTest {
      * Checks if the collision is handled correctly on the two bottom right squares
      */
     @Test
-    void collisionsMoveBottomRightTest() throws Exception {
+    void testCollisionsMoveBottomRight() throws Exception {
         for (SquarePosition pos : bottomRight) {
             collisionMove(pos);
         }

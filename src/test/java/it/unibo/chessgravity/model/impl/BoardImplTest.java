@@ -1,10 +1,13 @@
 package it.unibo.chessgravity.model.impl;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.Piece;
@@ -36,5 +39,19 @@ public class BoardImplTest {
 
         board.setPiece(piece1);
         board.setPiece(piece2);
+    }
+    
+    /**
+     * Checks if the board is created correctly
+     */
+    @Test
+    void testCreateBoard() {
+        // check obstacles
+        for (SquarePosition pos : obs) {
+            assertFalse(board.isSquareFree(pos));
+        }
+
+        assertFalse(board.isSquareFree(piece1.getPos()));
+        assertFalse(board.isSquareFree(piece2.getPos()));
     }
 }
