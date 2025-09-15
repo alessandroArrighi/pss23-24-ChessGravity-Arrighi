@@ -115,8 +115,7 @@ public class MoveKingTest {
     }
 
     /*
-     * Utility method for cheks if a collision works correctly. This provides a template
-     * to use for each type of movement
+     * Utility method that check if collisions with pieces and obstacles works correctly
      */
     private void collisionMove(final SquarePosition collision) throws Exception {
         Set<SquarePosition> obs = new HashSet<>();
