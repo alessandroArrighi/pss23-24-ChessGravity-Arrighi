@@ -147,4 +147,21 @@ public class BoardImplTest {
         assertNull(board.getPiece(obstacle));
     }
 
+    /**
+     * Checks if the board throws {@link SquareFullException} after attempting to
+     * move a piece in a square that is not valid.
+     * 
+     * Then, it verifies that the state has not changed.
+     */
+    @Test
+    void testIllegalDestination() {
+        // check illegal destination position
+        assertThrows(
+            IllegalSquarePositionException.class,
+            () -> { board.move(piece1.getPos(), illegalPos); }
+        );
+
+        assertEquals(board.getPiece(piece1.getPos()), piece1);
+    }
+
 }
