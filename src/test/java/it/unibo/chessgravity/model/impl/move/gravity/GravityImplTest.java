@@ -3,6 +3,7 @@ package it.unibo.chessgravity.model.impl.move.gravity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,4 +54,20 @@ public class GravityImplTest {
         
         assertEquals(gravity.gravity(start, board), start);
     }
+
+    /**
+     * Checks if the gravity works correctly with an obstacle in the middle
+     */
+    @Test
+    void testGravityOnObstacle() throws Exception {
+        final Set<SquarePosition> obs = new HashSet<>();
+        obs.add(new SquarePosition(defaultPosX, 1));
+        start = new SquarePosition(defaultPosX, defaultPosX);
+        dest = new SquarePosition(defaultPosX, 2);
+        board = new BoardImpl(LEN, LEN, obs);
+        board.setPiece(new PieceImpl(board, start, null, null));
+
+        assertEquals(gravity.gravity(start, board), dest);
+    }
+
 }
