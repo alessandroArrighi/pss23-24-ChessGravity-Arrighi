@@ -15,14 +15,14 @@ import it.unibo.chessgravity.model.impl.BoardImpl;
 import it.unibo.chessgravity.model.impl.PieceImpl;
 
 /**
- * Test class for BaseMoveAbstract class.
+ * Test class for {@link BaseMoveAbstract} class.
  */
 public class BaseMoveAbstractTest {
 
     /**
      * Movement mock class.
      * 
-     * This class implement the mock methods of the BaseMoveAbstract class.
+     * This class implement the mock methods of the {@link BaseMoveAbstract} class.
      */
     public class MoveMock extends BaseMoveAbstract {
 

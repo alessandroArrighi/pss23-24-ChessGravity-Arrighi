@@ -1,9 +1,7 @@
 package it.unibo.chessgravity.model.impl.move.base;
 
 import it.unibo.chessgravity.model.api.Board;
-import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.move.BaseMove;
-import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
