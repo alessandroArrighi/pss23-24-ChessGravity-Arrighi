@@ -132,4 +132,44 @@ public class MoveKnightTest {
         // Test collision with a piece
         assertFalse(move.move(start, collision, board));
     }
+
+    /**
+     * Checks if the collision is handled correctly on the two top left squares
+     */
+    @Test
+    void collisionsMoveTopLeftTest() throws Exception {
+        for (SquarePosition pos: topLeft) {
+            collisionMove(pos);
+        }
+    }
+
+    /**
+     * Checks if the collision is handled correctly on the two top right squares
+     */
+    @Test
+    void collisionsMoveTopRightTest() throws Exception {
+        for (SquarePosition pos : topRight) {
+            collisionMove(pos);
+        }
+    }
+
+    /**
+     * Checks if the collision is handled correctly on the two bottom left squares
+     */
+    @Test
+    void collisionsMoveBottomLeftTest() throws Exception {
+        for (SquarePosition pos : bottomLeft) {
+            collisionMove(pos);
+        }
+    }
+
+    /**
+     * Checks if the collision is handled correctly on the two bottom right squares
+     */
+    @Test
+    void collisionsMoveBottomRightTest() throws Exception {
+        for (SquarePosition pos : bottomRight) {
+            collisionMove(pos);
+        }
+    }
 }
