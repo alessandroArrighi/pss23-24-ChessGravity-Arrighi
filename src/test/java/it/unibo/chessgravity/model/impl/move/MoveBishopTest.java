@@ -109,4 +109,31 @@ public class MoveBishopTest {
         }
     }
 
+    @Test
+    void testCollisionsMoveTopLeft() throws Exception {
+        collisionMove(
+            new SquarePosition(start.getPosX() - 3, start.getPosY() + 3),
+            new SquarePosition(start.getPosX() - 4, start.getPosY() + 4));
+    }
+
+    @Test
+    void testCollisionsMoveTopRight() throws Exception {
+        collisionMove(
+            new SquarePosition(start.getPosX() + 3, start.getPosY() + 3),
+            new SquarePosition(start.getPosX() + 4, start.getPosY() + 4));
+    }
+
+    @Test
+    void testCollisionsMoveBottomLeft() throws Exception {
+        collisionMove(
+            new SquarePosition(start.getPosX() - 3, start.getPosY() - 3),
+            new SquarePosition(start.getPosX() - 4, start.getPosY() - 4));
+    }
+
+    @Test
+    void testCollisionsMoveBottomRight() throws Exception {
+        collisionMove(
+            new SquarePosition(start.getPosX() + 3, start.getPosY() - 3),
+            new SquarePosition(start.getPosX() + 4, start.getPosY() - 4));
+    }
 }
