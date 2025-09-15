@@ -57,6 +57,7 @@ public class MoveKing implements MovePiece {
             return false;
         }
 
-        return move.move(start, board) != null;
+        final SquarePosition res = move.move(start, board);
+        return dest.equals(res);
     }
 }
