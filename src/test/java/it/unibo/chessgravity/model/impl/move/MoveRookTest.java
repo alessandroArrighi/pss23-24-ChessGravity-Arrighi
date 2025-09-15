@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.model.impl.move;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -58,6 +59,27 @@ public class MoveRookTest {
         
         for (SquarePosition pos : dest) {
             assertTrue(move.move(start, pos, board));
+        }
+    }
+
+    /**
+     * Checks if handle correclty illegal movements
+     */
+    @Test
+    void testIllegalMove() {
+        dest.addAll(Arrays.asList(
+            // Move like a bishop
+            new SquarePosition(1, 1),
+            // Move like a night
+            new SquarePosition(7, 8),
+            // Move random
+            new SquarePosition(9, 3),
+            // Move outside the board
+            new SquarePosition(posX, posY + LEN)
+        ));
+
+        for (SquarePosition pos : dest) {
+            assertFalse(move.move(start, pos, board));
         }
     }
 
