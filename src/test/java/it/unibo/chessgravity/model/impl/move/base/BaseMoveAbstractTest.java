@@ -1,8 +1,11 @@
 package it.unibo.chessgravity.model.impl.move.base;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
@@ -49,4 +52,13 @@ public class BaseMoveAbstractTest {
         move = new MoveMock(endPos);
 
     }
+
+    /**
+     * Checks if the movement works correctly
+     */
+    @Test
+    void testMove() {
+        assertEquals(move.move(startPos, board), endPos);
+    }
+
 }
