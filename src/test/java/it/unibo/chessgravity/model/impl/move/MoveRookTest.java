@@ -30,6 +30,10 @@ public class MoveRookTest {
     private List<SquarePosition> dest;
     private int posX;
     private int posY;
+    private SquarePosition top;
+    private SquarePosition bottom;
+    private SquarePosition left;
+    private SquarePosition right;
 
     @BeforeEach
     void setup() {
@@ -39,6 +43,10 @@ public class MoveRookTest {
         dest = new ArrayList<>();
         posX = start.getPosX();
         posY = start.getPosY();
+        top = new SquarePosition(posX, posY + 3);
+        bottom = new SquarePosition(posX, posY - 3);
+        right = new SquarePosition(posX + 3, posY);
+        left = new SquarePosition(posX - 3, posY);
     }
 
     /**
@@ -48,13 +56,13 @@ public class MoveRookTest {
     void testSimpleMoves() {
         dest.addAll(Arrays.asList(
             // Move left
-            new SquarePosition(1, posY),
+            left,
             // Move right
-            new SquarePosition(1, posY),
+            right,
             // Move top
-            new SquarePosition(posX, 10),
+            top,
             // Move bottom
-            new SquarePosition(posX, 1),
+            bottom,
             // Don't move
             start
         ));
@@ -119,8 +127,8 @@ public class MoveRookTest {
     @Test
     void testCollisionsMoveTop() throws Exception {
         collisionMove(
-            new SquarePosition(posX, posY + 3),
-            new SquarePosition(posX, posY + 4));
+            top,
+            new SquarePosition(top.getPosX(), top.getPosY() + 1));
     }
 
     /**
@@ -129,8 +137,8 @@ public class MoveRookTest {
     @Test
     void testCollisionsMoveBottom() throws Exception {
         collisionMove(
-            new SquarePosition(posX, posY - 3),
-            new SquarePosition(posX, posY - 4));
+            bottom,
+            new SquarePosition(bottom.getPosX(), bottom.getPosY() - 1));
     }
 
     /**
@@ -139,8 +147,8 @@ public class MoveRookTest {
     @Test
     void testCollisionsMoveRight() throws Exception {
         collisionMove(
-            new SquarePosition(posX + 3, posY),
-            new SquarePosition(posX + 4, posY));
+            right,
+            new SquarePosition(right.getPosX() + 1, right.getPosY()));
     }
 
     /**
@@ -149,7 +157,7 @@ public class MoveRookTest {
     @Test
     void testCollisionsMoveLeft() throws Exception {
         collisionMove(
-            new SquarePosition(posX - 3, posY),
-            new SquarePosition(posX - 4, posY));
+            left,
+            new SquarePosition(left.getPosX() - 1, left.getPosY()));
     }
 }
