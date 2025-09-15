@@ -70,4 +70,18 @@ public class GravityImplTest {
         assertEquals(gravity.gravity(start, board), dest);
     }
 
+    /**
+     * Checks if the gravity works correctly with a piece in the middle
+     */
+    @Test
+    void testGravityOnPiece() throws Exception {
+        start = new SquarePosition(defaultPosX, defaultPosX);
+        dest = new SquarePosition(defaultPosX, 2);
+        board.setPiece(new PieceImpl(
+            board, new SquarePosition(defaultPosX, 1), null, null
+        ));
+        board.setPiece(new PieceImpl(board, start, null, null));
+
+        assertEquals(gravity.gravity(start, board), dest);
+    }
 }
