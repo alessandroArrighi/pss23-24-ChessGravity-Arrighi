@@ -109,6 +109,9 @@ public class MoveBishopTest {
         }
     }
 
+    /**
+     * Checks if the collision is handled correctly on top left
+     */
     @Test
     void testCollisionsMoveTopLeft() throws Exception {
         collisionMove(
@@ -116,6 +119,9 @@ public class MoveBishopTest {
             new SquarePosition(start.getPosX() - 4, start.getPosY() + 4));
     }
 
+    /**
+     * Checks if the collision is handled correctly on top right
+     */
     @Test
     void testCollisionsMoveTopRight() throws Exception {
         collisionMove(
@@ -123,6 +129,9 @@ public class MoveBishopTest {
             new SquarePosition(start.getPosX() + 4, start.getPosY() + 4));
     }
 
+    /**
+     * Checks if the collision is handled correctly on bottom left
+     */
     @Test
     void testCollisionsMoveBottomLeft() throws Exception {
         collisionMove(
@@ -130,6 +139,9 @@ public class MoveBishopTest {
             new SquarePosition(start.getPosX() - 4, start.getPosY() - 4));
     }
 
+    /**
+     * Checks if the collision is handled correctly on bottom right
+     */
     @Test
     void testCollisionsMoveBottomRight() throws Exception {
         collisionMove(
