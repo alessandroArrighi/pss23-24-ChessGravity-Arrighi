@@ -42,4 +42,15 @@ public class GravityImplTest {
 
         assertEquals(gravity.gravity(start, board), dest);
     }
+
+    /**
+     * Checks if the gravity works correctly with no movement
+     */
+    @Test
+    void testNoGravity() throws Exception {
+        start = new SquarePosition(defaultPosX, 1);
+        board.setPiece(new PieceImpl(board, start, null, null));
+        
+        assertEquals(gravity.gravity(start, board), start);
+    }
 }
