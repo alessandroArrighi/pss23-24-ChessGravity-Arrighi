@@ -112,4 +112,44 @@ public class MoveRookTest {
             assertFalse(move.move(start, pos, board));
         }
     }
+
+    /**
+     * Checks if the collision is handled correctly on top
+     */
+    @Test
+    void testCollisionsMoveTop() throws Exception {
+        collisionMove(
+            new SquarePosition(posX, posY + 3),
+            new SquarePosition(posX, posY + 4));
+    }
+
+    /**
+     * Checks if the collision is handled correctly on bottom
+     */
+    @Test
+    void testCollisionsMoveBottom() throws Exception {
+        collisionMove(
+            new SquarePosition(posX, posY - 3),
+            new SquarePosition(posX, posY - 4));
+    }
+
+    /**
+     * Checks if the collision is handled correctly on right
+     */
+    @Test
+    void testCollisionsMoveRight() throws Exception {
+        collisionMove(
+            new SquarePosition(posX + 3, posY),
+            new SquarePosition(posX + 4, posY));
+    }
+
+    /**
+     * Checks if the collision is handled correctly on left
+     */
+    @Test
+    void testCollisionsMoveLeft() throws Exception {
+        collisionMove(
+            new SquarePosition(posX - 3, posY),
+            new SquarePosition(posX - 4, posY));
+    }
 }
