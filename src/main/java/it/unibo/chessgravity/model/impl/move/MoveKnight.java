@@ -16,6 +16,9 @@ import it.unibo.chessgravity.model.impl.move.base.*;
  */
 public class MoveKnight implements MovePiece {
 
+    private final static int STEP = 2;
+
+
     private final BaseMove moveTop;
     private final BaseMove moveLeft;
     private final BaseMove moveRight;
@@ -34,8 +37,12 @@ public class MoveKnight implements MovePiece {
     public boolean move(SquarePosition start, SquarePosition dest, Board board) {
         final List<List<BaseMove>> moves = prepareMoves();
 
+        if (start.equals(dest)) {
+            return true;
+        }
+
         for (List<BaseMove> move : moves) {
-            var pos = move.get(0).move(start, board, 3);
+            var pos = move.get(0).move(start, board, STEP);
 
             for (int i = 1; i < move.size(); ++i) {
                 var finalPos = move.get(i).move(pos, board);

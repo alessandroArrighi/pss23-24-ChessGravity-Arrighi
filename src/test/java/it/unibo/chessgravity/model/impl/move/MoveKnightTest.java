@@ -1,11 +1,14 @@
 package it.unibo.chessgravity.model.impl.move;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.MovePiece;
@@ -13,9 +16,9 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
 
 /**
- * Test class for {@link MoveNight} class
+ * Test class for {@link MoveKnight} class
  */
-public class MoveNightTest {
+public class MoveKnightTest {
 
     private int LEN = 10;
     private MovePiece move;
@@ -60,5 +63,32 @@ public class MoveNightTest {
         ));
     }
 
-    
+    /**
+     * Checks if move works correctly
+     */
+    @Test
+    void testSimpleMove() {
+        dest.addAll(Arrays.asList(
+            // Move top left
+            topLeft.get(0),
+            topLeft.get(1),
+            // Move top right
+            topRight.get(0),
+            topRight.get(1),
+            // Move bottom left
+            bottomLeft.get(0),
+            bottomLeft.get(1),
+            // Move bottom right
+            bottomRight.get(0),
+            bottomRight.get(1),
+            // Don't move
+            start
+        ));
+        
+        for (SquarePosition pos : dest) {
+            System.out.println(pos);
+            assertTrue(move.move(start, pos, board));
+        }
+    }
+
 }
