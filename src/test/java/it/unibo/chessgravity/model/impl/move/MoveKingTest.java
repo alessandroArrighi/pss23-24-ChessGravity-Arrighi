@@ -132,4 +132,12 @@ public class MoveKingTest {
         // Test collision with a piece
         assertFalse(move.move(start, collision, board));
     }
+
+    /**
+     * Checks if the collision is handled correctly on top left
+     */
+    @Test
+    void testCollisionsMoveTopLeft() throws Exception {
+        collisionMove(topLeft);
+    }
 }
