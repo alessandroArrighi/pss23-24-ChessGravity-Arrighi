@@ -1,10 +1,14 @@
 package it.unibo.chessgravity.model.impl.move;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.MovePiece;
@@ -52,4 +56,36 @@ public class MoveKingTest {
         bottom = new SquarePosition(posX, posY - step);
         bottoRight = new SquarePosition(posX + step, posY - step);
     }
+    
+    /**
+     * Checks if all the moves work correctly
+     */
+    @Test
+    void testSimpleMove() {
+        dest.addAll(Arrays.asList(
+            // Move top left
+            topLeft,
+            // Move top
+            top,
+            // Move top right
+            topRight,
+            // Move left
+            left,
+            // Move right
+            right,
+            // Move bottom left
+            bottomLeft,
+            // Move bottom
+            bottom,
+            // Move bottom right
+            bottoRight,
+            // Don't move
+            start
+        ));
+        
+        for (SquarePosition pos : dest) {
+            assertTrue(move.move(start, pos, board));
+        }
+    }
+
 }
