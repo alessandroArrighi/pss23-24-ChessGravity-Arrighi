@@ -28,6 +28,12 @@ public class MoveBishopTest {
     private Board board;
     private SquarePosition start;
     private List<SquarePosition> dest;
+    private int posX;
+    private int posY;
+    private SquarePosition topLeft;
+    private SquarePosition topRight;
+    private SquarePosition bottomLeft;
+    private SquarePosition bottomRight;
 
     @BeforeEach
     void setup() {
@@ -35,6 +41,12 @@ public class MoveBishopTest {
         board = new BoardImpl(LEN, LEN, new HashSet<>());
         start = new SquarePosition(5, 5);
         dest = new ArrayList<>();
+        posX = start.getPosX();
+        posY = start.getPosY();
+        topLeft = new SquarePosition(posX - 3, posY + 3);
+        topRight = new SquarePosition(posX + 3, posY + 3);
+        bottomLeft = new SquarePosition(posX - 3, posY - 3);
+        bottomRight = new SquarePosition(posX + 3, posY - 3);
     }
 
     /**
@@ -44,13 +56,13 @@ public class MoveBishopTest {
     void testSimpleMoves() {
         dest.addAll(Arrays.asList(
             // Move top left
-            new SquarePosition(start.getPosX() - 3, start.getPosY() + 3),
+            topLeft,
             // Move top right
-            new SquarePosition(start.getPosX() + 3, start.getPosY() + 3),
+            topRight,
             // Move bottom left
-            new SquarePosition(start.getPosX() - 3, start.getPosY() - 3),
+            bottomLeft,
             // Move bottom right
-            new SquarePosition(start.getPosX() + 3, start.getPosY() - 3),
+            bottomRight,
             // Don't move
             start
         ));
@@ -67,7 +79,7 @@ public class MoveBishopTest {
     void testIllegalMove() {
         dest.addAll(Arrays.asList(
             // Move like a rook
-            new SquarePosition(start.getPosX(), 10),
+            new SquarePosition(posX, 10),
             // Move like a night
             new SquarePosition(7, 8),
             // Move random
@@ -115,8 +127,8 @@ public class MoveBishopTest {
     @Test
     void testCollisionsMoveTopLeft() throws Exception {
         collisionMove(
-            new SquarePosition(start.getPosX() - 3, start.getPosY() + 3),
-            new SquarePosition(start.getPosX() - 4, start.getPosY() + 4));
+            topLeft,
+            new SquarePosition(topLeft.getPosX() - 1, topLeft.getPosY() + 1));
     }
 
     /**
@@ -125,8 +137,8 @@ public class MoveBishopTest {
     @Test
     void testCollisionsMoveTopRight() throws Exception {
         collisionMove(
-            new SquarePosition(start.getPosX() + 3, start.getPosY() + 3),
-            new SquarePosition(start.getPosX() + 4, start.getPosY() + 4));
+            topRight,
+            new SquarePosition(topRight.getPosX() + 1, topRight.getPosY() + 1));
     }
 
     /**
@@ -135,8 +147,8 @@ public class MoveBishopTest {
     @Test
     void testCollisionsMoveBottomLeft() throws Exception {
         collisionMove(
-            new SquarePosition(start.getPosX() - 3, start.getPosY() - 3),
-            new SquarePosition(start.getPosX() - 4, start.getPosY() - 4));
+            bottomLeft,
+            new SquarePosition(bottomLeft.getPosX() - 1, bottomLeft.getPosY() - 1));
     }
 
     /**
@@ -145,7 +157,7 @@ public class MoveBishopTest {
     @Test
     void testCollisionsMoveBottomRight() throws Exception {
         collisionMove(
-            new SquarePosition(start.getPosX() + 3, start.getPosY() - 3),
-            new SquarePosition(start.getPosX() + 4, start.getPosY() - 4));
+            bottomRight,
+            new SquarePosition(bottomRight.getPosX() + 1, bottomRight.getPosY() - 1));
     }
 }
