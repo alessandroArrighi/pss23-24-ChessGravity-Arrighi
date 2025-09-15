@@ -92,11 +92,6 @@ public class BoardImpl implements Board {
         final SquarePiece destSquare;
         final Piece piece;
 
-        // This check prevents accidentally removing the piece from the board
-        if (start.equals(dest)) {
-            return;
-        }
-
         startSquare = getSquare(start);
         destSquare = getSquare(dest);
 
@@ -105,7 +100,12 @@ public class BoardImpl implements Board {
         if (piece == null) {
             throw new Exception("Piece not found at " + start);
         }
-        
+
+        // This check prevents accidentally removing the piece from the board
+        if (start.equals(dest)) {
+            return;
+        }
+
         destSquare.setPiece(piece);
         startSquare.setPiece(null);
     }
