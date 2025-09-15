@@ -114,4 +114,20 @@ public class BoardImplTest {
         assertFalse(board.isSquareFree(pos));
     }
 
+    /**
+     * Checks if throws {@link SquareFullException} with a piece collision.
+     * 
+     * Then, it verifies that the state has not changed.
+     */
+    @Test
+    void testPieceCollision() {
+        assertThrows(
+            SquareFullException.class,
+            () -> { board.move(piece1.getPos(), piece2.getPos()); }
+        );
+
+        assertEquals(board.getPiece(piece1.getPos()), piece1);
+        assertEquals(board.getPiece(piece2.getPos()), piece2);
+    }
+
 }
