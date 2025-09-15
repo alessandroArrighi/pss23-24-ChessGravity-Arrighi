@@ -140,4 +140,62 @@ public class MoveKingTest {
     void testCollisionsMoveTopLeft() throws Exception {
         collisionMove(topLeft);
     }
+
+    /**
+     * Checks if the collision is handled correctly on top
+     */
+    @Test
+    void testCollisionsMoveTop() throws Exception {
+        collisionMove(top);
+
+    }
+
+    /**
+     * Checks if the collision is handled correctly on top right
+     */
+    @Test
+    void testCollisionsMoveTopRight() throws Exception {
+        collisionMove(topRight);
+
+    }
+
+    /**
+     * Checks if the collision is handled correctly on left
+     */
+    @Test
+    void testCollisionsMoveLeft() throws Exception {
+        collisionMove(left);
+    }
+
+    /**
+     * Checks if the collision is handled correctly on right
+     */
+    @Test
+    void testCollisionsMoveRight() throws Exception {
+        collisionMove(right);
+    }
+
+    /**
+     * Checks if the collision is handled correctly on bottom left
+     */
+    @Test
+    void testCollisionsMoveBottomLeft() throws Exception {
+        collisionMove(bottomLeft);
+    }
+
+    /**
+     * Checks if the collision is handled correctly on bottom
+     */
+    @Test
+    void testCollisionsMoveBottom() throws Exception {
+        collisionMove(bottom);
+    }
+
+    /**
+     * Checks if the collision is handled correctly on bottom right
+     */
+    @Test
+    void testCollisionsMoveBottomRight() throws Exception {
+        collisionMove(bottoRight);
+    }
 }
