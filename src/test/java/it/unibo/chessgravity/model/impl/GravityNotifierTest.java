@@ -104,9 +104,15 @@ public class GravityNotifierTest {
      */
     @Test
     void testEmptyObservers() {
-        List<GravityObserver> res = notifier.notifyObservers(
-                new SquarePosition(posX + 10, posY));
+        final SquarePosition start = new SquarePosition(posX + 10, posY);
+        List<GravityObserver> res = notifier.notifyObservers(start);
         assertTrue(res.size() == 0);
+
+        final GravityObserver startObs = new GravityObserverMock(start);
+        observers.add(startObs);
+
+        res = notifier.notifyObservers(start);
+        assertFalse(res.contains(startObs));
     }
 
     /**
