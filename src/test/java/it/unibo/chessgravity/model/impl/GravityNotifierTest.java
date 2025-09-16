@@ -13,16 +13,23 @@ public class GravityNotifierTest {
      */
     public class GravityObserverMock implements GravityObserver {
 
+        private static SquarePosition result = new SquarePosition(0, 0);
+        
+        private SquarePosition pos;
+
+        public GravityObserverMock(final SquarePosition pos) {
+            this.pos = pos;
+        }
+
         @Override
         public void gravity() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'gravity'");
+            this.pos = result;
+            result = new SquarePosition(0, result.getPosY() + 1);
         }
 
         @Override
         public SquarePosition getPos() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'getPos'");
+            return this.pos;
         }
     }
 }
