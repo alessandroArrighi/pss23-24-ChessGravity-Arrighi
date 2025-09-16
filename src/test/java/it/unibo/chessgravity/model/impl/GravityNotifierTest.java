@@ -82,12 +82,12 @@ public class GravityNotifierTest {
      */
     @Test
     void testNotification() {
-        List<GravityObserver> expected = new ArrayList<>();
+        final List<GravityObserver> expected = new ArrayList<>();
         observers.stream()
         .filter(x -> x.getPos().getPosX() == 0)
         .forEach(x -> expected.add(x));
 
-        List<GravityObserver> res = notifier.notifyObservers(start);
+        final List<GravityObserver> res = notifier.notifyObservers(start);
 
         assertEquals(expected.size(), res.size());
 
@@ -105,14 +105,8 @@ public class GravityNotifierTest {
     @Test
     void testEmptyObservers() {
         final SquarePosition start = new SquarePosition(posX + 10, posY);
-        List<GravityObserver> res = notifier.notifyObservers(start);
+        final List<GravityObserver> res = notifier.notifyObservers(start);
         assertTrue(res.size() == 0);
-
-        final GravityObserver startObs = new GravityObserverMock(start);
-        observers.add(startObs);
-
-        res = notifier.notifyObservers(start);
-        assertFalse(res.contains(startObs));
     }
 
     /**
@@ -120,10 +114,10 @@ public class GravityNotifierTest {
      */
     @Test
     void testStartNotification() {
-        GravityObserver startObs = new GravityObserverMock(start);
+        final GravityObserver startObs = new GravityObserverMock(start);
         observers.add(startObs);
 
-        List<GravityObserver> res = notifier.notifyObservers(start);
+        final List<GravityObserver> res = notifier.notifyObservers(start);
         assertFalse(res.contains(startObs));
     }
 }
