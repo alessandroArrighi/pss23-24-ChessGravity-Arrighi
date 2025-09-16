@@ -75,8 +75,8 @@ public class BoardImplTest {
             new SquarePosition(5, 5),
             new SquarePosition(8, 2)
         ));
-        piece1 = new PieceImpl(board, new SquarePosition(2, 2), null, null);
-        piece2 = new PieceImpl(board, new SquarePosition(3, 6), null, null);
+        piece1 = new PieceMock(new SquarePosition(2, 2));
+        piece2 = new PieceMock(new SquarePosition(3, 6));
 
         board = new BoardImpl(LEN, LEN, obs);
 
@@ -108,7 +108,7 @@ public class BoardImplTest {
      */
     @Test
     void testIllegalPosition() {
-        final Piece piece = new PieceImpl(board, illegalPos, null, null);
+        final Piece piece = new PieceMock(illegalPos);
         assertThrows(IllegalSquarePositionException.class, () -> { board.setPiece(piece); });
 
         assertNull(board.getPiece(illegalPos));
@@ -123,12 +123,12 @@ public class BoardImplTest {
     @Test
     void testSquareFull() {
         // place p1Test in the same position of piece1
-        final Piece p1Test = new PieceImpl(board, piece1.getPos(), null, null);
+        final Piece p1Test = new PieceMock(piece1.getPos());
         assertThrows(SquareFullException.class, () -> { board.setPiece(p1Test); });
         assertEquals(board.getPiece(piece1.getPos()), piece1);
 
         // place the piece in the same position of an obstacle
-        final Piece p2Test = new PieceImpl(board, obstacle, null, null);
+        final Piece p2Test = new PieceMock(obstacle);
         assertThrows(SquareFullException.class, () -> { board.setPiece(p2Test); });
         assertNull(board.getPiece(obstacle));
     }
