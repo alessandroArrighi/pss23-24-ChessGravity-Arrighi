@@ -12,7 +12,7 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
-import it.unibo.chessgravity.model.impl.PieceImpl;
+import it.unibo.chessgravity.model.mocks.PieceMock;
 
 /**
  * Test class for {@link BaseMoveAbstract} class.
@@ -88,7 +88,7 @@ public class BaseMoveAbstractTest {
 
         // Piece collision
         board = new BoardImpl(LEN, LEN, new HashSet<>());
-        board.setPiece(new PieceImpl(board, endPos, null, null));
+        board.setPiece(new PieceMock(endPos));
         assertEquals(move.move(startPos, board), null);
     }
 }

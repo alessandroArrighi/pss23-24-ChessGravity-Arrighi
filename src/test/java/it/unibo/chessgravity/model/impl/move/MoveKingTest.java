@@ -16,7 +16,7 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
-import it.unibo.chessgravity.model.impl.PieceImpl;
+import it.unibo.chessgravity.model.mocks.PieceMock;
 
 /**
  * Test class for {@link MoveKing} class
@@ -126,7 +126,7 @@ public class MoveKingTest {
         assertFalse(move.move(start, collision, board));
 
         board = new BoardImpl(LEN, LEN, new HashSet<>());
-        board.setPiece(new PieceImpl(board, collision, move, null));
+        board.setPiece(new PieceMock(collision));
 
         // Test collision with a piece
         assertFalse(move.move(start, collision, board));

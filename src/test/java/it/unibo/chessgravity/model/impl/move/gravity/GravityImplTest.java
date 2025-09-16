@@ -12,7 +12,7 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.Gravity;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
-import it.unibo.chessgravity.model.impl.PieceImpl;
+import it.unibo.chessgravity.model.mocks.PieceMock;
 
 /**
  * Test class for the {@link GravityImpl} class
@@ -39,7 +39,7 @@ public class GravityImplTest {
     void testGravity() throws Exception {
         start = new SquarePosition(defaultPosX, defaultPosX);
         dest = new SquarePosition(defaultPosX, 1);
-        board.setPiece(new PieceImpl(board, start, null, null));
+        board.setPiece(new PieceMock(start));
 
         assertEquals(gravity.gravity(start, board), dest);
     }
@@ -50,7 +50,7 @@ public class GravityImplTest {
     @Test
     void testNoGravity() throws Exception {
         start = new SquarePosition(defaultPosX, 1);
-        board.setPiece(new PieceImpl(board, start, null, null));
+        board.setPiece(new PieceMock(start));
         
         assertEquals(gravity.gravity(start, board), start);
     }
@@ -65,7 +65,7 @@ public class GravityImplTest {
         start = new SquarePosition(defaultPosX, defaultPosX);
         dest = new SquarePosition(defaultPosX, 2);
         board = new BoardImpl(LEN, LEN, obs);
-        board.setPiece(new PieceImpl(board, start, null, null));
+        board.setPiece(new PieceMock(start));
 
         assertEquals(gravity.gravity(start, board), dest);
     }
@@ -77,10 +77,8 @@ public class GravityImplTest {
     void testGravityOnPiece() throws Exception {
         start = new SquarePosition(defaultPosX, defaultPosX);
         dest = new SquarePosition(defaultPosX, 2);
-        board.setPiece(new PieceImpl(
-            board, new SquarePosition(defaultPosX, 1), null, null
-        ));
-        board.setPiece(new PieceImpl(board, start, null, null));
+        board.setPiece(new PieceMock(new SquarePosition(defaultPosX, 1)));
+        board.setPiece(new PieceMock(start));
 
         assertEquals(gravity.gravity(start, board), dest);
     }
