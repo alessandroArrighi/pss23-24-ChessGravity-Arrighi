@@ -15,7 +15,7 @@ import it.unibo.chessgravity.model.utils.PieceSetting;
 public class MapImpl implements Map {
 
     private final Board board;
-    private final GravityNotifier notifier;
+    private final GravityObservable notifier;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
                     final int xLen, final int yLen, SquarePosition enemy)

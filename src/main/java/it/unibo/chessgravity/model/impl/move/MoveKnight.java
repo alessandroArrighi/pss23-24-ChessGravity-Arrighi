@@ -18,7 +18,6 @@ public class MoveKnight implements MovePiece {
 
     private final static int STEP = 2;
 
-
     private final BaseMove moveTop;
     private final BaseMove moveLeft;
     private final BaseMove moveRight;
@@ -42,10 +41,10 @@ public class MoveKnight implements MovePiece {
         }
 
         for (List<BaseMove> move : moves) {
-            var pos = move.get(0).move(start, board, STEP);
+            SquarePosition pos = move.get(0).move(start, board, STEP);
 
             for (int i = 1; i < move.size(); ++i) {
-                var finalPos = move.get(i).move(pos, board);
+                SquarePosition finalPos = move.get(i).move(pos, board);
                 if (dest.equals(finalPos) && BaseMoveAbstract.checkMove(finalPos, board)) {
                     return true;
                 }
