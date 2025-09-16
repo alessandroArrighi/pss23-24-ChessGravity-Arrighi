@@ -42,6 +42,10 @@ public class GravityNotifierTest {
         public SquarePosition getPos() {
             return this.pos;
         }
+
+        public static void resetResult() {
+            result = new SquarePosition(0, 0);
+        }
     }
     
     private GravityObservable notifier;
@@ -52,6 +56,8 @@ public class GravityNotifierTest {
 
     @BeforeEach
     void setup() {
+        GravityObserverMock.resetResult();
+
         posX = 0;
         posY = 4;
         start = new SquarePosition(posX, posY);

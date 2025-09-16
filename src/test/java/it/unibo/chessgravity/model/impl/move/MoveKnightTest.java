@@ -89,7 +89,6 @@ public class MoveKnightTest {
         ));
         
         for (SquarePosition pos : dest) {
-            System.out.println(pos);
             assertTrue(move.move(start, pos, board));
         }
     }
