@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,5 +96,15 @@ public class GravityNotifierTest {
             // checks if the current element is at the right position
             assertEquals(res.get(i).getPos().getPosY(), i);
         }
+    }
+
+    /**
+     * Checks that no observer is notified when there is no observer at the given position
+     */
+    @Test
+    void testEmptyObservers() {
+        List<GravityObserver> res = notifier.notifyObservers(
+                new SquarePosition(posX + 10, posY));
+        assertTrue(res.size() == 0);
     }
 }
