@@ -1,5 +1,11 @@
 package it.unibo.chessgravity.model.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+
+import it.unibo.chessgravity.model.api.GravityObservable;
 import it.unibo.chessgravity.model.api.GravityObserver;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -31,5 +37,28 @@ public class GravityNotifierTest {
         public SquarePosition getPos() {
             return this.pos;
         }
+    }
+    
+    private GravityObservable notifier;
+    private List<GravityObserver> observers;
+    private SquarePosition start;
+    private int posX;
+    private int posY;
+
+    @BeforeEach
+    void setup() {
+        posX = 0;
+        posY = 4;
+        start = new SquarePosition(posX, posY);
+        observers = new ArrayList<>();
+
+        for (int i = posY + 1; i < posY + 4; ++i) {
+            observers.add(new GravityObserverMock(
+                new SquarePosition(posX, i)
+            ));
+        }
+
+        notifier = new GravityNotifier();
+        notifier.subscribeAll(observers);
     }
 }
