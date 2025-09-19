@@ -34,4 +34,12 @@ public class PieceViewImpl implements EntityView {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPosition'");
     }
+
+    @FXML
+    public void initialize() {
+        piece.setWidth(size);
+        piece.setHeight(size);
+        piece.setX(pos.getPosX());
+        piece.setY(pos.getPosY());
+    }
 }
