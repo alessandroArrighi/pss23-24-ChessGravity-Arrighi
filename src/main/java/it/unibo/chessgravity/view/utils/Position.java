@@ -9,12 +9,20 @@ import it.unibo.chessgravity.view.api.EntityView;
  * This also handle the conversion from and to {@link SquarePosition}
  */
 public class Position {
+
+    private final double posX;
+    private final double posY;
+
+    public Position(final double posX, final double posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
     
     public double getPosX() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPosX'");
+        return posX;
     }
 
     public double getPosY() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPosY'");
+        return posY;
     }
 }
