@@ -1,4 +1,4 @@
-package it.unibo.chessgravity.view;
+package it.unibo.chessgravity.view.impl;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.view.api.ChessGravityView;
