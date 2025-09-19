@@ -1,5 +1,7 @@
 package it.unibo.chessgravity.view.impl;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
@@ -9,6 +11,7 @@ import it.unibo.chessgravity.view.api.ChessGravityView;
 import it.unibo.chessgravity.view.api.EntityView;
 import it.unibo.chessgravity.view.utils.Position;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -26,7 +29,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private Group squares;
     
     @FXML
-    private Group pieces;
+    private Group piecesGroup;
 
     private EntityView move;
     private final int entitySize;
@@ -34,6 +37,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private final int yLen;
     private final Set<PieceSetting> pieceSettings;
     private final Set<SquarePosition> obs;
+    private final Set<EntityView> pieces;
 
     public ChessGravityViewImpl(final int entitySize, final int xLen, final int yLen,
                                 final Set<PieceSetting> pieces, final Set<SquarePosition> obs) {
@@ -41,8 +45,9 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         this.entitySize = entitySize;
         this.xLen = xLen;
         this.yLen = yLen;
-        pieceSettings = pieces;
+        this.pieceSettings = pieces;
         this.obs = obs;
+        this.pieces = new HashSet<>();
     }
 
     @Override
@@ -79,8 +84,33 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         }
     }
 
+    private void createPieces() throws IOException {
+        for (PieceSetting piece : pieceSettings) {
+            FXMLLoader loader = new FXMLLoader(
+                ClassLoader.getSystemResource("layouts/PieceGui.fxml")
+            );
+
+            loader.setControllerFactory(x -> {
+                if (x == PieceViewImpl.class) {
+                    return new PieceViewImpl(Position.toPosition(piece.getPos()), entitySize);
+                }
+
+                throw new RuntimeException("Cannot create " + PieceViewImpl.class + ". "
+                                            + x.getClass() + " cannot be converted to type "
+                                            + PieceViewImpl.class);
+            });
+
+            pieces.add(loader.getController());
+            
+            piecesGroup.getChildren().add(
+                loader.load()
+            );
+        }
+    }
+
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         createBoard();
+        createPieces();
     }
 }
