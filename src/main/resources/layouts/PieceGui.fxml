@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Group 
+    xmlns="http://javafx.com/javafx/8" 
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="it.unibo.chessgravity.view.impl.PieceViewImpl" >
+
+    <children>
+        <Rectangle fx:id="piece" />
+    </children>
+</Group>
