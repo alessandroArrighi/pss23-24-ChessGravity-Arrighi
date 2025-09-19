@@ -11,6 +11,8 @@ import it.unibo.chessgravity.view.api.EntityView;
  */
 public class Position {
 
+    private static final int MIN_LEN = BoardImpl.MIN_LEN;
+
     private static int size;
     private static double startX;
     private static double startY;
@@ -36,8 +38,8 @@ public class Position {
         final double deltaY = posY - startY;
 
         return new SquarePosition(
-            (int) (deltaX / size) + BoardImpl.MIN_LEN,
-            (int) (deltaY / size) + BoardImpl.MIN_LEN
+            (int) (deltaX / size) + MIN_LEN,
+            (int) (deltaY / size) + MIN_LEN
         );
     }
 
@@ -53,5 +55,11 @@ public class Position {
         Position.size = size;
         startX = x;
         startY = y;
+    }
+
+    public static Position toPosition(SquarePosition pos) {
+        return new Position(
+            (pos.getPosX() - MIN_LEN) * size,
+            (pos.getPosY() - MIN_LEN) * size);
     }
 }
