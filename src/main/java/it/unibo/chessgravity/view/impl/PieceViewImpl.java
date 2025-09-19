@@ -2,6 +2,8 @@ package it.unibo.chessgravity.view.impl;
 
 import it.unibo.chessgravity.view.api.EntityView;
 import it.unibo.chessgravity.view.utils.Position;
+import javafx.fxml.FXML;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Entity class that implements the {@link EntityView} interface.
@@ -10,10 +12,15 @@ import it.unibo.chessgravity.view.utils.Position;
  */
 public class PieceViewImpl implements EntityView {
 
-    @Override
-    public void setSize(int size) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setSize'");
+    private Position pos;
+    private int size;
+
+    @FXML
+    private Rectangle piece;
+
+    public PieceViewImpl(Position pos, int size) {
+        this.pos = pos;
+        this.size = size;
     }
 
     @Override
@@ -27,5 +34,4 @@ public class PieceViewImpl implements EntityView {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPosition'");
     }
-    
 }

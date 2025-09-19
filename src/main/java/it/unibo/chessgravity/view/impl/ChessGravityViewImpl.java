@@ -6,8 +6,6 @@ import it.unibo.chessgravity.view.api.ChessGravityView;
 import it.unibo.chessgravity.view.api.EntityView;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.shape.Rectangle;
 
 /**
  * FXML Controller that handle the ChessGravity view
