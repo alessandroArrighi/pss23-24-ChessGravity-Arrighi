@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.view.utils;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.impl.BoardImpl;
 import it.unibo.chessgravity.view.api.EntityView;
 
 /**
@@ -28,6 +29,16 @@ public class Position {
 
     public double getPosY() {
         return posY;
+    }
+
+    public SquarePosition toSquarePosition() {
+        final double deltaX = posX - startX;
+        final double deltaY = posY - startY;
+
+        return new SquarePosition(
+            (int) (deltaX / size) + BoardImpl.MIN_LEN,
+            (int) (deltaY / size) + BoardImpl.MIN_LEN
+        );
     }
 
     /**
