@@ -10,6 +10,10 @@ import it.unibo.chessgravity.view.api.EntityView;
  */
 public class Position {
 
+    private static int size;
+    private static double startX;
+    private static double startY;
+
     private final double posX;
     private final double posY;
 
@@ -24,5 +28,19 @@ public class Position {
 
     public double getPosY() {
         return posY;
+    }
+
+    /**
+     * This method setup the static fields for handle the calculation of the position of each
+     * entity of the game. This method it must be called before the start of the game.
+     * 
+     * @param size the size (width and height) of the entitys of the game
+     * @param x the start x position of the board
+     * @param y the start y position of the board
+     */
+    public static void setup(final int size, final double x, final double y) {
+        Position.size = size;
+        startX = x;
+        startY = y;
     }
 }
