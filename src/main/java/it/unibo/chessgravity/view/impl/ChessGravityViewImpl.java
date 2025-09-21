@@ -42,7 +42,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
     public ChessGravityViewImpl(final int entitySize, final int xLen, final int yLen,
                                 final Set<PieceSetting> pieces, final Set<SquarePosition> obs) {
-        Position.setup(entitySize, xLen, yLen);
+        Position.setup(yLen, entitySize, 0, 0);
         this.entitySize = entitySize;
         this.xLen = xLen;
         this.yLen = yLen;
@@ -122,10 +122,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
             return;
         }
 
-        final Position pos = new Position(
-                                ((int) e.getX() / entitySize) * entitySize,
-                                ((int) e.getY() / entitySize) * entitySize
-                            );
+        final Position pos = new Position(e.getX(), e.getY());
 
                             
         if (!pos.equals(move.getPosition())) {

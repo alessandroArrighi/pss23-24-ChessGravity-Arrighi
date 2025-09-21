@@ -13,6 +13,7 @@ public class Position {
 
     private static final int MIN_LEN = BoardImpl.MIN_LEN;
 
+    private static int yLen;
     private static int size;
     private static double startX;
     private static double startY;
@@ -21,8 +22,8 @@ public class Position {
     private final double posY;
 
     public Position(final double posX, final double posY) {
-        this.posX = posX;
-        this.posY = posY;
+        this.posX = ((int) posX / size) * size;
+        this.posY = ((int) posY / size) * size;
     }
     
     public double getPosX() {
@@ -38,8 +39,8 @@ public class Position {
         final double deltaY = posY - startY;
 
         return new SquarePosition(
-            (int) (deltaX / size) + MIN_LEN,
-            (int) (deltaY / size) + MIN_LEN
+            ((int) (deltaX / size) + MIN_LEN),
+            Math.abs(yLen - ((int) (deltaY / size)))
         );
     }
 
@@ -51,16 +52,20 @@ public class Position {
      * @param x the start x position of the board
      * @param y the start y position of the board
      */
-    public static void setup(final int size, final double x, final double y) {
+    public static void setup(final int yLen, final int size, final double x, final double y) {
+        Position.yLen = yLen;
         Position.size = size;
         startX = x;
         startY = y;
     }
 
     public static Position toPosition(SquarePosition pos) {
+        final SquarePosition convPos = new SquarePosition(
+            pos.getPosX(), yLen - pos.getPosY()
+        );
         return new Position(
-            (pos.getPosX() - MIN_LEN) * size,
-            (pos.getPosY() - MIN_LEN) * size);
+            (convPos.getPosX() - MIN_LEN) * size,
+            (convPos.getPosY()) * size);
     }
 
     @Override
