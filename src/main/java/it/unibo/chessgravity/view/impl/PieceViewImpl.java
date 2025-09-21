@@ -34,6 +34,7 @@ public class PieceViewImpl implements EntityView {
 
     @Override
     public void setPosition(Position newPos) {
+        this.pos = newPos;
         piece.setX(newPos.getPosX());
         piece.setY(newPos.getPosY());
     }

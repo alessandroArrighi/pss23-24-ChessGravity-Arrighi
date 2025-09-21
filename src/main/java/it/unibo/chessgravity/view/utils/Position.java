@@ -62,4 +62,16 @@ public class Position {
             (pos.getPosX() - MIN_LEN) * size,
             (pos.getPosY() - MIN_LEN) * size);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Position)) {
+            return false;
+        }
+
+        Position pos = (Position) obj;
+
+        return Double.compare(pos.getPosX(), this.posX) == 0 &&
+                Double.compare(pos.getPosY(), this.posY) == 0;
+    }
 }
