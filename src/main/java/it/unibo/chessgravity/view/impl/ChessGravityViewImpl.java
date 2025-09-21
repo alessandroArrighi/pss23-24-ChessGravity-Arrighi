@@ -13,6 +13,7 @@ import it.unibo.chessgravity.view.utils.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
@@ -112,5 +113,23 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     public void initialize() throws IOException {
         createBoard();
         createPieces();
+    }
+
+
+    @FXML
+    public void onMousePressed(MouseEvent e) {
+        if (move == null) {
+            return;
+        }
+
+        final Position pos = new Position(
+                                ((int) e.getX() / entitySize) * entitySize,
+                                ((int) e.getY() / entitySize) * entitySize
+                            );
+
+                            
+        if (!pos.equals(move.getPosition())) {
+            move.setPosition(pos);
+        }
     }
 }
