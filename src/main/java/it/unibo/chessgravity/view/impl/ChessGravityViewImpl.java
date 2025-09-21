@@ -92,7 +92,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
             loader.setControllerFactory(x -> {
                 if (x == PieceViewImpl.class) {
-                    return new PieceViewImpl(Position.toPosition(piece.getPos()), entitySize);
+                    return new PieceViewImpl(Position.toPosition(piece.getPos()), entitySize, this);
                 }
 
                 throw new RuntimeException("Cannot create " + PieceViewImpl.class + ". "

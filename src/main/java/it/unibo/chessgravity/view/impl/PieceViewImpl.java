@@ -1,8 +1,10 @@
 package it.unibo.chessgravity.view.impl;
 
+import it.unibo.chessgravity.view.api.BoardView;
 import it.unibo.chessgravity.view.api.EntityView;
 import it.unibo.chessgravity.view.utils.Position;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -14,19 +16,20 @@ public class PieceViewImpl implements EntityView {
 
     private Position pos;
     private int size;
+    private final BoardView board;
 
     @FXML
     private Rectangle piece;
 
-    public PieceViewImpl(Position pos, int size) {
+    public PieceViewImpl(Position pos, int size, BoardView board) {
         this.pos = pos;
         this.size = size;
+        this.board = board;
     }
 
     @Override
     public Position getPosition() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+        return pos;
     }
 
     @Override
@@ -41,5 +44,12 @@ public class PieceViewImpl implements EntityView {
         piece.setHeight(size);
         piece.setX(pos.getPosX());
         piece.setY(pos.getPosY());
+
+        piece.setFill(Paint.valueOf("#dd9b00"));
+    }
+
+    @FXML
+    public void onMousePressed() {
+        board.setMove(this);
     }
 }
