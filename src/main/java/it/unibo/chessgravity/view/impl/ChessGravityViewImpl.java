@@ -191,4 +191,14 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
             observer.move(move.getPosition(), pos);
         }
     }
+
+    @FXML
+    public void restart() {
+        observer.restart();
+    }
+
+    @FXML
+    public void quit() {
+        observer.quit();
+    }
 }
