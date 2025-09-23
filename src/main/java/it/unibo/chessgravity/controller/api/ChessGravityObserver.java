@@ -1,4 +1,4 @@
-package it.unibo.chessgravity.view.api;
+package it.unibo.chessgravity.controller.api;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
