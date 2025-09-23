@@ -14,6 +14,7 @@ import it.unibo.chessgravity.view.api.ChessGravityView;
 import it.unibo.chessgravity.view.impl.ChessGravityViewImpl;
 import it.unibo.chessgravity.view.utils.Position;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -85,5 +86,22 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
             e.printStackTrace();
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public void restart() {
+        System.out.println("Restarting...");
+        try {
+            this.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void quit() {
+        System.out.println("Exiting...");
+        Platform.exit();
     }
 }

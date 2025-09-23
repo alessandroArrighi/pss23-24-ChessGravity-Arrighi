@@ -7,4 +7,8 @@ import it.unibo.chessgravity.view.utils.Position;
  */
 public interface ChessGravityObserver {
     void move(Position start, Position dest);
+
+    void restart();
+
+    void quit();
 }
