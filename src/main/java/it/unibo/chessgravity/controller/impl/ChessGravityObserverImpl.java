@@ -72,7 +72,14 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
 
     @Override
     public void move(SquarePosition start, SquarePosition dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        try {
+            Set<PieceSetting> res = model.move(start, dest);
+            if (res != null) {
+                view.move(res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 }
