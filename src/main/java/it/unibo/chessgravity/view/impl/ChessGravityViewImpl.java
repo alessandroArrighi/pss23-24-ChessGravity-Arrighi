@@ -3,6 +3,7 @@ package it.unibo.chessgravity.view.impl;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
@@ -55,14 +56,27 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
     @Override
     public void move(final Set<PieceSetting> gravityPieces) {
-        // Get the position x position where the moved piece started.
+        // Get the x position where the moved piece started.
         final int posX = move.getPosition()
                         .toSquarePosition()
                         .getPosX();
 
-        final PieceSetting gravityDest = gravityPieces.stream()
-            .filter(x -> x.getPos().getPosX() != posX).findFirst().get();
-        move.move(moveDest, Position.toPosition(gravityDest.getPos()));
+        /*
+         * Try to get the only piece != posX and move it with gravity.
+         * 
+         * If no element is found it's because the piece is moving vertically 
+         * (x position will be the same) so the gravity will be called in the 
+         * loop with the others pieces.
+         */
+        try {
+            final PieceSetting gravityDest = gravityPieces.stream()
+                .filter(x -> x.getPos().getPosX() != posX).findFirst().get();
+            
+            move.move(moveDest, Position.toPosition(gravityDest.getPos()));
+            gravityPieces.remove(gravityDest);
+        } catch (NoSuchElementException e) {
+            move.move(moveDest, moveDest);
+        }
 
         /*
          * Take the pieces and filter only the pieces that in x position equal to

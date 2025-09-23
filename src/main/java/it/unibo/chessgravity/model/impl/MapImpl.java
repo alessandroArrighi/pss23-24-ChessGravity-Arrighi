@@ -85,6 +85,8 @@ public class MapImpl implements Map {
             x -> movedPieces.add(((Piece) x).info())
         );
 
+        movedPieces.add(piece.info());
+
         return movedPieces;
     }
 }
