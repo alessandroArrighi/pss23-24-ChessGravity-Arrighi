@@ -59,7 +59,10 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         final int posX = move.getPosition()
                         .toSquarePosition()
                         .getPosX();
-        move.setPosition(moveDest);
+
+        final PieceSetting gravityDest = gravityPieces.stream()
+            .filter(x -> x.getPos().getPosX() != posX).findFirst().get();
+        move.move(moveDest, Position.toPosition(gravityDest.getPos()));
 
         /*
          * Take the pieces and filter only the pieces that in x position equal to
@@ -76,19 +79,15 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
             return Double.compare(b.getPosition().getPosY(), a.getPosition().getPosY());
         }).toList();
 
-        /*
-         * Remove from the destination list the piece that has been moved.
-         * Sort the list in ascending order
-         */
+        // Sort the list in ascending order
         List<PieceSetting> dest = gravityPieces.stream()
-        .filter(x -> x.getPos().getPosX() == posX)
         .sorted((a, b) -> {
             return Integer.compare(a.getPos().getPosY(), b.getPos().getPosY());
         }).toList();
 
         // loop to gravity all the pieces
         for(int i = 0; i < dest.size(); ++i) {
-            start.get(i).setPosition(Position.toPosition(dest.get(i).getPos()));
+            start.get(i).gravity(Position.toPosition(dest.get(i).getPos()));
         }
     }
 

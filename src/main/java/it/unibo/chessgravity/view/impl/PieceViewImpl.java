@@ -33,10 +33,14 @@ public class PieceViewImpl implements EntityView {
     }
 
     @Override
-    public void setPosition(Position newPos) {
+    public void gravity(Position newPos) {
         this.pos = newPos;
-        piece.setX(newPos.getPosX());
-        piece.setY(newPos.getPosY());
+    }
+
+    @Override
+    public void move(Position pos, Position gravityPosition) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
 
     @FXML

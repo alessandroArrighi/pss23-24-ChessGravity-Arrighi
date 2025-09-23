@@ -8,5 +8,7 @@ import it.unibo.chessgravity.view.utils.Position;
 public interface EntityView {
     Position getPosition();
     
-    void setPosition(Position pos);
+    void gravity(Position pos);
+
+    void move(Position pos, Position gravityPosition);
 }
