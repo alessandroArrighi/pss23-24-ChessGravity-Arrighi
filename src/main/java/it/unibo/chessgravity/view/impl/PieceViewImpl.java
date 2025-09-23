@@ -3,9 +3,14 @@ package it.unibo.chessgravity.view.impl;
 import it.unibo.chessgravity.view.api.BoardView;
 import it.unibo.chessgravity.view.api.EntityView;
 import it.unibo.chessgravity.view.utils.Position;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * Entity class that implements the {@link EntityView} interface.
@@ -33,7 +38,17 @@ public class PieceViewImpl implements EntityView {
     }
 
     @Override
-    public void gravity(Position newPos) {
+    public void gravity(Position newPos) {        
+        final Timeline timeline = new Timeline();
+        final KeyValue kvX = new KeyValue(piece.xProperty(), newPos.getPosX());
+        final KeyValue kvY = new KeyValue(piece.yProperty(), newPos.getPosY());
+        final KeyFrame kf = new KeyFrame(Duration.millis(400), kvX, kvY);
+        timeline.getKeyFrames().add(kf);
+
+        final PauseTransition dealy = new PauseTransition(Duration.millis(200));
+        dealy.setOnFinished(x -> timeline.play());
+        
+        dealy.play();
         this.pos = newPos;
     }
 
