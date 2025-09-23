@@ -2,6 +2,7 @@ package it.unibo.chessgravity.view.impl;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
@@ -33,13 +34,14 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private Group piecesGroup;
 
     private EntityView move;
+    private Position moveDest;
     private final int entitySize;
     private final int xLen;
     private final int yLen;
     private final Set<PieceSetting> pieceSettings;
     private final Set<SquarePosition> obs;
     private final Set<EntityView> pieces;
-
+    
     public ChessGravityViewImpl(final int entitySize, final int xLen, final int yLen,
                                 final Set<PieceSetting> pieces, final Set<SquarePosition> obs) {
         Position.setup(yLen, entitySize, 0, 0);
@@ -52,9 +54,42 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     }
 
     @Override
-    public void move(SquarePosition start, SquarePosition dest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+    public void move(final Set<PieceSetting> gravityPieces) {
+        // Get the position x position where the moved piece started.
+        final int posX = move.getPosition()
+                        .toSquarePosition()
+                        .getPosX();
+        move.setPosition(moveDest);
+
+        /*
+         * Take the pieces and filter only the pieces that in x position equal to
+         * the x position of the moved piece.
+         * After that sort the list in ascending order
+         */
+        List<EntityView> start = this.pieces.stream()
+        .filter(
+            x -> posX == 
+                x.getPosition()
+                    .toSquarePosition()
+                    .getPosX())
+        .sorted((a, b) -> {
+            return Double.compare(b.getPosition().getPosY(), a.getPosition().getPosY());
+        }).toList();
+
+        /*
+         * Remove from the destination list the piece that has been moved.
+         * Sort the list in ascending order
+         */
+        List<PieceSetting> dest = gravityPieces.stream()
+        .filter(x -> x.getPos().getPosX() == posX)
+        .sorted((a, b) -> {
+            return Integer.compare(a.getPos().getPosY(), b.getPos().getPosY());
+        }).toList();
+
+        // loop to gravity all the pieces
+        for(int i = 0; i < dest.size(); ++i) {
+            start.get(i).setPosition(Position.toPosition(dest.get(i).getPos()));
+        }
     }
 
     @Override
@@ -101,11 +136,11 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
                                             + PieceViewImpl.class);
             });
 
-            pieces.add(loader.getController());
-            
             piecesGroup.getChildren().add(
                 loader.load()
             );
+            
+            pieces.add(loader.getController());
         }
     }
 
@@ -124,9 +159,9 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
         final Position pos = new Position(e.getX(), e.getY());
 
-                            
         if (!pos.equals(move.getPosition())) {
-            move.setPosition(pos);
+            moveDest = pos;
+            // call the controller for the position
         }
     }
 }
