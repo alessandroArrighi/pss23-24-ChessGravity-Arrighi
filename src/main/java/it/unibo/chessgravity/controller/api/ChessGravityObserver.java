@@ -1,10 +1,10 @@
 package it.unibo.chessgravity.controller.api;
 
-import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.view.utils.Position;
 
 /**
  * Interface that maps the controller for binding the view with the model
  */
 public interface ChessGravityObserver {
-    void move(SquarePosition start, SquarePosition dest);
+    void move(Position start, Position dest);
 }

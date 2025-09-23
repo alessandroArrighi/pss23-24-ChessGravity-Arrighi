@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import it.unibo.chessgravity.controller.api.ChessGravityObserver;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 import it.unibo.chessgravity.view.api.BoardView;
@@ -36,6 +37,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
     private EntityView move;
     private Position moveDest;
+    private ChessGravityObserver observer;
     private final int entitySize;
     private final int xLen;
     private final int yLen;
@@ -110,6 +112,11 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         this.move = piece;
     }
 
+    @Override
+    public void setObserver(final ChessGravityObserver observer) {
+        this.observer = observer;
+    }
+
     private void createBoard() {
         for (int col = 0; col < yLen; ++col) {
             final String odd = col % 2 != 0 ? light : dark;
@@ -174,7 +181,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
         if (!pos.equals(move.getPosition())) {
             moveDest = pos;
-            // call the controller for the position
+            observer.move(move.getPosition(), pos);
         }
     }
 }

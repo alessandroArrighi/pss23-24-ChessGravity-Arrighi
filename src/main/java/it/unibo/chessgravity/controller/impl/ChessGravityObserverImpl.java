@@ -12,6 +12,7 @@ import it.unibo.chessgravity.model.utils.PieceSetting;
 import it.unibo.chessgravity.model.utils.PieceType;
 import it.unibo.chessgravity.view.api.ChessGravityView;
 import it.unibo.chessgravity.view.impl.ChessGravityViewImpl;
+import it.unibo.chessgravity.view.utils.Position;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -68,12 +69,15 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
         primaryStage.show();
 
         view = loader.getController();
+        view.setObserver(this);
     }
 
     @Override
-    public void move(SquarePosition start, SquarePosition dest) {
+    public void move(Position start, Position dest) {
         try {
-            Set<PieceSetting> res = model.move(start, dest);
+            final Set<PieceSetting> res = model.move(
+                start.toSquarePosition(), dest.toSquarePosition()
+            );
             if (res != null) {
                 view.move(res);
             }
