@@ -1,10 +1,20 @@
 package it.unibo.chessgravity.controller.impl;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import it.unibo.chessgravity.controller.api.ChessGravityObserver;
 import it.unibo.chessgravity.model.api.Map;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.impl.MapImpl;
+import it.unibo.chessgravity.model.utils.PieceSetting;
+import it.unibo.chessgravity.model.utils.PieceType;
 import it.unibo.chessgravity.view.api.ChessGravityView;
+import it.unibo.chessgravity.view.impl.ChessGravityViewImpl;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -12,19 +22,52 @@ import javafx.stage.Stage;
  */
 public class ChessGravityObserverImpl extends Application implements ChessGravityObserver {
 
+    private static final String title = "Chess Gravity";
+    private static final boolean resizableWindow = false;
+
     private Map model;
     private ChessGravityView view;
 
     @Override
-    public void init() throws Exception {
-        // TODO Auto-generated method stub
-        super.init();
-    }
-
-    @Override
     public void start(Stage primaryStage) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'start'");
+        final Set<PieceSetting> pieces = new HashSet<>();
+        final Set<SquarePosition> obs = new HashSet<>();
+        final int len = 10;
+        final int size = 50;
+
+        pieces.addAll(Arrays.asList(
+                new PieceSetting(new SquarePosition(1, 1), PieceType.ROOK),
+                new PieceSetting(new SquarePosition(2, 2), PieceType.KNIGHT),
+                new PieceSetting(new SquarePosition(3, 3), PieceType.BISHOP)
+            ));
+
+        obs.addAll(Arrays.asList(
+            new SquarePosition(2, 4),
+            new SquarePosition(3, 4),
+            new SquarePosition(4, 4),
+            new SquarePosition(7, 4),
+            new SquarePosition(8, 4),
+            new SquarePosition(9, 4)
+        ));
+
+        model = new MapImpl(pieces, obs, len, len, new SquarePosition(len, len));
+
+        FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("layouts/MainGui.fxml"));
+        
+        loader.setControllerFactory((cls) -> {
+            if (cls == ChessGravityViewImpl.class) {
+                return new ChessGravityViewImpl(size, len, len, pieces, obs);
+            }
+
+            throw new RuntimeException("Cannot find " + ChessGravityView.class);
+        });
+
+        primaryStage.setScene(new Scene(loader.load()));
+        primaryStage.setTitle(title);
+        primaryStage.setResizable(resizableWindow);
+        primaryStage.show();
+
+        view = loader.getController();
     }
 
     @Override
