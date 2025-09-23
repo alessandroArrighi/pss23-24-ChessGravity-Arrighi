@@ -16,6 +16,7 @@ import it.unibo.chessgravity.view.utils.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -34,6 +35,12 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     
     @FXML
     private Group piecesGroup;
+
+    @FXML
+    private Button restart;
+
+    @FXML
+    private Button quit;
 
     private EntityView move;
     private Position moveDest;
