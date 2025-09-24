@@ -65,4 +65,9 @@ public class GravityNotifier implements GravityObservable {
 
         return res;
     }
+
+    @Override
+    public void notifyAllObservers() {
+        observers.forEach(x -> x.gravity());
+    }    
 }

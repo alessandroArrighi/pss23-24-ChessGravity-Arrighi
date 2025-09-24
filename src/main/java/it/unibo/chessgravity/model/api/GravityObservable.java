@@ -19,4 +19,6 @@ public interface GravityObservable {
     void unsubsribeAll();
 
     List<GravityObserver> notifyObservers(SquarePosition pos);
+
+    void notifyAllObservers();
 }
