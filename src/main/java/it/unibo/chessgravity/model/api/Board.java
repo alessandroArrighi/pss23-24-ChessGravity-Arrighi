@@ -21,4 +21,6 @@ public interface Board {
     MoveResponse canMove(SquarePosition pos);
 
     Set<Piece> getAllPieces();
+
+    boolean isEnemyAlive();
 }

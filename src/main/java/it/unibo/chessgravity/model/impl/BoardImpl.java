@@ -124,6 +124,10 @@ public class BoardImpl implements Board {
             return;
         }
 
+        if (dest.equals(enemy.getPosition())) {
+            enemy.kill();
+        }
+
         destSquare.setPiece(piece);
         startSquare.setPiece(null);
     }
@@ -139,6 +143,11 @@ public class BoardImpl implements Board {
         } catch (SquareFullException e) {
             return new MoveResponse(pos, false, false);
         }
+    }
+
+    @Override
+    public boolean isEnemyAlive() {
+        return enemy.isAlive();
     }
 
     private boolean isValidPos(SquarePosition pos) {

@@ -9,12 +9,22 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 public class Enemy {
 
     private final SquarePosition pos;
+    private boolean alive;
 
     public Enemy(final SquarePosition pos) {
         this.pos = pos;
+        alive = true;
     }
 
     public SquarePosition getPosition() {
         return this.pos;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void kill() {
+        this.alive = false;
     }
 }
