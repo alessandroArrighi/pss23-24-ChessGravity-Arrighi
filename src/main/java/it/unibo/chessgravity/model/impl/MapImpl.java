@@ -96,6 +96,8 @@ public class MapImpl implements Map {
             x -> res.add(x.info())
         );
 
+        gameOver = !board.isEnemyAlive();
+
         return res;
     }
 }

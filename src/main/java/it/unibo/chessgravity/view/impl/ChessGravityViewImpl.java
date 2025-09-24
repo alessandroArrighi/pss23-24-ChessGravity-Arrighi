@@ -17,9 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 /**
  * FXML Controller that handle the ChessGravity view
@@ -35,6 +38,9 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     
     @FXML
     private Group piecesGroup;
+
+    @FXML
+    private Group menu;
 
     @FXML
     private Button restart;
@@ -133,6 +139,34 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     @Override
     public void setObserver(final ChessGravityObserver observer) {
         this.observer = observer;
+    }
+
+    @Override
+    public void gameOver() {
+        final Rectangle background = new Rectangle(
+            squares.getBoundsInLocal().getWidth(),
+            squares.getBoundsInLocal().getHeight(),
+            Paint.valueOf("#000000aa")
+        );
+        final int x = xLen / 2 * entitySize;
+        final int y = yLen / 2 * entitySize;
+        final Label title = new Label("WELL DONE!");
+        final Button quit = new Button("Quit");
+        final Button restart = new Button("Restart");
+
+        title.setFont(new Font(50));
+        title.setTextFill(Color.WHITE);
+        quit.setOnMouseClicked(e -> quit());
+        restart.setOnMouseClicked(e -> restart());
+
+        menu.getChildren().addAll(background, title, quit, restart);
+        
+        title.setLayoutX(x - 130);
+        title.setLayoutY(y - 100);
+        quit.setLayoutX(x - 50);
+        quit.setLayoutY(y);
+        restart.setLayoutX(x + 10);
+        restart.setLayoutY(y);
     }
 
     private void createBoard() {
