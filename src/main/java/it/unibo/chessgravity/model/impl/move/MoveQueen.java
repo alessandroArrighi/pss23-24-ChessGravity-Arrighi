@@ -2,6 +2,7 @@ package it.unibo.chessgravity.model.impl.move;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.MovePiece;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import static it.unibo.chessgravity.model.utils.SquarePositions.*;
 
@@ -18,7 +19,7 @@ public class MoveQueen implements MovePiece {
     }
 
     @Override
-    public boolean move(SquarePosition start, SquarePosition dest, Board board) {
+    public MoveResponse move(SquarePosition start, SquarePosition dest, Board board) {
         MovePiece move = null;
 
         if (onSameColumn(start, dest) || onSameRow(start, dest)) {
@@ -28,7 +29,7 @@ public class MoveQueen implements MovePiece {
         }
 
         if (move == null) {
-            return false;
+            return null;
         }
 
         return move.move(start, dest, board);

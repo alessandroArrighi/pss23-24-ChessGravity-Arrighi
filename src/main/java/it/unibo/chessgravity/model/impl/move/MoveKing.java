@@ -3,6 +3,7 @@ package it.unibo.chessgravity.model.impl.move;
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.MovePiece;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.*;
 import static it.unibo.chessgravity.model.utils.SquarePositions.*;
@@ -32,12 +33,12 @@ public class MoveKing implements MovePiece {
     }
 
     @Override
-    public boolean move(SquarePosition start, SquarePosition dest, Board board) {
+    public MoveResponse move(SquarePosition start, SquarePosition dest, Board board) {
         BaseMove move = null;
 
 
         if (start.equals(dest)) {
-            return true;
+            return new MoveResponse(dest, true, false);
         }
 
         if (onTopLeftDiagonal(dest, start)) {
@@ -59,12 +60,15 @@ public class MoveKing implements MovePiece {
         }
 
         if (move == null) {
-            return false;
+            return new MoveResponse(null, false, false);
         }
 
-        throw new UnsupportedOperationException();
+        final MoveResponse res = move.move(start, board);
+        
+        if (dest.equals(res.getPos())) {
+            return res;
+        }
 
-        // final SquarePosition res = move.move(start, board);
-        // return dest.equals(res);
+        return new MoveResponse(dest, false, false);
     }
 }

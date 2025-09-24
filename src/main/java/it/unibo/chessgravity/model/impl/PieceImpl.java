@@ -46,14 +46,16 @@ public class PieceImpl implements Piece, GravityObserver {
 
     @Override
     public boolean move(SquarePosition dest) throws Exception {
-        final boolean canMove = move.move(pos, dest, board);
+        // final boolean canMove = move.move(pos, dest, board);
 
-        if (canMove) {
-            setPos(dest);
-            this.gravity();
-        }
+        // if (canMove) {
+        //     setPos(dest);
+        //     this.gravity();
+        // }
 
-        return canMove;
+        // return canMove;
+
+        throw new UnsupportedOperationException();
     }
 
     @Override

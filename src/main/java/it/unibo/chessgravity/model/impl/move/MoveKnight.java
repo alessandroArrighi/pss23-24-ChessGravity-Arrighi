@@ -7,6 +7,7 @@ import java.util.List;
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.MovePiece;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.BaseMoveAbstract.MoveChecker;
 import it.unibo.chessgravity.model.impl.move.base.*;
@@ -24,37 +25,34 @@ public class MoveKnight implements MovePiece {
     private final BaseMove moveBottom;
 
     public MoveKnight() {
-        throw new UnsupportedOperationException();
-        // final MoveChecker unCheck = (a, b) -> false;
+        final MoveChecker unCheck = (a, b) -> new MoveResponse(a, true, false);
         
-        // moveTop = new MoveTop(unCheck);
-        // moveLeft = new MoveLeft(unCheck);
-        // moveRight = new MoveRight(unCheck);
-        // moveBottom = new MoveBottom(unCheck);
+        moveTop = new MoveTop(unCheck);
+        moveLeft = new MoveLeft(unCheck);
+        moveRight = new MoveRight(unCheck);
+        moveBottom = new MoveBottom(unCheck);
     }
 
     @Override
-    public boolean move(SquarePosition start, SquarePosition dest, Board board) {
+    public MoveResponse move(SquarePosition start, SquarePosition dest, Board board) {
         final List<List<BaseMove>> moves = prepareMoves();
 
         if (start.equals(dest)) {
-            return true;
+            return new MoveResponse(dest, true, false);
         }
 
-        throw new UnsupportedOperationException();
+        for (List<BaseMove> move : moves) {
+            final SquarePosition pos = move.get(0).move(start, board, STEP).getPos();
 
-        // for (List<BaseMove> move : moves) {
-        //     SquarePosition pos = move.get(0).move(start, board, STEP);
+            for (int i = 1; i < move.size(); ++i) {
+                final SquarePosition finalPos = move.get(i).move(pos, board).getPos();
+                if (dest.equals(finalPos)) {
+                    return BaseMoveAbstract.checkMove(finalPos, board);
+                }
+            }
+        }
 
-        //     for (int i = 1; i < move.size(); ++i) {
-        //         SquarePosition finalPos = move.get(i).move(pos, board);
-        //         if (dest.equals(finalPos) && BaseMoveAbstract.checkMove(finalPos, board)) {
-        //             return true;
-        //         }
-        //     }
-        // }
-
-        // return false;
+        return new MoveResponse(null, false, false);
     }
 
     private List<List<BaseMove>> prepareMoves() {
