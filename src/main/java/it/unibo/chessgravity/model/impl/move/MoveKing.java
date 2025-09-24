@@ -62,7 +62,9 @@ public class MoveKing implements MovePiece {
             return false;
         }
 
-        final SquarePosition res = move.move(start, board);
-        return dest.equals(res);
+        throw new UnsupportedOperationException();
+
+        // final SquarePosition res = move.move(start, board);
+        // return dest.equals(res);
     }
 }

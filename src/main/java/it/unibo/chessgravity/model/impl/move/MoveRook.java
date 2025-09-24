@@ -47,11 +47,13 @@ public class MoveRook implements MovePiece {
             return false;
         }
 
-        SquarePosition next = start;
-        while (!dest.equals(next) && next != null) {
-            next = move.move(next, board);
-        }
+        throw new UnsupportedOperationException();
 
-        return next != null;
+        // SquarePosition next = start;
+        // while (!dest.equals(next) && next != null) {
+        //     next = move.move(next, board);
+        // }
+
+        // return next != null;
     }
 }

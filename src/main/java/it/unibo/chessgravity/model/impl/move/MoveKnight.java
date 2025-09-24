@@ -24,12 +24,13 @@ public class MoveKnight implements MovePiece {
     private final BaseMove moveBottom;
 
     public MoveKnight() {
-        final MoveChecker unCheck = (a, b) -> true;
+        throw new UnsupportedOperationException();
+        // final MoveChecker unCheck = (a, b) -> false;
         
-        moveTop = new MoveTop(unCheck);
-        moveLeft = new MoveLeft(unCheck);
-        moveRight = new MoveRight(unCheck);
-        moveBottom = new MoveBottom(unCheck);
+        // moveTop = new MoveTop(unCheck);
+        // moveLeft = new MoveLeft(unCheck);
+        // moveRight = new MoveRight(unCheck);
+        // moveBottom = new MoveBottom(unCheck);
     }
 
     @Override
@@ -40,18 +41,20 @@ public class MoveKnight implements MovePiece {
             return true;
         }
 
-        for (List<BaseMove> move : moves) {
-            SquarePosition pos = move.get(0).move(start, board, STEP);
+        throw new UnsupportedOperationException();
 
-            for (int i = 1; i < move.size(); ++i) {
-                SquarePosition finalPos = move.get(i).move(pos, board);
-                if (dest.equals(finalPos) && BaseMoveAbstract.checkMove(finalPos, board)) {
-                    return true;
-                }
-            }
-        }
+        // for (List<BaseMove> move : moves) {
+        //     SquarePosition pos = move.get(0).move(start, board, STEP);
 
-        return false;
+        //     for (int i = 1; i < move.size(); ++i) {
+        //         SquarePosition finalPos = move.get(i).move(pos, board);
+        //         if (dest.equals(finalPos) && BaseMoveAbstract.checkMove(finalPos, board)) {
+        //             return true;
+        //         }
+        //     }
+        // }
+
+        // return false;
     }
 
     private List<List<BaseMove>> prepareMoves() {

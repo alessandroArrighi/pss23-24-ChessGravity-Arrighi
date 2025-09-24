@@ -23,11 +23,13 @@ public class GravityImpl implements Gravity {
         SquarePosition current = start;
         SquarePosition next = start;
 
-        while (next != null) {
-            current = next;
-            next = moveBottom.move(current, board);
-        }
+        throw new UnsupportedOperationException();
 
-        return current;
+        // while (next != null) {
+        //     current = next;
+        //     next = moveBottom.move(current, board);
+        // }
+
+        // return current;
     }
 }
