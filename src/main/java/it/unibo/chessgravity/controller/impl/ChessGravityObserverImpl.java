@@ -73,6 +73,11 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
         view.setObserver(this);
 
         view.start(model.start());
+
+        if (model.isGameOver()) {
+            System.out.println("Game is over");
+            view.gameOver();
+        }
     }
 
     @Override
@@ -88,6 +93,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
             if (model.isGameOver()) {
                 // send to view that the game is over
                 System.out.println("Game is over");
+                view.gameOver();
             }
         } catch (Exception e) {
             e.printStackTrace();
