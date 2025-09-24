@@ -20,16 +20,21 @@ public class BoardImpl implements Board {
 
     private final Set<SquarePiece> squareList;
     private final Set<Piece> pieces;
+    private final Enemy enemy;
     private final int xLen;
     private final int yLen;
 
-    public BoardImpl(final int xLen, final int yLen, final Set<SquarePosition> obstacles) {
+    public BoardImpl(final int xLen, final int yLen, 
+                        final Set<SquarePosition> obstacles, final SquarePosition enemy) {
         if (xLen < MIN_LEN || yLen < MIN_LEN) {
-            throw new IllegalArgumentException("the board length argument must be greater then 0");
+            throw new IllegalArgumentException(
+                "the board length argument must be greater then 0"
+            );
         }
 
         this.pieces = new HashSet<>();
         this.squareList = new HashSet<>();
+        this.enemy = new Enemy(enemy);
         this.xLen = xLen;
         this.yLen = yLen;
 

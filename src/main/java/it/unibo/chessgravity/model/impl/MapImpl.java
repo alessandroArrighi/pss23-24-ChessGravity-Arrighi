@@ -19,7 +19,7 @@ public class MapImpl implements Map {
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
                     final int xLen, final int yLen, SquarePosition enemy)
                                                         throws InvalidSettingsException {
-        board = new BoardImpl(xLen, yLen, obstacles);
+        board = new BoardImpl(xLen, yLen, obstacles, enemy);
 
         createPieces(pieces);
         
