@@ -24,4 +24,16 @@ public class MoveResponse {
         this.canMove = canMove;
         this.gameOver = gameOver;
     }
+
+    public SquarePosition getPos() {
+        return this.dest;
+    }
+
+    public boolean isGameOver() {
+        return this.gameOver;
+    }
+
+    public boolean canMove() {
+        return this.canMove;
+    }
 }
