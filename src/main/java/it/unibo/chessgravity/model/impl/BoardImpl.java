@@ -87,6 +87,11 @@ public class BoardImpl implements Board {
             return;
         }
 
+        // if there's the enemy king at position
+        if (piece.getPos().equals(enemy.getPosition())) {
+            throw new SquareFullException(pos);
+        }
+
         square = getSquare(pos);
 
         // if there's an obstacle

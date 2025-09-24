@@ -5,6 +5,7 @@ import java.util.Set;
 
 import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 
@@ -15,11 +16,13 @@ public class MapImpl implements Map {
 
     private final Board board;
     private final GravityObservable notifier;
+    private boolean gameOver;
 
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
                     final int xLen, final int yLen, SquarePosition enemy)
                                                         throws InvalidSettingsException {
         board = new BoardImpl(xLen, yLen, obstacles, enemy);
+        gameOver = false;
 
         createPieces(pieces);
         
@@ -49,9 +52,13 @@ public class MapImpl implements Map {
             return null;
         }
 
-        if (!piece.move(dest).canMove()) {
+        final MoveResponse res = piece.move(dest);
+
+        if (!res.canMove()) {
             return null;
         }
+
+        this.gameOver = res.isGameOver();
 
         // Set contains the pieces that will be moved for the gravity by the notifier
         final Set<PieceSetting> movedPieces = new HashSet<>();
@@ -69,5 +76,10 @@ public class MapImpl implements Map {
         movedPieces.add(piece.info());
 
         return movedPieces;
+    }
+
+    @Override
+    public boolean isGameOver() {
+        return this.gameOver;
     }
 }
