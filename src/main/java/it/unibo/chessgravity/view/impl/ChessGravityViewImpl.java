@@ -171,10 +171,21 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         }
     }
 
+    public void createButtons() {
+        final int yPos = (entitySize * yLen) + 3;
+
+        restart.setLayoutX(10);
+        restart.setLayoutY(yPos);
+
+        quit.setLayoutX(80);
+        quit.setLayoutY(yPos);
+    }
+
     @FXML
     public void initialize() throws IOException {
         createBoard();
         createPieces();
+        createButtons();
     }
 
 
