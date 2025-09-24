@@ -45,7 +45,7 @@ public class MoveRook implements MovePiece {
     private MoveResponse movePiece(SquarePosition start, SquarePosition dest, 
                                 Board board, BaseMove move) {
         if (move == null) {
-            return null;
+            return new MoveResponse(null, false, false);
         }
 
         MoveResponse next = new MoveResponse(start, true, false);

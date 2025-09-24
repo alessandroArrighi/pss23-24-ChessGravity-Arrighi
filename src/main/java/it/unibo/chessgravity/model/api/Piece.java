@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.model.api;
 
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 
@@ -13,5 +14,5 @@ public interface Piece {
 
     SquarePosition getPos();
 
-    boolean move(SquarePosition dest) throws Exception;
+    MoveResponse move(SquarePosition dest) throws Exception;
 }

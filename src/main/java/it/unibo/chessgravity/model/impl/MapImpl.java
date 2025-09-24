@@ -49,7 +49,7 @@ public class MapImpl implements Map {
             return null;
         }
 
-        if (!piece.move(dest)) {
+        if (!piece.move(dest).canMove()) {
             return null;
         }
 

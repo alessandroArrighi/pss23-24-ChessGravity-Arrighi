@@ -4,6 +4,7 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.GravityObserver;
 import it.unibo.chessgravity.model.api.Piece;
 import it.unibo.chessgravity.model.api.move.Gravity;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.gravity.GravityImpl;
@@ -45,27 +46,23 @@ public class PieceImpl implements Piece, GravityObserver {
     }
 
     @Override
-    public boolean move(SquarePosition dest) throws Exception {
-        // final boolean canMove = move.move(pos, dest, board);
+    public MoveResponse move(SquarePosition dest) throws Exception {
+        final MoveResponse res = move.move(pos, dest, board);
 
-        // if (canMove) {
-        //     setPos(dest);
-        //     this.gravity();
-        // }
+        if (res.canMove() || res.isGameOver()) {
+            setPos(dest);
+            this.gravity();
+        }
 
-        // return canMove;
-
-        throw new UnsupportedOperationException();
+        return res;
     }
 
     @Override
     public void gravity() {
-        throw new UnsupportedOperationException();
-        
-        // try {
-        //     setPos(gravity.gravity(pos, board));
-        // } catch (Exception e) {
-        //     throw new RuntimeException(e.getMessage());
-        // }
+        try {
+            setPos(gravity.gravity(pos, board).getPos());
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
