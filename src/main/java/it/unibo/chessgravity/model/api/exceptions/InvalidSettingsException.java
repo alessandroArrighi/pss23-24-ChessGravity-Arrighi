@@ -3,7 +3,7 @@ package it.unibo.chessgravity.model.api.exceptions;
 /**
  * Cheked exception that handles invalid configuration settings
  */
-public class InvalidSettingsException extends Exception {
+public class InvalidSettingsException extends RuntimeException {
     
     public InvalidSettingsException() {
         super("Found not valid settings");
