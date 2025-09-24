@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.*;
-import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.utils.PieceSetting;
@@ -28,24 +27,6 @@ public class MapImpl implements Map {
         board.getAllPieces().stream()
         .filter(x -> x instanceof GravityObserver)
         .forEach(x -> notifier.subscribe((GravityObserver) x));
-        
-        createEnemy(enemy);
-    }
-
-    private void createEnemy(final SquarePosition enemy) throws InvalidSettingsException {
-        try {
-            if (!board.isSquareFree(enemy)) {
-                throw new IllegalSquarePositionException(enemy);
-            }
-
-            if (Enemy.getIstance() != null) {
-                throw new InvalidSettingsException("Enemy king has been alredy instantiated");
-            }
-
-            Enemy.createInstace(enemy);
-        } catch (IllegalSquarePositionException e) {
-            throw new InvalidSettingsException(e.getMessage());
-        }
     }
     
     private void createPieces(final Set<PieceSetting> pieces) throws InvalidSettingsException {

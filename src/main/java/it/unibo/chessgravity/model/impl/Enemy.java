@@ -4,27 +4,14 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
  * Class that models the enemy king piece. Unlike the other pieces, the enemy king
- * cannot be moved. This class can be instantiated only once
+ * cannot be moved.
  */
 public class Enemy {
-    private static Enemy instance;
 
     private final SquarePosition pos;
 
-    private Enemy(SquarePosition pos) {
+    public Enemy(final SquarePosition pos) {
         this.pos = pos;
-    }
-
-    public static Enemy createInstace(final SquarePosition pos) {
-        if (instance == null) {
-            instance = new Enemy(pos);
-        }
-
-        return instance;
-    }
-
-    public static Enemy getIstance() {
-        return instance;
     }
 
     public SquarePosition getPosition() {
