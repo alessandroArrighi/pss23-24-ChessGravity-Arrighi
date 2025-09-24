@@ -64,6 +64,17 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     }
 
     @Override
+    public void start(final Set<PieceSetting> pieces) {
+        final List<PieceSetting> pLst = pieces.stream().toList();
+        int i = 0;
+
+        for (EntityView x : this.pieces) {
+            x.move(x.getPosition(), Position.toPosition(pLst.get(i).getPos()));
+            ++i;
+        }
+    }
+
+    @Override
     public void move(final Set<PieceSetting> gravityPieces) {
         // Get the x position where the moved piece started.
         final int posX = move.getPosition()

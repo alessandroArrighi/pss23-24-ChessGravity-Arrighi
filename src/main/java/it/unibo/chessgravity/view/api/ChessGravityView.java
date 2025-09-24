@@ -12,4 +12,6 @@ public interface ChessGravityView {
     void move(Set<PieceSetting> pieces);
 
     void setObserver(ChessGravityObserver observer);
+
+    void start(Set<PieceSetting> pieces);
 }

@@ -71,6 +71,8 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
 
         view = loader.getController();
         view.setObserver(this);
+
+        view.start(model.start());
     }
 
     @Override
