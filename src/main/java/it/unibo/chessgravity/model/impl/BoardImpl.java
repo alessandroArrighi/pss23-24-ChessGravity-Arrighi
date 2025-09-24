@@ -4,6 +4,7 @@ import java.util.*;
 
 import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
+import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
@@ -29,6 +30,12 @@ public class BoardImpl implements Board {
         if (xLen < MIN_LEN || yLen < MIN_LEN) {
             throw new IllegalArgumentException(
                 "the board length argument must be greater then 0"
+            );
+        }
+
+        if (obstacles.contains(enemy)) {
+            throw new InvalidSettingsException(
+                "The enemy king cannot be placed inside an obstacle at " + enemy
             );
         }
 
