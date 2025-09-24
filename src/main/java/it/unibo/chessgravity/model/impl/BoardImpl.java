@@ -6,6 +6,7 @@ import it.unibo.chessgravity.model.api.*;
 import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -127,11 +128,13 @@ public class BoardImpl implements Board {
         final SquarePiece square;
         try {
             square = getSquare(pos);
-
+            // return new MoveResponse(pos, square.isFree(), enemy.getPosition().equals(pos));
             return square.isFree();
         } catch (IllegalSquarePositionException e) {
+            // return new MoveResponse(null, false, false);
             return false;
         } catch (SquareFullException e) {
+            // return new MoveResponse(pos, false, false);
             return false;
         }
     }
