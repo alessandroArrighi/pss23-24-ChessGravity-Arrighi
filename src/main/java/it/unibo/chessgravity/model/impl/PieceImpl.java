@@ -60,10 +60,12 @@ public class PieceImpl implements Piece, GravityObserver {
 
     @Override
     public void gravity() {
-        try {
-            setPos(gravity.gravity(pos, board));
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        throw new UnsupportedOperationException();
+        
+        // try {
+        //     setPos(gravity.gravity(pos, board));
+        // } catch (Exception e) {
+        //     throw new RuntimeException(e.getMessage());
+        // }
     }
 }

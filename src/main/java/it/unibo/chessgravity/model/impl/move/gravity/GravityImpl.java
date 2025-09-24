@@ -3,6 +3,7 @@ package it.unibo.chessgravity.model.impl.move.gravity;
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
 import it.unibo.chessgravity.model.api.move.Gravity;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.MoveBottom;
 
@@ -19,17 +20,19 @@ public class GravityImpl implements Gravity {
     }
 
     @Override
-    public SquarePosition gravity(SquarePosition start, Board board) {
-        SquarePosition current = start;
-        SquarePosition next = start;
+    public MoveResponse gravity(SquarePosition start, Board board) {
+        MoveResponse current = new MoveResponse(start, true, false);
+        MoveResponse next = current;
 
-        throw new UnsupportedOperationException();
+        while (next.canMove() && !next.isGameOver()) {
+            current = next;
+            next = moveBottom.move(current.getPos(), board);
+        }
 
-        // while (next != null) {
-        //     current = next;
-        //     next = moveBottom.move(current, board);
-        // }
+        if (next.isGameOver()) {
+            return next;
+        }
 
-        // return current;
+        return current;
     }
 }

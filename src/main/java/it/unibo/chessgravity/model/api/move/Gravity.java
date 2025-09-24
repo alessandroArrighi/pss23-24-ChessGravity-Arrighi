@@ -8,5 +8,5 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 
 public interface Gravity {
-    SquarePosition gravity(SquarePosition start, Board board);
+    MoveResponse gravity(SquarePosition start, Board board);
 }
