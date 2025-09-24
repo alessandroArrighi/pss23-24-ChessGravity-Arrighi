@@ -46,6 +46,10 @@ public class MapImpl implements Map {
 
     @Override
     public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
+        if (gameOver) {
+            return null;
+        }
+
         final Piece piece = board.getPiece(start);
 
         if (piece == null) {
@@ -57,8 +61,6 @@ public class MapImpl implements Map {
         if (!res.canMove()) {
             return null;
         }
-
-        this.gameOver = res.isGameOver();
 
         // Set contains the pieces that will be moved for the gravity by the notifier
         final Set<PieceSetting> movedPieces = new HashSet<>();
@@ -73,6 +75,8 @@ public class MapImpl implements Map {
             x -> movedPieces.add(((Piece) x).info())
         );
 
+        this.gameOver = !board.isEnemyAlive();
+
         movedPieces.add(piece.info());
 
         return movedPieces;
@@ -81,5 +85,17 @@ public class MapImpl implements Map {
     @Override
     public boolean isGameOver() {
         return this.gameOver;
+    }
+
+    @Override
+    public Set<PieceSetting> start() {
+        final Set<PieceSetting> res = new HashSet<>();
+        notifier.notifyAllObservers();
+
+        board.getAllPieces().forEach(
+            x -> res.add(x.info())
+        );
+
+        return res;
     }
 }
