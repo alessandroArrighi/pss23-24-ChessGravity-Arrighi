@@ -124,18 +124,15 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public boolean isSquareFree(SquarePosition pos) {
+    public MoveResponse canMove(SquarePosition pos) {
         final SquarePiece square;
         try {
             square = getSquare(pos);
-            // return new MoveResponse(pos, square.isFree(), enemy.getPosition().equals(pos));
-            return square.isFree();
+            return new MoveResponse(pos, square.isFree(), enemy.getPosition().equals(pos));
         } catch (IllegalSquarePositionException e) {
-            // return new MoveResponse(null, false, false);
-            return false;
+            return new MoveResponse(null, false, false);
         } catch (SquareFullException e) {
-            // return new MoveResponse(pos, false, false);
-            return false;
+            return new MoveResponse(pos, false, false);
         }
     }
 

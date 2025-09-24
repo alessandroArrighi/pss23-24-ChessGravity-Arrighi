@@ -58,7 +58,8 @@ public abstract class BaseMoveAbstract implements BaseMove {
     }
 
     public static boolean checkMove(SquarePosition pos, Board board) {
-        return board.isSquareFree(pos);
+        // return board.canMove(pos);
+        throw new UnsupportedOperationException("Unimplementd method 'checkMove'");
     }
 
     /*
