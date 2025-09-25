@@ -45,7 +45,7 @@ public class BoardImplTest {
         piece1 = new PieceMock(new SquarePosition(2, 2));
         piece2 = new PieceMock(new SquarePosition(3, 6));
 
-        board = new BoardImpl(LEN, LEN, obs);
+        board = new BoardImpl(LEN, LEN, obs, new SquarePosition(LEN, LEN));
 
         board.setPiece(piece1);
         board.setPiece(piece2);
@@ -60,11 +60,11 @@ public class BoardImplTest {
     void testCreateBoard() {
         // check obstacles
         for (SquarePosition pos : obs) {
-            assertFalse(board.isSquareFree(pos));
+            assertFalse(board.canMove(pos).canMove());
         }
 
-        assertFalse(board.isSquareFree(piece1.getPos()));
-        assertFalse(board.isSquareFree(piece2.getPos()));
+        assertFalse(board.canMove(piece1.getPos()).canMove());
+        assertFalse(board.canMove(piece2.getPos()).canMove());
     }
 
     /**
@@ -107,12 +107,12 @@ public class BoardImplTest {
     void testMove() throws Exception {
         final SquarePosition pos = new SquarePosition(LEN, LEN);
         board.move(piece1.getPos(), pos);
-        assertTrue(board.isSquareFree(piece1.getPos()));
-        assertFalse(board.isSquareFree(pos));
+        assertTrue(board.canMove(piece1.getPos()).canMove());
+        assertFalse(board.canMove(pos).canMove());
 
         // move piece1 in the same position
         board.move(pos, pos);
-        assertFalse(board.isSquareFree(pos));
+        assertFalse(board.canMove(pos).canMove());
     }
 
     /**
@@ -144,7 +144,7 @@ public class BoardImplTest {
         );
 
         assertEquals(board.getPiece(piece1.getPos()), piece1);
-        assertFalse(board.isSquareFree(obstacle));
+        assertFalse(board.canMove(obstacle).canMove());
         assertNull(board.getPiece(obstacle));
     }
 
@@ -198,6 +198,6 @@ public class BoardImplTest {
         );
 
         assertEquals(board.getPiece(piece1.getPos()), piece1);
-        assertTrue(board.isSquareFree(pos));
+        assertTrue(board.canMove(pos).canMove());
     }
 }

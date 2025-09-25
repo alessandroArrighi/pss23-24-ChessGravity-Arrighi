@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.model.impl.move;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.MovePiece;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
 import it.unibo.chessgravity.model.mocks.PieceMock;
@@ -34,11 +36,13 @@ public class MoveBishopTest {
     private SquarePosition topRight;
     private SquarePosition bottomLeft;
     private SquarePosition bottomRight;
+    private SquarePosition enemyPos;
 
     @BeforeEach
     void setup() {
+        enemyPos = new SquarePosition(LEN, LEN);
         move = new MoveBishop();
-        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
         start = new SquarePosition(5, 5);
         dest = new ArrayList<>();
         posX = start.getPosX();
@@ -68,7 +72,9 @@ public class MoveBishopTest {
         ));
         
         for (SquarePosition pos : dest) {
-            assertTrue(move.move(start, pos, board));
+            final MoveResponse res = move.move(start, pos, board);
+            assertTrue(res.canMove());
+            assertEquals(res.getPos(), pos);
         }
     }
 
@@ -85,11 +91,11 @@ public class MoveBishopTest {
             // Move random
             new SquarePosition(9, 3),
             // Move outside the board
-            new SquarePosition(LEN + 1, LEN + 1)
+            new SquarePosition(LEN + 2, LEN + 1)
         ));
 
         for (SquarePosition pos : dest) {
-            assertFalse(move.move(start, pos, board));
+            assertFalse(move.move(start, pos, board).canMove());
         }
     }
 
@@ -100,7 +106,7 @@ public class MoveBishopTest {
                                 final SquarePosition afterCollision) throws Exception {
         Set<SquarePosition> obs = new HashSet<>();
         obs.add(collision);
-        board = new BoardImpl(LEN, LEN, obs);
+        board = new BoardImpl(LEN, LEN, obs, enemyPos);
 
         dest.addAll(Arrays.asList(
             collision,
@@ -109,15 +115,15 @@ public class MoveBishopTest {
 
         // Test collision with an obstacle
         for (SquarePosition pos : dest) {
-            assertFalse(move.move(start, pos, board));
+            assertFalse(move.move(start, pos, board).canMove());
         }
 
-        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
         board.setPiece(new PieceMock(collision));
 
         // Test collision with a piece
         for (SquarePosition pos : dest) {
-            assertFalse(move.move(start, pos, board));
+            assertFalse(move.move(start, pos, board).canMove());
         }
     }
 

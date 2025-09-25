@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.mocks;
 
 import it.unibo.chessgravity.model.api.Piece;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 
@@ -29,7 +30,7 @@ public class PieceMock implements Piece {
     }
 
     @Override
-    public boolean move(SquarePosition dest) {
+    public MoveResponse move(SquarePosition dest) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException(
             "Unimplemented method 'move'"

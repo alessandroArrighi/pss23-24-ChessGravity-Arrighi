@@ -25,11 +25,13 @@ public class GravityImplTest {
     private Board board;
     private SquarePosition start;
     private SquarePosition dest;
+    private SquarePosition enemyPos;
 
     @BeforeEach
     void setup() {
         gravity = new GravityImpl();
-        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        enemyPos = new SquarePosition(LEN, LEN);
+        board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
     }
 
     /**
@@ -41,7 +43,7 @@ public class GravityImplTest {
         dest = new SquarePosition(defaultPosX, 1);
         board.setPiece(new PieceMock(start));
 
-        assertEquals(gravity.gravity(start, board), dest);
+        assertEquals(gravity.gravity(start, board).getPos(), dest);
     }
 
     /**
@@ -52,7 +54,7 @@ public class GravityImplTest {
         start = new SquarePosition(defaultPosX, 1);
         board.setPiece(new PieceMock(start));
         
-        assertEquals(gravity.gravity(start, board), start);
+        assertEquals(gravity.gravity(start, board).getPos(), start);
     }
 
     /**
@@ -64,10 +66,10 @@ public class GravityImplTest {
         obs.add(new SquarePosition(defaultPosX, 1));
         start = new SquarePosition(defaultPosX, defaultPosX);
         dest = new SquarePosition(defaultPosX, 2);
-        board = new BoardImpl(LEN, LEN, obs);
+        board = new BoardImpl(LEN, LEN, obs, enemyPos);
         board.setPiece(new PieceMock(start));
 
-        assertEquals(gravity.gravity(start, board), dest);
+        assertEquals(gravity.gravity(start, board).getPos(), dest);
     }
 
     /**
@@ -80,6 +82,6 @@ public class GravityImplTest {
         board.setPiece(new PieceMock(new SquarePosition(defaultPosX, 1)));
         board.setPiece(new PieceMock(start));
 
-        assertEquals(gravity.gravity(start, board), dest);
+        assertEquals(gravity.gravity(start, board).getPos(), dest);
     }
 }

@@ -42,10 +42,17 @@ public class BoardImpl implements Board {
 
         this.pieces = new HashSet<>();
         this.squareList = new HashSet<>();
-        this.enemy = new Enemy(enemy);
         this.xLen = xLen;
         this.yLen = yLen;
 
+        if (enemy == null || !isValidPos(enemy)) {
+            throw new InvalidSettingsException(
+                "Not a valid satting for enemy king" + 
+                (enemy == null ? "" : " at " + enemy)
+            );
+        }
+
+        this.enemy = new Enemy(enemy);
 
         // double for loop to cicle evry row and column and create the square.
         for(int x = MIN_LEN; x <= xLen; ++x) {

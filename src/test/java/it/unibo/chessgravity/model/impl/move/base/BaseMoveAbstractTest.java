@@ -1,6 +1,8 @@
 package it.unibo.chessgravity.model.impl.move.base;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
+import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
 import it.unibo.chessgravity.model.mocks.PieceMock;
@@ -44,11 +47,13 @@ public class BaseMoveAbstractTest {
     private SquarePosition startPos;
     private SquarePosition endPos;
     private BaseMove move;
+    private SquarePosition enemyPos;
 
     @BeforeEach
     void setUp() {
         LEN = 10;
-        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        enemyPos = new SquarePosition(1, 1);
+        board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
         startPos = new SquarePosition(3, 3);
         endPos = new SquarePosition(4, 4);
         move = new MoveMock(endPos);
@@ -60,7 +65,9 @@ public class BaseMoveAbstractTest {
      */
     @Test
     void testMove() {
-        assertEquals(move.move(startPos, board), endPos);
+        final MoveResponse res = move.move(startPos, board);
+        assertTrue(res.canMove());
+        assertEquals(res.getPos(), endPos);
     }
 
     /**
@@ -69,10 +76,10 @@ public class BaseMoveAbstractTest {
     @Test
     void testIllegalMove() {
         LEN = 3;
-        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
         startPos = new SquarePosition(LEN, LEN);
 
-        assertEquals(move.move(startPos, board), null);
+        assertFalse(move.move(startPos, board).canMove());
     }
 
     /**
@@ -83,12 +90,12 @@ public class BaseMoveAbstractTest {
         // Obstacle collision
         Set<SquarePosition> obs = new HashSet<>();
         obs.add(endPos);
-        board = new BoardImpl(LEN, LEN, obs);
-        assertEquals(move.move(startPos, board), null);
+        board = new BoardImpl(LEN, LEN, obs, enemyPos);
+        assertFalse(move.move(startPos, board).canMove());
 
         // Piece collision
-        board = new BoardImpl(LEN, LEN, new HashSet<>());
+        board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
         board.setPiece(new PieceMock(endPos));
-        assertEquals(move.move(startPos, board), null);
+        assertFalse(move.move(startPos, board).canMove());
     }
 }
