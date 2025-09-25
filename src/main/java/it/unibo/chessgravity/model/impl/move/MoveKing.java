@@ -60,7 +60,7 @@ public class MoveKing implements MovePiece {
         }
 
         if (move == null) {
-            return new MoveResponse(null, false, false);
+            return MoveResponse.NO_MOVE;
         }
 
         final MoveResponse res = move.move(start, board);
@@ -69,6 +69,6 @@ public class MoveKing implements MovePiece {
             return res;
         }
 
-        return new MoveResponse(dest, false, false);
+        return MoveResponse.NO_MOVE;
     }
 }

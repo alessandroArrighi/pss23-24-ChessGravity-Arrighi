@@ -146,9 +146,9 @@ public class BoardImpl implements Board {
             square = getSquare(pos);
             return new MoveResponse(pos, square.isFree(), enemy.getPosition().equals(pos));
         } catch (IllegalSquarePositionException e) {
-            return new MoveResponse(null, false, false);
+            return MoveResponse.NO_MOVE;
         } catch (SquareFullException e) {
-            return new MoveResponse(pos, false, false);
+            return MoveResponse.NO_MOVE;
         }
     }
 

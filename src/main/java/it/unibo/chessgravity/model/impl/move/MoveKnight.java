@@ -52,7 +52,7 @@ public class MoveKnight implements MovePiece {
             }
         }
 
-        return new MoveResponse(null, false, false);
+        return MoveResponse.NO_MOVE;
     }
 
     private List<List<BaseMove>> prepareMoves() {

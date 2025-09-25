@@ -29,7 +29,7 @@ public class MoveQueen implements MovePiece {
         }
 
         if (move == null) {
-            return new MoveResponse(null, false, false);
+            return MoveResponse.NO_MOVE;
         }
 
         return move.move(start, dest, board);

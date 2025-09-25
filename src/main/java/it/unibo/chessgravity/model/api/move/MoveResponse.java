@@ -7,6 +7,9 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  */
 public class MoveResponse {
 
+    public static final MoveResponse NO_MOVE = new MoveResponse(
+        null, false, false);
+
     private SquarePosition dest;
     private boolean canMove;
     private boolean gameOver;

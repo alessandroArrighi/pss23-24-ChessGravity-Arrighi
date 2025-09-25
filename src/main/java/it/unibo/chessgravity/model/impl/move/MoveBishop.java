@@ -44,7 +44,7 @@ public class MoveBishop implements MovePiece {
     private MoveResponse movePiece(SquarePosition start, SquarePosition dest, 
                                 Board board, BaseMove move) {
         if (move == null) {
-            return new MoveResponse(null, false, false);
+            return MoveResponse.NO_MOVE;
         }
 
         MoveResponse next = new MoveResponse(start, true, false);
