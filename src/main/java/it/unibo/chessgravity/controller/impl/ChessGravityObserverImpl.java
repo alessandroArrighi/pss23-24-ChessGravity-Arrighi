@@ -30,6 +30,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
 
     private Map model;
     private ChessGravityView view;
+    private Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -37,6 +38,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
         final Set<SquarePosition> obs = new HashSet<>();
         final int len = 10;
         final int size = 50;
+        stage = primaryStage;
 
         pieces.addAll(Arrays.asList(
                 new PieceSetting(new SquarePosition(1, 1), PieceType.ROOK),
@@ -106,7 +108,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
     public void restart() {
         System.out.println("Restarting...");
         try {
-            this.start(new Stage());
+            this.start(this.stage);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
