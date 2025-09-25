@@ -2,6 +2,7 @@ package it.unibo.chessgravity.controller.impl;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.chessgravity.controller.api.ChessGravityObserver;
@@ -83,7 +84,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
     @Override
     public void move(Position start, Position dest) {
         try {
-            final Set<PieceSetting> res = model.move(
+            final List<PieceSetting> res = model.move(
                 start.toSquarePosition(), dest.toSquarePosition()
             );
             if (res != null) {

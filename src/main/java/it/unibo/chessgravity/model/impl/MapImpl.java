@@ -1,6 +1,7 @@
 package it.unibo.chessgravity.model.impl;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import it.unibo.chessgravity.model.api.*;
@@ -45,7 +46,7 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public Set<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
+    public List<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception {
         if (gameOver) {
             return null;
         }
@@ -62,8 +63,8 @@ public class MapImpl implements Map {
             return null;
         }
 
-        // Set contains the pieces that will be moved for the gravity by the notifier
-        final Set<PieceSetting> movedPieces = new HashSet<>();
+        // List contains the pieces that will be moved for the gravity by the notifier
+        final List<PieceSetting> movedPieces = new ArrayList<>();
         
         /*
          * Call gravity notifier and return the result.
@@ -71,7 +72,7 @@ public class MapImpl implements Map {
          */
         notifier.notifyObservers(start).stream()
         .filter(x -> x instanceof Piece)
-        .forEach(
+        .forEachOrdered(
             x -> movedPieces.add(((Piece) x).info())
         );
 
@@ -88,13 +89,13 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public Set<PieceSetting> start() {
-        final Set<PieceSetting> res = new HashSet<>();
-        notifier.notifyAllObservers();
+    public List<PieceSetting> start() {
+        final List<GravityObserver> observers = notifier.notifyAllObservers();
+        final List<PieceSetting> res = new ArrayList<>();
 
-        board.getAllPieces().forEach(
-            x -> res.add(x.info())
-        );
+        observers.stream()
+        .filter(x -> x instanceof Piece)
+        .forEachOrdered(x -> res.add(((Piece) x).info()));
 
         gameOver = !board.isEnemyAlive();
 
