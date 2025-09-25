@@ -20,5 +20,5 @@ public interface GravityObservable {
 
     List<GravityObserver> notifyObservers(SquarePosition pos);
 
-    void notifyAllObservers();
+    List<GravityObserver> notifyAllObservers();
 }

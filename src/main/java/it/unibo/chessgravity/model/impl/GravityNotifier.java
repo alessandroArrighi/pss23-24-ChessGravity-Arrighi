@@ -2,6 +2,7 @@ package it.unibo.chessgravity.model.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unibo.chessgravity.model.api.GravityObservable;
@@ -67,7 +68,19 @@ public class GravityNotifier implements GravityObservable {
     }
 
     @Override
-    public void notifyAllObservers() {
+    public List<GravityObserver> notifyAllObservers() {
+        final Comparator<SquarePosition> sort = (a, b) -> {
+            if (a.getPosX() != b.getPosX()) {
+                return Integer.compare(a.getPosX(), b.getPosX());
+            }
+
+            return Integer.compare(a.getPosY(), b.getPosY());
+        };
+
+        this.observers.sort((a, b) -> { return sort.compare(a.getPos(), b.getPos()); });
+
         observers.forEach(x -> x.gravity());
-    }    
+
+        return this.observers;
+    }
 }
