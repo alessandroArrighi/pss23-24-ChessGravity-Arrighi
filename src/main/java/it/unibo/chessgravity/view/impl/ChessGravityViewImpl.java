@@ -1,9 +1,9 @@
 package it.unibo.chessgravity.view.impl;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import it.unibo.chessgravity.controller.api.ChessGravityObserver;
@@ -57,6 +57,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private final Set<PieceSetting> pieceSettings;
     private final Set<SquarePosition> obs;
     private final Set<EntityView> pieces;
+    private final Comparator<SquarePosition> sort;
     
     public ChessGravityViewImpl(final int entitySize, final int xLen, final int yLen,
                                 final Set<PieceSetting> pieces, final Set<SquarePosition> obs) {
@@ -67,25 +68,35 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         this.pieceSettings = pieces;
         this.obs = obs;
         this.pieces = new HashSet<>();
+        this.sort = (a, b) -> {
+            if (a.getPosX() != b.getPosX()) {
+                return Integer.compare(a.getPosX(), b.getPosX());
+            }
+
+            return Integer.compare(a.getPosY(), b.getPosY());
+        };
     }
 
     @Override
-    public void start(final Set<PieceSetting> pieces) {
-        final List<PieceSetting> pLst = pieces.stream().toList();
-        int i = 0;
+    public void start(final List<PieceSetting> pieces) {
+        final List<EntityView> piecesView = this.pieces.stream()
+            .sorted((a, b) -> { 
+                return sort.compare(a.getPosition().toSquarePosition(), 
+                                    b.getPosition().toSquarePosition());
+            }).toList();
+        
 
-        for (EntityView x : this.pieces) {
-            x.move(x.getPosition(), Position.toPosition(pLst.get(i).getPos()));
+        int i = 0;
+        for (EntityView x :  piecesView) {
+            x.move(x.getPosition(), Position.toPosition(pieces.get(i).getPos()));
             ++i;
         }
     }
 
     @Override
-    public void move(final Set<PieceSetting> gravityPieces) {
+    public void move(final List<PieceSetting> gravityPieces) {
         // Get the x position where the moved piece started.
-        final int posX = move.getPosition()
-                        .toSquarePosition()
-                        .getPosX();
+        final SquarePosition pos = move.getPosition().toSquarePosition();
 
         /*
          * Try to get the only piece != posX and move it with gravity.
@@ -94,40 +105,33 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
          * (x position will be the same) so the gravity will be called in the 
          * loop with the others pieces.
          */
-        try {
-            final PieceSetting gravityDest = gravityPieces.stream()
-                .filter(x -> x.getPos().getPosX() != posX).findFirst().get();
-            
-            move.move(moveDest, Position.toPosition(gravityDest.getPos()));
-            gravityPieces.remove(gravityDest);
-        } catch (NoSuchElementException e) {
+        final SquarePosition gravityDest = gravityPieces.get(gravityPieces.size() - 1).getPos();
+        if (gravityDest.getPosX() != pos.getPosX()) {
+            move.move(moveDest, Position.toPosition(gravityDest));
+            gravityPieces.remove(gravityPieces.size() - 1);
+        } else {
+            // simple move with no gravity
             move.move(moveDest, moveDest);
         }
 
         /*
-         * Take the pieces and filter only the pieces that in x position equal to
-         * the x position of the moved piece.
-         * After that sort the list in ascending order
+         * Filter only the pieces that have the same x position 
+         * as the x position of the moved piece.
+         * After that, sort the list in ascending order
          */
         List<EntityView> start = this.pieces.stream()
-        .filter(
-            x -> posX == 
-                x.getPosition()
-                    .toSquarePosition()
-                    .getPosX())
+        .filter(x -> {
+            final SquarePosition currentPos = x.getPosition().toSquarePosition();
+            return pos.getPosX() == currentPos.getPosX() && 
+                    currentPos.getPosY() > pos.getPosY();
+        })
         .sorted((a, b) -> {
             return Double.compare(b.getPosition().getPosY(), a.getPosition().getPosY());
         }).toList();
 
-        // Sort the list in ascending order
-        List<PieceSetting> dest = gravityPieces.stream()
-        .sorted((a, b) -> {
-            return Integer.compare(a.getPos().getPosY(), b.getPos().getPosY());
-        }).toList();
-
         // loop to gravity all the pieces
-        for(int i = 0; i < dest.size(); ++i) {
-            start.get(i).gravity(Position.toPosition(dest.get(i).getPos()));
+        for(int i = 0; i < gravityPieces.size(); ++i) {
+            start.get(i).gravity(Position.toPosition(gravityPieces.get(i).getPos()));
         }
     }
 
@@ -200,7 +204,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
             loader.setControllerFactory(x -> {
                 if (x == PieceViewImpl.class) {
-                    return new PieceViewImpl(Position.toPosition(piece.getPos()), entitySize, this);
+                    return new PieceViewImpl(piece, entitySize, this);
                 }
 
                 throw new RuntimeException("Cannot create " + PieceViewImpl.class + ". "
