@@ -55,4 +55,15 @@ public class PositionTest {
 
         assertEquals(modelPos, viewPos.toSquarePosition());
     }
+
+    /**
+     * Checks if the covertion works correctly with a double value position
+     */
+    @Test
+    public void testDoubleValues() {
+        final double add = 13.29;
+        viewPos = new Position(viewPos.getPosX() + add, viewPos.getPosY() + add);
+
+        assertEquals(modelPos, viewPos.toSquarePosition());
+    }
 }
