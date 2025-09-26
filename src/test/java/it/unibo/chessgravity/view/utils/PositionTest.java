@@ -46,6 +46,14 @@ public class PositionTest {
     }
 
     /**
+     * Checks if convertion from {@link SquarePosition} works correctly.
+     */
+    @Test
+    public void testToPosition() {
+        assertEquals(viewPos, Position.toPosition(modelPos));
+    }
+
+    /**
      * Checks if the convertion works correclty with starting position != 0
      */
     @Test
@@ -56,6 +64,7 @@ public class PositionTest {
         viewPos = new Position((xOffset * size) + xStart, (yOffset * size) + yStart);
 
         assertEquals(modelPos, viewPos.toSquarePosition());
+        assertEquals(viewPos, Position.toPosition(modelPos));
     }
 
     /**
@@ -67,6 +76,7 @@ public class PositionTest {
         viewPos = new Position(viewPos.getPosX() + add, viewPos.getPosY() + add);
 
         assertEquals(modelPos, viewPos.toSquarePosition());
+        assertEquals(viewPos, Position.toPosition(modelPos));
     }
 
     /**
@@ -81,6 +91,7 @@ public class PositionTest {
             modelPos = new SquarePosition(modelPos.getPosX(), yLen - i);
 
             assertEquals(modelPos, viewPos.toSquarePosition());
+            assertEquals(viewPos, Position.toPosition(modelPos));
         }
 
         for(; i < yLen + 5; ++i) {
@@ -88,13 +99,5 @@ public class PositionTest {
 
             assertTrue(viewPos.toSquarePosition().getPosY() < BoardImpl.MIN_LEN);
         }
-    }
-
-    /**
-     * Checks if convertion from {@link SquarePosition} works correctly.
-     */
-    @Test
-    public void testToPosition() {
-        assertEquals(viewPos, Position.toPosition(modelPos));
     }
 }
