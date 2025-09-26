@@ -16,6 +16,10 @@ public class PositionTest {
     private int size;
     private int xStart;
     private int yStart;
+    private int xOffset;
+    private int yOffset;
+    private Position viewPos;
+    private SquarePosition modelPos;
 
     @BeforeEach
     public void setup() {
@@ -24,6 +28,11 @@ public class PositionTest {
         xStart = 0;
         yStart = 0;
         Position.setup(yLen, size, xStart, yStart);
+
+        xOffset = 4;
+        yOffset = 3;
+        viewPos = new Position((xOffset * size) + xStart, (yOffset * size) + yStart);
+        modelPos = new SquarePosition(xOffset + 1, yLen - yOffset);
     }
 
     /**
@@ -31,11 +40,19 @@ public class PositionTest {
      */
     @Test
     public void testToSquarePosition() {
-        final int xOffset = 3;
-        final int yOffset = 4;
-        final Position pos = new Position((xOffset * size) + xStart, (yOffset * size) + yStart);
-        final SquarePosition res = new SquarePosition(xOffset + 1, yLen - yOffset);
+        assertEquals(modelPos, viewPos.toSquarePosition());
+    }
 
-        assertEquals(res, pos.toSquarePosition());
+    /**
+     * Checks if the convertion works correclty with starting position != 0
+     */
+    @Test
+    public void testViewStart() {
+        this.xStart = 20;
+        this.yStart = 30;
+        Position.setup(yLen, size, xStart, yLen);
+        viewPos = new Position((xOffset * size) + xStart, (yOffset * size) + yStart);
+
+        assertEquals(modelPos, viewPos.toSquarePosition());
     }
 }

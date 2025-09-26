@@ -22,8 +22,8 @@ public class Position {
     private final double posY;
 
     public Position(final double posX, final double posY) {
-        this.posX = ((int) posX / size) * size;
-        this.posY = ((int) posY / size) * size;
+        this.posX = (((int) posX / size) * size) + startX;
+        this.posY = (((int) posY / size) * size) + startY;
     }
     
     public double getPosX() {
