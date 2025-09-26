@@ -36,9 +36,9 @@ public class SquarePosition {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof SquarePosition) {
-            SquarePosition pos = (SquarePosition) obj;
+            final SquarePosition pos = (SquarePosition) obj;
 
             return Objects.equals(posX, pos.getPosX()) && 
                     Objects.equals(posY, pos.getPosY());

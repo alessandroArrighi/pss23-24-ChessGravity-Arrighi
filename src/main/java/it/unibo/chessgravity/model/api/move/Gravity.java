@@ -12,7 +12,7 @@ public interface Gravity {
      * 
      * @param start The start position.
      * @param board The board used to checks the collisions.
-     * @return {@link MoveResponse} objects with all calculated results.
+     * @return {@link MoveResponse} object with all calculated results.
      */
     MoveResponse gravity(SquarePosition start, Board board);
 }

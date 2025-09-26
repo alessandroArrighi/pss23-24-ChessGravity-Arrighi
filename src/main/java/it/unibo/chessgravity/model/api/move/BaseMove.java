@@ -14,7 +14,7 @@ public interface BaseMove {
      * 
      * @param start The starting position.
      * @param board The board used to checks the collisions.
-     * @return {@link MoveResponse} objects with all calculated results.
+     * @return {@link MoveResponse} object with all calculated results.
      */
     MoveResponse move(SquarePosition start, Board board);
 
@@ -25,7 +25,7 @@ public interface BaseMove {
      * @param start The starting position.
      * @param step The step used for the calculations. If a collision entity 
      * is between two steps, it will be ignored.
-     * @return {@link MoveResponse} objects with all calculated results.
+     * @return {@link MoveResponse} object with all calculated results.
      */
     MoveResponse move(SquarePosition start, Board board, int step);
 }

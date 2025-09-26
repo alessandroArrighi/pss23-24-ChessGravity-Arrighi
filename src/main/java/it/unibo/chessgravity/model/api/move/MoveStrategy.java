@@ -13,7 +13,7 @@ public interface MoveStrategy {
      * @param start The starting position.
      * @param dest The destination position calculated.
      * @param board The board used to checks the collisions.
-     * @return {@link MoveResponse} objects with all calculated results.
+     * @return {@link MoveResponse} object with all calculated results.
      */
     MoveResponse move(SquarePosition start, SquarePosition dest, Board board);
 }
