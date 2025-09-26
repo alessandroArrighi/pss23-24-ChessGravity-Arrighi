@@ -48,6 +48,9 @@ public class Position {
      * This method setup the static fields for handle the calculation of the position of each
      * entity of the game. This method it must be called before the start of the game.
      * 
+     * There's no xLen because the conversion has to be done only for the y values
+     * 
+     * @param yLen the length of the y axys
      * @param size the size (width and height) of the entitys of the game
      * @param x the start x position of the board
      * @param y the start y position of the board
