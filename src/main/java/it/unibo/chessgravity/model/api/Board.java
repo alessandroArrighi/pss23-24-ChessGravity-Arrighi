@@ -11,6 +11,13 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  * Interface that maps a chess board.
  */
 public interface Board {
+    /**
+     * Method used to get the a {@link Piece} object placed at the given position.
+     * 
+     * @param pos The position where the piece is placed.
+     * @return The {@link Piece} object found at the given position. If the position 
+     * is not valid or there's no piece, null will be returned.
+     */
     Piece getPiece(SquarePosition pos);
 
     /**
