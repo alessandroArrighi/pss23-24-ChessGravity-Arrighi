@@ -95,7 +95,7 @@ public class BoardImpl implements Board {
         }
 
         // if there's the enemy king at position
-        if (piece.getPos().equals(enemy.getPosition())) {
+        if (piece.getPos().equals(enemy.getPos())) {
             throw new SquareFullException(pos);
         }
 
@@ -131,7 +131,7 @@ public class BoardImpl implements Board {
             return;
         }
 
-        if (dest.equals(enemy.getPosition())) {
+        if (dest.equals(enemy.getPos())) {
             enemy.kill();
         }
 
@@ -144,7 +144,7 @@ public class BoardImpl implements Board {
         final SquarePiece square;
         try {
             square = getSquare(pos);
-            return new MoveResponse(pos, square.isFree(), enemy.getPosition().equals(pos));
+            return new MoveResponse(pos, square.isFree(), enemy.getPos().equals(pos));
         } catch (IllegalSquarePositionException e) {
             return MoveResponse.NO_MOVE;
         } catch (SquareFullException e) {
