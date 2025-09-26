@@ -12,12 +12,12 @@ public class MoveLeft extends BaseMoveAbstract {
         super();
     }
 
-    public MoveLeft(MoveChecker cheker) {
+    public MoveLeft(final MoveChecker cheker) {
         super(cheker);
     }
 
     @Override
-    protected SquarePosition calculatePos(int posX, int posY) {
+    protected SquarePosition calculatePos(final int posX, final int posY) {
         return new SquarePosition(posX - STEP, posY);
     }
 }

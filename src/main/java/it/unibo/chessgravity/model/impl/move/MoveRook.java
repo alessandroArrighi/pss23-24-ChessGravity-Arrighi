@@ -26,7 +26,8 @@ public class MoveRook implements MovePiece {
     }
 
     @Override
-    public MoveResponse move(SquarePosition start, SquarePosition dest, Board board) {
+    public MoveResponse move(final SquarePosition start, final SquarePosition dest,
+                                final Board board) {
         BaseMove move = null;
 
         if (onTopColumn(dest, start)) {
@@ -42,8 +43,8 @@ public class MoveRook implements MovePiece {
         return movePiece(start, dest, board, move);
     }
 
-    private MoveResponse movePiece(SquarePosition start, SquarePosition dest, 
-                                Board board, BaseMove move) {
+    private MoveResponse movePiece(final SquarePosition start, final SquarePosition dest, 
+                                    final Board board, final BaseMove move) {
         if (move == null) {
             return new MoveResponse(null, false, false);
         }

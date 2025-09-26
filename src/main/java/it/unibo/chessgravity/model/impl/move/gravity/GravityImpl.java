@@ -8,10 +8,9 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.MoveBottom;
 
 /**
- * class that models the gravity movement. This class will calculate the lowest
+ * Class that models the gravity movement. This class will calculate the lowest
  * position of the board that a piece has to be palced.
  */
-
 public class GravityImpl implements Gravity {
     private final BaseMove moveBottom;
 

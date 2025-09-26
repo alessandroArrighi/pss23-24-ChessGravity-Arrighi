@@ -33,7 +33,8 @@ public class MoveKing implements MovePiece {
     }
 
     @Override
-    public MoveResponse move(SquarePosition start, SquarePosition dest, Board board) {
+    public MoveResponse move(final SquarePosition start, final SquarePosition dest, 
+                                final Board board) {
         BaseMove move = null;
 
 
