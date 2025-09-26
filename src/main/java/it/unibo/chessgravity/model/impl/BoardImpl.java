@@ -47,9 +47,17 @@ public class BoardImpl implements Board {
 
         if (enemy == null || !isValidPos(enemy)) {
             throw new InvalidSettingsException(
-                "Not a valid satting for enemy king" + 
+                "Not a valid setting for enemy king" + 
                 (enemy == null ? "" : " at " + enemy)
             );
+        }
+
+        // Checks if the enemy king is flayng on the board
+        if (enemy.getPosY() != MIN_LEN) {
+            if (!obstacles.contains(new SquarePosition(enemy.getPosX(), enemy.getPosY() - 1))) {
+                throw new InvalidSettingsException(
+                    "Not a valid setting for enemy king at " + enemy);
+            }
         }
 
         this.enemy = new Enemy(enemy);
