@@ -54,7 +54,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private final int entitySize;
     private final int xLen;
     private final int yLen;
-    private final SquarePosition enemy;
+    private final Position enemy;
     private final Set<PieceSetting> pieceSettings;
     private final Set<SquarePosition> obs;
     private final Set<EntityView> pieces;
@@ -67,7 +67,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         this.entitySize = entitySize;
         this.xLen = xLen;
         this.yLen = yLen;
-        this.enemy = enemy;
+        this.enemy = Position.toPosition(enemy);
         this.pieceSettings = pieces;
         this.obs = obs;
         this.pieces = new HashSet<>();
@@ -201,7 +201,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
     private void createPieces() throws IOException {
         for (PieceSetting piece : pieceSettings) {
-            FXMLLoader loader = new FXMLLoader(
+            final FXMLLoader loader = new FXMLLoader(
                 ClassLoader.getSystemResource("layouts/PieceGui.fxml")
             );
 
@@ -223,6 +223,26 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         }
     }
 
+    private void createEnemy() throws IOException {
+        final FXMLLoader loader = new FXMLLoader(
+            ClassLoader.getSystemResource("layouts/EnemyGui.fxml")
+        );
+
+        loader.setControllerFactory(x -> {
+            if (x == EnemyView.class) {
+                return new EnemyView(enemy, entitySize);
+            }
+
+            throw new RuntimeException("Cannot create " + EnemyView.class + ". "
+                                        + x.getClass() + " cannot be converted to type "
+                                        + EnemyView.class);
+        });
+
+        piecesGroup.getChildren().add(
+            loader.load()
+        );
+    }
+
     public void createButtons() {
         final int yPos = (entitySize * yLen) + 3;
 
@@ -236,6 +256,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     @FXML
     public void initialize() throws IOException {
         createBoard();
+        createEnemy();
         createPieces();
         createButtons();
     }
