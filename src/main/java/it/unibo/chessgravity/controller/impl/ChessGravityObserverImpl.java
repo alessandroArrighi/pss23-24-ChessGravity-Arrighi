@@ -38,6 +38,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
         final Set<SquarePosition> obs = new HashSet<>();
         final int len = 10;
         final int size = 50;
+        final SquarePosition enemy = new SquarePosition(2, 5);
         stage = primaryStage;
 
         pieces.addAll(Arrays.asList(
@@ -55,13 +56,13 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
             new SquarePosition(9, 4)
         ));
 
-        model = new MapImpl(pieces, obs, len, len, new SquarePosition(len, len));
+        model = new MapImpl(pieces, obs, len, len, enemy);
 
         FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("layouts/MainGui.fxml"));
         
         loader.setControllerFactory((cls) -> {
             if (cls == ChessGravityViewImpl.class) {
-                return new ChessGravityViewImpl(size, len, len, pieces, obs);
+                return new ChessGravityViewImpl(size, len, len, pieces, obs, enemy);
             }
 
             throw new RuntimeException("Cannot find " + ChessGravityView.class);

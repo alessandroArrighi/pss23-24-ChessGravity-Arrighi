@@ -54,17 +54,20 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private final int entitySize;
     private final int xLen;
     private final int yLen;
+    private final SquarePosition enemy;
     private final Set<PieceSetting> pieceSettings;
     private final Set<SquarePosition> obs;
     private final Set<EntityView> pieces;
     private final Comparator<SquarePosition> sort;
     
     public ChessGravityViewImpl(final int entitySize, final int xLen, final int yLen,
-                                final Set<PieceSetting> pieces, final Set<SquarePosition> obs) {
+                                final Set<PieceSetting> pieces, final Set<SquarePosition> obs,
+                                final SquarePosition enemy) {
         Position.setup(yLen, entitySize, 0, 0);
         this.entitySize = entitySize;
         this.xLen = xLen;
         this.yLen = yLen;
+        this.enemy = enemy;
         this.pieceSettings = pieces;
         this.obs = obs;
         this.pieces = new HashSet<>();
