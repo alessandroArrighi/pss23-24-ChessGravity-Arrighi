@@ -3,15 +3,19 @@ package it.unibo.chessgravity.model.api.square;
 import java.util.Objects;
 
 /**
- * Classe che incapsula le informazioni di una posizione nella scacchiera.
- * Ogni istanza è costituita da una posizione sull'asse delle <<x>> e una
- * sull'asse delle <<y>>.
+ * Class that encapsulates the information of a position on the chessboard. 
+ * Each instance consists of a position on the 'x' axis and one on the 'y' axis.
  */
-
 public class SquarePosition {
     private final int posX;
     private final int posY;
 
+    /**
+     * Class constructor.
+     * 
+     * @param posX The position on the 'x' axis.
+     * @param posY The position on the 'y' axis.
+     */
     public SquarePosition(final int posX, final int posY) {
         this.posX = posX;
         this.posY = posY;
