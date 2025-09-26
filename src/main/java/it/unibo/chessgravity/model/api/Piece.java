@@ -5,8 +5,7 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.utils.PieceSetting;
 
 /**
- * Interfaccia utilizzata per definire il
- * contratto d'uso di un pezzo.
+ * Interface used to define the usage of a piece.
  */
 
 public interface Piece {
@@ -14,5 +13,13 @@ public interface Piece {
 
     SquarePosition getPos();
 
+    /**
+     * Method used to move the current piece istance. This will handle all the
+     * collision and the communication with the board. 
+     * It also handles the gravity calls.
+     * 
+     * @param dest The destination position of the requested movement.
+     * @return {@link MoveResponse} object with all calculated results.
+     */
     MoveResponse move(SquarePosition dest);
 }
