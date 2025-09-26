@@ -1,7 +1,7 @@
 package it.unibo.chessgravity.model.api.exceptions;
 
 /**
- * Cheked exception that handles invalid configuration settings
+ * Uncheked exception that handles invalid configuration settings
  */
 public class InvalidSettingsException extends RuntimeException {
     

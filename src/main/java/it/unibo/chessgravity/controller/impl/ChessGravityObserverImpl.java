@@ -34,7 +34,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
     private Stage stage;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(final Stage primaryStage) throws IOException {
         final Set<PieceSetting> pieces = new HashSet<>();
         final Set<SquarePosition> obs = new HashSet<>();
         final int len = 10;
@@ -59,7 +59,8 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
 
         model = new MapImpl(pieces, obs, len, len, enemy);
 
-        FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("layouts/MainGui.fxml"));
+        final FXMLLoader loader = new FXMLLoader(
+            ClassLoader.getSystemResource("layouts/MainGui.fxml"));
         
         loader.setControllerFactory((cls) -> {
             if (cls == ChessGravityViewImpl.class) {
