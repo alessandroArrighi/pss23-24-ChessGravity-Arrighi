@@ -16,6 +16,7 @@ import it.unibo.chessgravity.view.utils.Position;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -51,10 +52,11 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
     private EntityView move;
     private Position moveDest;
     private ChessGravityObserver observer;
+    private Node enemy;
     private final int entitySize;
     private final int xLen;
     private final int yLen;
-    private final Position enemy;
+    private final Position enemyPos;
     private final Set<PieceSetting> pieceSettings;
     private final Set<SquarePosition> obs;
     private final Set<EntityView> pieces;
@@ -67,7 +69,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
         this.entitySize = entitySize;
         this.xLen = xLen;
         this.yLen = yLen;
-        this.enemy = Position.toPosition(enemy);
+        this.enemyPos = Position.toPosition(enemy);
         this.pieceSettings = pieces;
         this.obs = obs;
         this.pieces = new HashSet<>();
@@ -150,6 +152,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
     @Override
     public void gameOver() {
+        this.piecesGroup.getChildren().remove(this.enemy);
         final Rectangle background = new Rectangle(
             squares.getBoundsInLocal().getWidth(),
             squares.getBoundsInLocal().getHeight(),
@@ -230,7 +233,7 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
 
         loader.setControllerFactory(x -> {
             if (x == EnemyView.class) {
-                return new EnemyView(enemy, entitySize);
+                return new EnemyView(enemyPos, entitySize);
             }
 
             throw new RuntimeException("Cannot create " + EnemyView.class + ". "
@@ -238,9 +241,8 @@ public class ChessGravityViewImpl implements ChessGravityView, BoardView {
                                         + EnemyView.class);
         });
 
-        piecesGroup.getChildren().add(
-            loader.load()
-        );
+        this.enemy = loader.load();
+        piecesGroup.getChildren().add(this.enemy);
     }
 
     public void createButtons() {
