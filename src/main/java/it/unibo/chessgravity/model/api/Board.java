@@ -16,7 +16,7 @@ public interface Board {
 
     void setPiece(Piece piece) throws IllegalSquarePositionException, SquareFullException;
 
-    void move(SquarePosition start, SquarePosition dest) throws Exception;
+    void move(SquarePosition start, SquarePosition dest) throws IllegalSquarePositionException, SquareFullException;
 
     MoveResponse canMove(SquarePosition pos);
 

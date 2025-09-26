@@ -30,7 +30,7 @@ public class BoardImpl implements Board {
                         final Set<SquarePosition> obstacles, final SquarePosition enemy) {
         if (xLen < MIN_LEN || yLen < MIN_LEN) {
             throw new IllegalArgumentException(
-                "the board length argument must be greater then 0"
+                "the board length argument must be greater then " + MIN_LEN
             );
         }
 
@@ -85,7 +85,9 @@ public class BoardImpl implements Board {
 
         try {
             piece = getSquare(pos).getPiece();
-        } catch (Exception e) {
+        } catch (IllegalSquarePositionException e) {
+            piece = null;
+        } catch (SquareFullException e) {
             piece = null;
         }
         
@@ -120,7 +122,8 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public void move(SquarePosition start, SquarePosition dest) throws Exception {
+    public void move(SquarePosition start, SquarePosition dest)
+        throws IllegalSquarePositionException, SquareFullException {
         final SquarePiece startSquare;
         final SquarePiece destSquare;
         final Piece piece;
@@ -131,7 +134,7 @@ public class BoardImpl implements Board {
         piece = startSquare.getPiece();
 
         if (piece == null) {
-            throw new Exception("Piece not found at " + start);
+            throw new IllegalSquarePositionException(start);
         }
 
         // This check prevents accidentally removing the piece from the board

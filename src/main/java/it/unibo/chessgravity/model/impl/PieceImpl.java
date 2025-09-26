@@ -3,6 +3,8 @@ package it.unibo.chessgravity.model.impl;
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.GravityObserver;
 import it.unibo.chessgravity.model.api.Piece;
+import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException;
+import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.move.Gravity;
 import it.unibo.chessgravity.model.api.move.MoveResponse;
 import it.unibo.chessgravity.model.api.move.MoveStrategy;
@@ -40,17 +42,24 @@ public class PieceImpl implements Piece, GravityObserver {
         return this.pos;
     }
 
-    private void setPos(final SquarePosition pos) throws Exception {
+    private void setPos(final SquarePosition pos) 
+        throws IllegalSquarePositionException, SquareFullException {
         board.move(this.pos, pos);
         this.pos = pos;
     }
 
     @Override
-    public MoveResponse move(SquarePosition dest) throws Exception {
+    public MoveResponse move(SquarePosition dest) {
         final MoveResponse res = move.move(pos, dest, board);
 
         if (res.canMove() || res.isGameOver()) {
-            setPos(dest);
+            try {
+                setPos(dest);
+            } catch (IllegalSquarePositionException e) {
+                throw new RuntimeException(e.getMessage());
+            } catch (SquareFullException e) {
+                throw new RuntimeException(e.getMessage());
+            }
             this.gravity();
         }
 
@@ -61,7 +70,9 @@ public class PieceImpl implements Piece, GravityObserver {
     public void gravity() {
         try {
             setPos(gravity.gravity(pos, board).getPos());
-        } catch (Exception e) {
+        } catch (IllegalSquarePositionException e) {
+            throw new RuntimeException(e.getMessage());
+        } catch (SquareFullException e) {
             throw new RuntimeException(e.getMessage());
         }
     }

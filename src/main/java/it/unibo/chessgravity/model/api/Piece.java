@@ -14,5 +14,5 @@ public interface Piece {
 
     SquarePosition getPos();
 
-    MoveResponse move(SquarePosition dest) throws Exception;
+    MoveResponse move(SquarePosition dest);
 }

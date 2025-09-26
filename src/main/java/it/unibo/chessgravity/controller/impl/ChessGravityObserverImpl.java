@@ -1,5 +1,6 @@
 package it.unibo.chessgravity.controller.impl;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
     private Stage stage;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
         final Set<PieceSetting> pieces = new HashSet<>();
         final Set<SquarePosition> obs = new HashSet<>();
         final int len = 10;
@@ -86,22 +87,17 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
 
     @Override
     public void move(Position start, Position dest) {
-        try {
-            final List<PieceSetting> res = model.move(
-                start.toSquarePosition(), dest.toSquarePosition()
-            );
-            if (res != null) {
-                view.move(res);
-            }
+        final List<PieceSetting> res = model.move(
+            start.toSquarePosition(), dest.toSquarePosition()
+        );
+        if (res != null) {
+            view.move(res);
+        }
 
-            if (model.isGameOver()) {
-                // send to view that the game is over
-                System.out.println("Game is over");
-                view.gameOver();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        if (model.isGameOver()) {
+            // send to view that the game is over
+            System.out.println("Game is over");
+            view.gameOver();
         }
     }
 

@@ -9,7 +9,7 @@ import it.unibo.chessgravity.model.utils.PieceSetting;
  * Interface mapping the map of the game.
  */
 public interface Map {
-    List<PieceSetting> move(SquarePosition start, SquarePosition dest) throws Exception;
+    List<PieceSetting> move(SquarePosition start, SquarePosition dest);
 
     List<PieceSetting> start();
 
