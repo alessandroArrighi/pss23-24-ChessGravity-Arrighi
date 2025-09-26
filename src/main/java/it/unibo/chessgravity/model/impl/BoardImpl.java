@@ -11,10 +11,9 @@ import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
- * Implementazione dell'interfaccia Board.
- * La classe funge da contenitore logico per la raccolta di tutte
- * le istanze di Square che comporrano la scacchiera. Qui ne
- * avviene la creazione e tutta la loro gestione.
+ * Implementation of the Board interface. This class serves as a logical container 
+ * for all the Square instances that make up the board. 
+ * It is responsible for their creation and overall management.
  */
 public class BoardImpl implements Board {
     
@@ -26,6 +25,16 @@ public class BoardImpl implements Board {
     private final int xLen;
     private final int yLen;
 
+    /**
+     * Class constructor that handles the creation of the sqaures, obstacles and the enemy king.
+     * At the end of the constructor the board is set up with all the squares and obstacles.
+     * 
+     * @param xLen The length of the 'x' axis of the board.
+     * @param yLen The length of the 'y' axis of the board.
+     * @param obstacles A set of {@link SquarePosition} of the obstacles.
+     * @param enemy The {@link SquarePosition} of the enemy king.
+     * @throws InvalidSettingsException If the one of these provided parameters are not valid.
+     */
     public BoardImpl(final int xLen, final int yLen, 
                         final Set<SquarePosition> obstacles, final SquarePosition enemy) {
         if (xLen < MIN_LEN || yLen < MIN_LEN) {
@@ -80,7 +89,7 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public Piece getPiece(SquarePosition pos) {
+    public Piece getPiece(final SquarePosition pos) {
         Piece piece;
 
         try {
@@ -95,7 +104,8 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public void setPiece(Piece piece) throws IllegalSquarePositionException, SquareFullException {
+    public void setPiece(final Piece piece) 
+        throws IllegalSquarePositionException, SquareFullException {
         final SquarePosition pos = piece.getPos();
         SquarePiece square;
         
@@ -122,7 +132,7 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public void move(SquarePosition start, SquarePosition dest)
+    public void move(final SquarePosition start, final SquarePosition dest)
         throws IllegalSquarePositionException, SquareFullException {
         final SquarePiece startSquare;
         final SquarePiece destSquare;
@@ -151,7 +161,7 @@ public class BoardImpl implements Board {
     }
 
     @Override
-    public MoveResponse canMove(SquarePosition pos) {
+    public MoveResponse canMove(final SquarePosition pos) {
         final SquarePiece square;
         try {
             square = getSquare(pos);
@@ -168,12 +178,13 @@ public class BoardImpl implements Board {
         return enemy.isAlive();
     }
 
-    private boolean isValidPos(SquarePosition pos) {
+    private boolean isValidPos(final SquarePosition pos) {
         return (pos.getPosX() >= MIN_LEN && pos.getPosY() >= MIN_LEN &&
             pos.getPosX() <= xLen && pos.getPosY() <= yLen);
     }
 
-    private SquarePiece getSquare(SquarePosition pos) throws IllegalSquarePositionException, SquareFullException {
+    private SquarePiece getSquare(final SquarePosition pos) 
+        throws IllegalSquarePositionException, SquareFullException {
         if (!isValidPos(pos)) {
             throw new IllegalSquarePositionException(pos);
         }
