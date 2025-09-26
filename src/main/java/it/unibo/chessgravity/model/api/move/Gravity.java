@@ -4,9 +4,15 @@ import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
- * interface that maps a gravity movement
+ * Interface that maps a gravity movement.
  */
-
 public interface Gravity {
+    /**
+     * Method used to hanlde the gravity calculation.
+     * 
+     * @param start The start position.
+     * @param board The board used to checks the collisions.
+     * @return {@link MoveResponse} objects with all calculated results.
+     */
     MoveResponse gravity(SquarePosition start, Board board);
 }
