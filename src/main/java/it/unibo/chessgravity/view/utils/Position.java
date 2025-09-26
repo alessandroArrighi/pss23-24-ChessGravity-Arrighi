@@ -40,7 +40,7 @@ public class Position {
 
         return new SquarePosition(
             ((int) (deltaX / size) + MIN_LEN),
-            Math.abs(yLen - ((int) (deltaY / size)))
+            yLen - ((int) (deltaY / size))
         );
     }
 

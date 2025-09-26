@@ -1,11 +1,13 @@
 package it.unibo.chessgravity.view.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.square.SquarePosition;
+import it.unibo.chessgravity.model.impl.BoardImpl;
 
 /**
  * Test class for the {@link Position} class.
@@ -65,5 +67,26 @@ public class PositionTest {
         viewPos = new Position(viewPos.getPosX() + add, viewPos.getPosY() + add);
 
         assertEquals(modelPos, viewPos.toSquarePosition());
+    }
+
+    /**
+     * Checks if the y axys overflow convertion works correctly
+     */
+    @Test
+    public void testOverPosition() {
+        int i = 0;
+
+        for (; i < yLen; ++i) {
+            viewPos = new Position(viewPos.getPosX(), i * size);
+            modelPos = new SquarePosition(modelPos.getPosX(), yLen - i);
+
+            assertEquals(modelPos, viewPos.toSquarePosition());
+        }
+
+        for(; i < yLen + 5; ++i) {
+            viewPos = new Position(viewPos.getPosX(), i * size);
+
+            assertTrue(viewPos.toSquarePosition().getPosY() < BoardImpl.MIN_LEN);
+        }
     }
 }
