@@ -4,10 +4,8 @@ import it.unibo.chessgravity.model.api.Piece;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 
 /**
- * Interfaccia che definisce il contratto d'uso
- * di una casa che può contenere pezzi
+ * Interface that defines the usage of a square that can contain a piece.
  */
-
 public interface SquarePiece extends Square {
     Piece getPiece();
 
