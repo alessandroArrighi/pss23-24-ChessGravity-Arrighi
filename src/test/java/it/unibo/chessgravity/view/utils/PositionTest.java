@@ -89,4 +89,12 @@ public class PositionTest {
             assertTrue(viewPos.toSquarePosition().getPosY() < BoardImpl.MIN_LEN);
         }
     }
+
+    /**
+     * Checks if convertion from {@link SquarePosition} works correctly.
+     */
+    @Test
+    public void testToPosition() {
+        assertEquals(viewPos, Position.toPosition(modelPos));
+    }
 }
