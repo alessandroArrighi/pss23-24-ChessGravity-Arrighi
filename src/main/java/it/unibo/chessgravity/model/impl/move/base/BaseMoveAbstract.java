@@ -11,23 +11,32 @@ import it.unibo.chessgravity.model.api.square.SquarePosition;
  * This class provide a template method, to be implemented by each specific
  * move subclass.
  */
-
 public abstract class BaseMoveAbstract implements BaseMove {
     private final int DEFAULT_STEP = 1;
     protected int STEP = DEFAULT_STEP;
 
     private final MoveChecker checker;
 
+    /**
+     * Default class constructor
+     */
     public BaseMoveAbstract() {
         this.checker = (a, b) -> checkMove(a, b);
     }
 
-    public BaseMoveAbstract(MoveChecker cheker) {
+    /**
+     * Class constructor for init an instance with different implementation of the chekcer.
+     * 
+     * @param cheker The {@link MoveChecker} Object that models the check implementation
+     * used in the movement algorithm.
+     */
+    public BaseMoveAbstract(final MoveChecker cheker) {
         this.checker = cheker;
     }
 
+    // template method
     @Override
-    public MoveResponse move(SquarePosition start, Board board) {
+    public MoveResponse move(final SquarePosition start, final Board board) {
         // calculate new position
         final SquarePosition pos = calculatePos(start.getPosX(), start.getPosY());
 
@@ -40,7 +49,7 @@ public abstract class BaseMoveAbstract implements BaseMove {
      * default value.
      */
     @Override
-    public MoveResponse move(SquarePosition start, Board board, int step) {
+    public MoveResponse move(final SquarePosition start, final Board board, final int step) {
         STEP = step;
         
         final MoveResponse pos = move(start, board);
@@ -50,16 +59,32 @@ public abstract class BaseMoveAbstract implements BaseMove {
         return pos;
     }
 
-    public static MoveResponse checkMove(SquarePosition pos, Board board) {
+    public static MoveResponse checkMove(final SquarePosition pos, final Board board) {
         return board.canMove(pos);
     }
 
-    /*
-     * The template method that calculate a specific type of movement for a piece.
+    /**
+     * The implementation method used fot the template method patter 
+     * of the {@link BaseMoveAbstract#move(SquarePosition, Board)}.
+     * This method is implemented for each specific type of piece movement.
+     * 
+     * @param posX The position of the 'x' axis.
+     * @param posY The position of the 'y' axis.
+     * @return The calculated position.
      */
     abstract protected SquarePosition calculatePos(int posX, int posY);
 
+    /**
+     * Inner interface that maps the movement cheker used with a lambda function.
+     */
     public interface MoveChecker {
+        /**
+         * Method that check if is possible to move at the five position.
+         * 
+         * @param pos The position that has to be checked.
+         * @param board The board used to handle the checking execution.
+         * @return {@link MoveResponse} object with all calculated results.
+         */
         MoveResponse checkMove(SquarePosition pos, Board board);
     }
 }
