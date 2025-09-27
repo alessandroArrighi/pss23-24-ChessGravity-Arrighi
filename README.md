@@ -150,8 +150,7 @@ classDiagram
 class Piece
 <<interface>> Piece
 
-class PieceStandard
-<<interface>> PieceStandard
+class PieceImpl
 
 class PieceTypeA
 <<abstract>> PieceTypeA
@@ -169,7 +168,7 @@ class PieceTypeAFactory {
     +createPiece(): Piece
 }
 
-Piece <|-- PieceStandard
+Piece <|-- PieceImpl
 Piece <|-- PieceTypeA
 PieceFactory <|-- PieceStandardFacotory
 PieceFactory <|-- PieceTypeAFactory
@@ -181,46 +180,39 @@ Strategy pattern per la gestione dinamica dei movimenti dei pezzi
 ```mermaid
 classDiagram
 
-class Client
-
 class PieceImpl {
-    -MoveStrategy mover
+    -MoveStrategy move
     +PieceImpl(MoveStrategy)
-    +move(Square, Board): boolean
+    +move()
 }
 
 class MoveStrategy {
-    move(Square, Square, Board): boolean
+    +move()
 }
 <<interface>> MoveStrategy
 
 class BaseMove
 <<interface>> BaseMove
 
-class MovePiece
-<<interface>> MovePiece
+class MoveTop {}
 
-class MoveTop {
-    +move(Square, Square, Board): boolean
-}
-
-class MoveBottom {
-    +move(Square, Square, Board): boolean
-}
+class MoveBottom {}
 
 class MoveRook {
     -BaseMove moveTop
     -BaseMove moveBottom
-    +move(Square, Square, Board): boolean
+    +move()
 }
 
-Client -- PieceImpl
-Client -- MovePiece
-MoveStrategy <|-- BaseMove
-MoveStrategy <|-- MovePiece
-MovePiece <|-- MoveRook
-BaseMove <|-- MoveTop
-BaseMove <|-- MoveBottom
+class BaseMoveAbstract {
+    #calculatePos(int posX, int posY)*
+}
+<<abstract>> BaseMoveAbstract
+
+MoveStrategy <|-- MoveRook
+BaseMoveAbstract --|> BaseMove
+BaseMoveAbstract <|-- MoveTop
+BaseMoveAbstract <|-- MoveBottom
 MoveRook *-- BaseMove
 PieceImpl *-- MoveStrategy
 ```
