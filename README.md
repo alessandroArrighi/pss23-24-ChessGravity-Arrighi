@@ -50,7 +50,6 @@ class Map {
 
 class Piece {
     +move()
-    +getSquare(): Square
 }
 <<interface>> Piece
 
@@ -90,23 +89,22 @@ L'archiettura adottata segue le regole del pattern MVC. In questo caso il modell
 classDiagram
 
 class Map {
-    +move(Piece, Square)
+    +move()
 }
 <<interface>> Map
 
 class MapImpl {
-    -List~Piece~ pieces
     -Board board
 }
 
 class Piece {
-    +move(Board, Square): boolean
-    +getSquare(): Square
+    +move(): boolean
 }
 <<interface>> Piece
 
 class Board {
-    +getSquare()
+    +getPiece(): Piece
+    +setPiece(Piece)
 }
 <<interface>> Board
 
@@ -132,17 +130,14 @@ class Controller
 class View
 <<interface>> View
 
+Board *-- Piece
+Square --* Board
 MapImpl --|> Map
-MapImpl *-- Board
-Board *-- Square
-Map -- Piece
-Map -- Square
-Piece --* MapImpl
 SquarePiece --|> Square
+MapImpl *-- Board
 SquareObstacle --|> Square
-Controller *-- View
-Controller *-- Map
-Map --o View
+View --* Controller
+Map --* Controller
 ```
 
 ## Design dettagliato
