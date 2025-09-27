@@ -4,18 +4,20 @@ import it.unibo.chessgravity.model.api.square.SquareObstacle;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
 /**
- * Implementazione dell'interfaccia SquareObstacle.
- * Lo stato della classe sarà analogo per tutte le
- * sue istanze. Non vi è possibilità di applicare
- * modifiche
- * La classe quindi funge da "place holder" per indicare
- * quale casa deve prendere le sembianze di un'ostacolo.
+ * Class that implements the {@link SquareObstacle} interface.
+ * The state of each instances and cannot be modified.
+ * It effectively serves as a placeholder to mark squares 
+ * that should behave as obstacles.
  */
-
 public class SquareObstacleImpl implements SquareObstacle {
     private final boolean free;
     private final SquarePosition pos;
 
+    /**
+     * Class constructor.
+     * 
+     * @param pos The position of the obstacle.
+     */
     public SquareObstacleImpl(final SquarePosition pos) {
         this.free = false;
         this.pos = pos;
