@@ -8,13 +8,18 @@ import it.unibo.chessgravity.model.impl.move.*;
 import it.unibo.chessgravity.model.utils.PieceType;
 
 /**
- * Implementazione standard dell'interfaccia PieceFactory.
- * Questa classe si occupa di creare tutti i pezzi standard del gioco.
+ * Class that implements the {@link PieceFactory} interface.
+ * This class creates all the standard pieces ({@link PieceImpl}) used in the game.
  */
 public class PieceStandardFactory implements PieceFactory {
     
     private final Board board;
 
+    /**
+     * Constructor class.
+     * 
+     * @param board The board injected to the new {@link Piece}.
+     */
     public PieceStandardFactory(Board board) {
         this.board = board;
     }
