@@ -45,7 +45,7 @@ public class MoveKingTest {
 
     @BeforeEach
     void setup() {
-        enemyPos = new SquarePosition(LEN, LEN);
+        enemyPos = new SquarePosition(LEN, 1);
         move = new MoveKing();
         board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
         start = new SquarePosition(5, 5);

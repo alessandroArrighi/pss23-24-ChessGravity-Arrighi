@@ -30,7 +30,7 @@ public class GravityImplTest {
     @BeforeEach
     void setup() {
         gravity = new GravityImpl();
-        enemyPos = new SquarePosition(LEN, LEN);
+        enemyPos = new SquarePosition(LEN, 1);
         board = new BoardImpl(LEN, LEN, new HashSet<>(), enemyPos);
     }
 

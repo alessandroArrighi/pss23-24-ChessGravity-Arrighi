@@ -45,7 +45,7 @@ public class BoardImplTest {
         piece1 = new PieceMock(new SquarePosition(2, 2));
         piece2 = new PieceMock(new SquarePosition(3, 6));
 
-        board = new BoardImpl(LEN, LEN, obs, new SquarePosition(LEN, LEN));
+        board = new BoardImpl(LEN, LEN, obs, new SquarePosition(LEN, 1));
 
         board.setPiece(piece1);
         board.setPiece(piece2);
