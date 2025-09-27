@@ -72,8 +72,8 @@ public class BoardImpl implements Board {
         this.enemy = new Enemy(enemy);
 
         // double for loop to cicle evry row and column and create the square.
-        for(int x = MIN_LEN; x <= xLen; ++x) {
-            for(int y = MIN_LEN; y <= yLen; ++y) {
+        for(int x = MIN_LEN; x < xLen + MIN_LEN; ++x) {
+            for(int y = MIN_LEN; y < yLen + MIN_LEN; ++y) {
                 final SquarePosition pos = new SquarePosition(x, y);
                 
                 if (!obstacles.contains(pos)) {
@@ -180,7 +180,7 @@ public class BoardImpl implements Board {
 
     private boolean isValidPos(final SquarePosition pos) {
         return (pos.getPosX() >= MIN_LEN && pos.getPosY() >= MIN_LEN &&
-            pos.getPosX() <= xLen && pos.getPosY() <= yLen);
+            pos.getPosX() < xLen + MIN_LEN && pos.getPosY() < yLen + MIN_LEN);
     }
 
     private SquarePiece getSquare(final SquarePosition pos) 
