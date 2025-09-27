@@ -4,6 +4,7 @@
 package it.unibo.chessgravity;
 
 
+import it.unibo.chessgravity.controller.impl.ChessGravityObserverImpl;
 import javafx.application.Application;
 
 /** Main application entry-point's class. */
@@ -16,10 +17,6 @@ public final class Main {
      * @param args
      */
     public static void main(final String[] args) {
-        Application.launch(App.class, args);
-        // The following line raises: Error: class it.unibo.samplejavafx.App is not a subclass of javafx.application.Application
-        // JavaFXApp.launch(args);
-        // While the following would do just fine:
-        // JavaFXApp.run(args)
+        Application.launch(ChessGravityObserverImpl.class, args);
     }
 }
