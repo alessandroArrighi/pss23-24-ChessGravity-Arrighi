@@ -5,17 +5,21 @@ import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.square.*;
 
 /**
- * Implementazione dell'interfaccia SquarePiece.
- * La classe rappresenta tutte le case in cui è possibile
- * posizionare un pezzo.
+ * Class that implements the {@link SquarePiece} interface.
+ * This class represents all board squares where a piece can be placed.
  */
-
 public class SquarePieceImpl implements SquarePiece {
     private final SquarePosition pos;
     
     private Piece piece;
     private boolean free;
 
+    /**
+     * Class constructor. The square it's automatically set as a free square.
+     * 
+     * @param pos The position of the square. This cannot be change after
+     * the constructor call.
+     */
     public SquarePieceImpl(final SquarePosition pos) {
         this.pos = pos;
         this.free = true;
