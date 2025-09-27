@@ -14,7 +14,8 @@ import it.unibo.chessgravity.model.utils.PieceSetting;
 import it.unibo.chessgravity.model.utils.PieceType;
 
 /**
- * Implementazione dell'interfaccia Piece
+ * Class that implements the {@link Piece} and {@link GravityObserver} interfaces.
+ * This class models a standard piece that handle the movement with the gravity.
  */
 public class PieceImpl implements Piece, GravityObserver {
     private SquarePosition pos;
@@ -23,6 +24,14 @@ public class PieceImpl implements Piece, GravityObserver {
     private final PieceType type;
     private final Gravity gravity;
     
+    /**
+     * Class constructor.
+     * 
+     * @param board The {@link Board} instance where the piece should be placed.
+     * @param pos The {@link SquarePosition} where the piece is placed.
+     * @param move The {@link MoveStrategy} for handling the movemnts.
+     * @param type The {@link PieceType} that specifies the type of the piece.
+     */
     public PieceImpl(final Board board, final SquarePosition pos,
                     final MoveStrategy move, final PieceType type) {
         this.board = board;
