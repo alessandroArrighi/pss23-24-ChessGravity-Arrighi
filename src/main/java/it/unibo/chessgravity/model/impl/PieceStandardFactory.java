@@ -20,7 +20,7 @@ public class PieceStandardFactory implements PieceFactory {
      * 
      * @param board The board injected to the new {@link Piece}.
      */
-    public PieceStandardFactory(Board board) {
+    public PieceStandardFactory(final Board board) {
         this.board = board;
     }
 

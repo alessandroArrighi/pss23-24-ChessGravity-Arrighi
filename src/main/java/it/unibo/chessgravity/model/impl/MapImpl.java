@@ -38,7 +38,7 @@ public class MapImpl implements Map {
      * @throws InvalidSettingsException If one of these params configurations are not valid.
      */
     public MapImpl(final Set<PieceSetting> pieces, final Set<SquarePosition> obstacles,
-                    final int xLen, final int yLen, SquarePosition enemy) {
+                    final int xLen, final int yLen, final SquarePosition enemy) {
         board = new BoardImpl(xLen, yLen, obstacles, enemy);
         gameOver = false;
 
@@ -65,7 +65,7 @@ public class MapImpl implements Map {
     }
 
     @Override
-    public List<PieceSetting> move(SquarePosition start, SquarePosition dest) {
+    public List<PieceSetting> move(final SquarePosition start, final SquarePosition dest) {
         if (gameOver) {
             return null;
         }

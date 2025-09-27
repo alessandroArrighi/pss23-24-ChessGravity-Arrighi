@@ -45,7 +45,7 @@ public class SquarePieceImpl implements SquarePiece {
     }
 
     @Override
-    public void setPiece(Piece piece) throws SquareFullException {
+    public void setPiece(final Piece piece) throws SquareFullException {
         /*
          * if there's already another piece on this sqaure
          * and it has to be set a piece that is not the current piece

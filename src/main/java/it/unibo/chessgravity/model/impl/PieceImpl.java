@@ -58,7 +58,7 @@ public class PieceImpl implements Piece, GravityObserver {
     }
 
     @Override
-    public MoveResponse move(SquarePosition dest) {
+    public MoveResponse move(final SquarePosition dest) {
         final MoveResponse res = move.move(pos, dest, board);
 
         if (res.canMove() || res.isGameOver()) {

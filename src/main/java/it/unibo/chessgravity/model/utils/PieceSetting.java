@@ -13,6 +13,12 @@ public class PieceSetting {
     private final SquarePosition pos;
     private final PieceType type;
 
+    /**
+     * Class constructor.
+     * 
+     * @param pos The position of the piece.
+     * @param type The type of the piece.
+     */
     public PieceSetting(final SquarePosition pos, final PieceType type) {
         this.pos = pos;
         this.type = type;
