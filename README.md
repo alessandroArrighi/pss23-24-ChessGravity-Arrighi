@@ -44,34 +44,32 @@ Gravity -Composizione- Piece
 classDiagram
 
 class Map {
-    +move(Piece, Square): boolean
+    +move()
 }
 <<interface>> Map
 
 class Piece {
-    +move(Board, Square): boolean
+    +move()
     +getSquare(): Square
 }
 <<interface>> Piece
 
 class Board {
-    +getSquare(): Square
+    +getPiece(): Piece
+    +setPiece(Piece)
 }
 <<interface>> Board
 
 class Square {
     +isFree(): boolean
-    +getPiece(): Piece
-    +setPiece(Piece)
 }
 <<interface>> Square
 
 class Obstacle
 <<interface>> Obstacle
 
-Square -- Piece
+Board --* Piece
 Map --* Board
-Map --* Piece
 Board --* Square
 Square <|-- Obstacle
 ```
