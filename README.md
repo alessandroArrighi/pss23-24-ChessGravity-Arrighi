@@ -142,7 +142,9 @@ Map --* Controller
 
 ## Design dettagliato
 
-Factory method per la creazione dei pezzi
+### Creazione dei pezzi
+
+Rappresentazione del pattern Factory Method per la creazione dei pezzi.
 
 ```mermaid
 classDiagram
@@ -174,6 +176,16 @@ PieceFactory <|-- PieceStandardFacotory
 PieceFactory <|-- PieceTypeAFactory
 Piece -- PieceFactory
 ```
+
+#### Problema
+
+Il problema riscontrato durante la fase di sviluppo è stato quello di gestire i numerosi tipi di oggetti da creare per
+modellare ogni tipo di pezzo del gioco (re, regina, torre...). Inoltre in fase di analisi si è riscontrato alla futura possibilità di aggiunta di nuove "categorie" di pezzi con differenti aspetti da quelli standard degli scacchi.
+
+#### Soluzione
+
+La soulzione adottata è stata quelal di utilizzare il pattern Factory Method, in particolare la versione parametrizzata. Questo è servito per semplificare l'aspetto di creazione dei pezzi andando a creare una classe specifica che si occupasse solamente di questo. Inoltre, la tipologia adottata, Factory Metohd Parametrized, applica gestione della creazioni di oggetti suddivisi in gruppi per ogni classe Factory. Il pattern è stato adottao in visione delle possibile aggiunte al software di nuove tipologie di pezzi. Così facendo ogni classe sarà responsabile della creazione dei pezzi facenti parte solamente di un singolo gruppo.
+In questo momento l'interfaccia che definsice il contratto d'uso di una classe Factory è la PieceFactory. La classe responsabile della creazione dei pezzi standard è la PieceStandardFactory.
 
 Strategy pattern per la gestione dinamica dei movimenti dei pezzi
 
