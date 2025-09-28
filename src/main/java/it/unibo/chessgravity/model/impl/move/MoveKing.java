@@ -2,8 +2,8 @@ package it.unibo.chessgravity.model.impl.move;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
-import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.move.MoveResponse;
+import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.*;
 import static it.unibo.chessgravity.model.utils.SquarePositions.*;
@@ -11,7 +11,7 @@ import static it.unibo.chessgravity.model.utils.SquarePositions.*;
 /**
  * Class that models the movement strategy that has to be done by a king piece.
  */
-public class MoveKing implements MovePiece {
+public class MoveKing implements MoveStrategy {
     private final BaseMove moveTopLeft;
     private final BaseMove moveTop;
     private final BaseMove moveTopRight;

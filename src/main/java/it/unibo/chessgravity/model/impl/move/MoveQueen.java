@@ -1,17 +1,17 @@
 package it.unibo.chessgravity.model.impl.move;
 
 import it.unibo.chessgravity.model.api.Board;
-import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.move.MoveResponse;
+import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import static it.unibo.chessgravity.model.utils.SquarePositions.*;
 
 /**
  * Class that models the movement strategy that has to be done by a queen piece.
  */
-public class MoveQueen implements MovePiece {
-    private final MovePiece moveBishop;
-    private final MovePiece moveRook;
+public class MoveQueen implements MoveStrategy {
+    private final MoveStrategy moveBishop;
+    private final MoveStrategy moveRook;
 
     public MoveQueen() {
         moveBishop = new MoveBishop();
@@ -21,7 +21,7 @@ public class MoveQueen implements MovePiece {
     @Override
     public MoveResponse move(final SquarePosition start, final SquarePosition dest,
                                 final Board board) {
-        MovePiece move = null;
+        MoveStrategy move = null;
 
         if (onSameColumn(start, dest) || onSameRow(start, dest)) {
             move = moveRook;

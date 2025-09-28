@@ -64,7 +64,7 @@ public abstract class BaseMoveAbstract implements BaseMove {
     }
 
     /**
-     * The implementation method used fot the template method patter 
+     * The implementation method used for the template method patter 
      * of the {@link BaseMoveAbstract#move(SquarePosition, Board)}.
      * This method is implemented for each specific type of piece movement.
      * 

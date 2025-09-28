@@ -6,8 +6,8 @@ import java.util.List;
 
 import it.unibo.chessgravity.model.api.Board;
 import it.unibo.chessgravity.model.api.move.BaseMove;
-import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.move.MoveResponse;
+import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.move.base.BaseMoveAbstract.MoveChecker;
 import it.unibo.chessgravity.model.impl.move.base.*;
@@ -15,7 +15,7 @@ import it.unibo.chessgravity.model.impl.move.base.*;
 /**
  * Class that models the movement strategy that has to be done by a knight piece.
  */
-public class MoveKnight implements MovePiece {
+public class MoveKnight implements MoveStrategy {
 
     private final static int STEP = 2;
 

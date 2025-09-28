@@ -14,8 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.chessgravity.model.api.Board;
-import it.unibo.chessgravity.model.api.move.MovePiece;
 import it.unibo.chessgravity.model.api.move.MoveResponse;
+import it.unibo.chessgravity.model.api.move.MoveStrategy;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 import it.unibo.chessgravity.model.impl.BoardImpl;
 import it.unibo.chessgravity.model.mocks.PieceMock;
@@ -26,7 +26,7 @@ import it.unibo.chessgravity.model.mocks.PieceMock;
 public class MoveKnightTest {
 
     private int LEN = 10;
-    private MovePiece move;
+    private MoveStrategy move;
     private Board board;
     private SquarePosition start;
     private List<SquarePosition> dest;
