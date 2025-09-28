@@ -216,3 +216,29 @@ BaseMoveAbstract <|-- MoveBottom
 MoveRook *-- BaseMove
 PieceImpl *-- MoveStrategy
 ```
+
+Observer pattern per notificare la gravità
+
+```mermaid
+classDiagram
+
+class GravityObservable {
+    +subscribe(GravityObserver)
+    +unsubscribe(GravityObserver)
+    +notifyObservers()
+}
+<<interface>> GravityObservable
+
+class GravityObserver {
+    +gravity()
+}
+<<interface>> GravityObserver
+
+class PieceImpl
+
+class GravityNotifier
+
+GravityObservable *-- GravityObserver
+GravityObservable <|-- GravityNotifier
+GravityObserver <|-- PieceImpl
+```
