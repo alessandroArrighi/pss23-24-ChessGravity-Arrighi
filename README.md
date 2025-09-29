@@ -372,7 +372,7 @@ public MoveResponse move(final SquarePosition start, final Board board) {
 }
 ```
 
-### Utilizzo di enum class
+### Utilizzo di enumerazioni
 
 **Dove**: `it.unibo.chessgravity.model.utils.PieceType`
 
@@ -396,3 +396,26 @@ public enum PieceType {
     }
 }
 ```
+
+# Commenti finali
+
+## Autovalutazione lavori futuri
+
+Punti di forza:
+-  Buona fase di analisi e progettazione del software.
+-  Applicazione di diversi design pattern.
+-  Isolamento dei componenti.
+
+Punti di debolezza:
+-  Alcune classi non sono ben congegnate.
+-  Non tutte le classi rispettano il single responsability principle.
+-  Eccessivo accoppiamento tra le classi dei movimenti.
+
+## Difficoltà riscontrate
+
+-  Comprensione di quale sia la migliore modellazione da adottare per uno specifico aspetto del dominio in analisi.
+-  Gestire in modo corretto le relazioni tra le entità del prorpio dominio.
+
+## Guida utente
+
+Per utilizzare l'applicativo ci si aspetta la conoscenza pregressa delle regole di movimento dei pezzi degli scacchi. Per muovere è necessario un "single click" su un pezzo e poi un altro "single click" sulla casa di destinazione a cui si vuole arrivare. Il gioco si completa spostando un pezzo nella casa in cui si trova il re nemico.
