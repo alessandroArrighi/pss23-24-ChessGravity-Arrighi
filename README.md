@@ -227,6 +227,42 @@ La soluzione adottata è lo Strategy pattern: l'interfaccia MoveStrategy definis
 
 In fase di sviluppo si è riscontrato che, alcune classi avessero parti implementative duplicate. E' stata valutata la possibilità di aggiungere una classe astratta, con cui applicare un Template method pattern. La scelta è stata scarta per evitara una eccessiva complicazione del software. Con aggiornamenti futuri, nel caso di aggiunte di classi con codice duplicato, l'approccio al problema potrebbe essere quello analizzato.
 
+### Movimenti di base
+
+Rappresentazione UML dei movimenti di base.
+
+```mermaid
+classDiagram
+
+class BaseMove {
+    +move()
+}
+<<interface>> BaseMove
+
+class BaseMoveAbstract {
+    #calculatePos(int posX, int posY)*
+    +move()
+}
+<<abstract>> BaseMoveAbstract
+
+class MoveTop {}
+
+class MoveBottom {}
+
+BaseMove <|-- BaseMoveAbstract
+BaseMoveAbstract <|-- MoveTop
+BaseMoveAbstract <|-- MoveBottom 
+```
+
+#### Problema
+
+In fase di implementazione è stato riscontrato una eccessiva duplicazione del codice per i movimenti. I movimenti dei pezzi sono di fatto una composizione di micro movimenti consecutivi l'uno all'atro. Di conseguenza molti micro movimenti sono uguali per diversi pezzi, causando un'eccessiva duplicazione del codice.
+
+#### Soluzione
+
+Per risolvere questo problema è stata creata una porzione del software specifica solo per implementare questi micro movimenti. In questo modo ogni movimento di un pezzo (MoveStrategy) è composto da un insieme di queste classi. Così facendo si è diminuita la duplicazione di codice e aumentato il riuso.
+La souluzione di design adottata è il Template Method pattern: la classe astratta BaseMoveAbstract implementa il metodo template move e la classe che estende, implementa il metodo astratto calculatePos. In questo modo tutte le parti comuni vengono implementate nella classe astratta, mentre ogni classe concreata implementa lo specifico micro movimento. Si ottiene così una minore duplicazione del codice delegando la responsabilità del calcolo dello spostamento ad ogni classe concreta.
+
 Observer pattern per notificare la gravità
 
 ```mermaid
