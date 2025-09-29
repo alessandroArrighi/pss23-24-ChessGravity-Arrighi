@@ -299,3 +299,22 @@ Il problema riscontrato è stato quello di gestire la gravità di tutti i pezzi 
 #### Soluzione
 
 La soluzione adottata è il pattern Observer: l'interfaccia che definisce un observer è la GravityObserver, mentre l'interfaccia che definisce l'observable è GravityObservable. In questo scenario la classe observer che implementana l'interfaccia è PieceImpl, colei che deve essere avvisata dell'avvenuto cambio di stato di un pezzo e di conseguenza è necessario chiamare il metodo gravity. La classe che implementa l'observable è la classe GravityNotifier. Il pattern è stato applicato con una modifica rispetto alla sua versione standard. La classe observable si occupa di notificare solo una parte degli observer assegnati. Questo perchè gli observer da notificare sono solamente i pezzi posizionati al di sopra del pezzo mosso. Così si riducono i cilci di esecuzione ed allo stesso tempo si applica una migliore semantica al codice.
+
+# Sviluppo
+
+## Testing automatizzato
+
+Il progetto è stato intergrato con un sistema di testing completamente automatizzato grazie all'ausilio di juinit.
+
+### Premessa
+
+In tutti i test, ove possibile, sono state create delle classi "mock" per rendere il più possibile isolati i test. In questo modo si evita l'utilizzo di codice esterno alla classe da testare, restringendo il controllo solo alla classe specifica.
+
+### Componenti sottoposti ai test
+
+- BoardImpl: classe stata testa per verificare la corretta creazione e composizione delle case che compongono la scacchiera. In aggiunta viene testato anche la corretta gestione dei posizionamenti e delle collisioni dei pezzi.
+- GravityNotifier: classe testa per verificare che i pezzi vengano notificati nell'ordine corretto.
+- MoveStrategy: tutte le classi che implementano l'interfaccia strategy sono state testate per verificare il corretto funzionamento dell'algoritmo di movimento.
+- BaseMoveAbstract: classe testata per verificare il corretto funzionamento del metodo template. In particolare che questo utilizzi correttamente il metodo astratto in aggiunta al controllo di posizionamento.
+- GravityImpl: classe testata per controllare il corretto funzionamento dell'algoritmo di gravità.
+- Position: classe testata per controllare il corretto funzionamento di conversione delle posizioni tra model e view.
