@@ -263,7 +263,9 @@ In fase di implementazione è stato riscontrato una eccessiva duplicazione del c
 Per risolvere questo problema è stata creata una porzione del software specifica solo per implementare questi micro movimenti. In questo modo ogni movimento di un pezzo (MoveStrategy) è composto da un insieme di queste classi. Così facendo si è diminuita la duplicazione di codice e aumentato il riuso.
 La souluzione di design adottata è il Template Method pattern: la classe astratta BaseMoveAbstract implementa il metodo template move e la classe che estende, implementa il metodo astratto calculatePos. In questo modo tutte le parti comuni vengono implementate nella classe astratta, mentre ogni classe concreata implementa lo specifico micro movimento. Si ottiene così una minore duplicazione del codice delegando la responsabilità del calcolo dello spostamento ad ogni classe concreta.
 
-Observer pattern per notificare la gravità
+### Notifica della gravità
+
+Rappresentazione UML del sistema di notifica della gravità.
 
 ```mermaid
 classDiagram
@@ -288,3 +290,12 @@ GravityObservable *-- GravityObserver
 GravityObservable <|-- GravityNotifier
 GravityObserver <|-- PieceImpl
 ```
+
+#### Problema
+
+Il problema riscontrato è stato quello di gestire la gravità di tutti i pezzi coinvolti a seguito di un movimento di un pezzo. Dopo che un pezzo è stato mosso, vi è la possibilità che la gestione gravità dei pezzi non sia solamente del pezzo appena mosso. In alcuni casi, quando il pezzo appena mosso risiede sotto altri pezzi, è necessario gravitare anche tutti i pezzi soprastanti. In assenza di ciò, tutti i pezzi in causa rimerrebbero "volanti" nella scacchiera.
+
+
+#### Soluzione
+
+La soluzione adottata è il pattern Observer: l'interfaccia che definisce un observer è la GravityObserver, mentre l'interfaccia che definisce l'observable è GravityObservable. In questo scenario la classe observer che implementana l'interfaccia è PieceImpl, colei che deve essere avvisata dell'avvenuto cambio di stato di un pezzo e di conseguenza è necessario chiamare il metodo gravity. La classe che implementa l'observable è la classe GravityNotifier. Il pattern è stato applicato con una modifica rispetto alla sua versione standard. La classe observable si occupa di notificare solo una parte degli observer assegnati. Questo perchè gli observer da notificare sono solamente i pezzi posizionati al di sopra del pezzo mosso. Così si riducono i cilci di esecuzione ed allo stesso tempo si applica una migliore semantica al codice.
