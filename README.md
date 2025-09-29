@@ -185,9 +185,11 @@ modellare ogni tipo di pezzo del gioco (re, regina, torre...). Inoltre in fase d
 #### Soluzione
 
 La soulzione adottata è stata quelal di utilizzare il pattern Factory Method, in particolare la versione parametrizzata. Questo è servito per semplificare l'aspetto di creazione dei pezzi andando a creare una classe specifica che si occupasse solamente di questo. Inoltre, la tipologia adottata, Factory Metohd Parametrized, applica gestione della creazioni di oggetti suddivisi in gruppi per ogni classe Factory. Il pattern è stato adottao in visione delle possibile aggiunte al software di nuove tipologie di pezzi. Così facendo ogni classe sarà responsabile della creazione dei pezzi facenti parte solamente di un singolo gruppo.
-In questo momento l'interfaccia che definsice il contratto d'uso di una classe Factory è la PieceFactory. La classe responsabile della creazione dei pezzi standard è la PieceStandardFactory.
+In questo momento l'interfaccia che definsice il contratto d'uso della classe Factory è la PieceFactory. La classe responsabile della creazione dei pezzi standard è la PieceStandardFactory. Con la parametrizzazione viene quindi creata una specifica istanza della classe PieceImpl.
 
-Strategy pattern per la gestione dinamica dei movimenti dei pezzi
+### Gestione dei movimenti dei pezzi
+
+Rappresentazione UML dello Strategy pattern per la gesione degli algoritmi di movimento.
 
 ```mermaid
 classDiagram
@@ -203,31 +205,27 @@ class MoveStrategy {
 }
 <<interface>> MoveStrategy
 
-class BaseMove
-<<interface>> BaseMove
-
-class MoveTop {}
-
-class MoveBottom {}
-
 class MoveRook {
     -BaseMove moveTop
     -BaseMove moveBottom
     +move()
 }
 
-class BaseMoveAbstract {
-    #calculatePos(int posX, int posY)*
-}
-<<abstract>> BaseMoveAbstract
-
 MoveStrategy <|-- MoveRook
-BaseMoveAbstract --|> BaseMove
-BaseMoveAbstract <|-- MoveTop
-BaseMoveAbstract <|-- MoveBottom
-MoveRook *-- BaseMove
 PieceImpl *-- MoveStrategy
 ```
+
+#### Problema
+
+Ogni pezzo deve essere costituito da un movimento differente dagli altri. Serve gestire in modo dinamico il tipo di movimento necessario per il pezzo richiesto.
+
+#### Soluzione
+
+La soluzione adottata è lo Strategy pattern: l'interfaccia MoveStrategy definisce il contratto d'uso per una strategia. Questa è implementata da tutti i tipi di movemineti dei pezzi. In questo caso la dinamicità viene a presentarsi solo in fase di creazione di un pezzo. E' comunque utile applicare il pattern in questo caso, per incapsulare il movimento in una classe separata dai pezzi. Così i movimenti sono modulari mantendo il principio del single responsability principle. Con futuri aggiornamenti al software, è inoltre possibile riutilizzare il codice sviluppato.
+
+#### Note
+
+In fase di sviluppo si è riscontrato che, alcune classi avessero parti implementative duplicate. E' stata valutata la possibilità di aggiungere una classe astratta, con cui applicare un Template method pattern. La scelta è stata scarta per evitara una eccessiva complicazione del software. Con aggiornamenti futuri, nel caso di aggiunte di classi con codice duplicato, l'approccio al problema potrebbe essere quello analizzato.
 
 Observer pattern per notificare la gravità
 
