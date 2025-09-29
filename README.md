@@ -318,3 +318,81 @@ In tutti i test, ove possibile, sono state create delle classi "mock" per render
 - BaseMoveAbstract: classe testata per verificare il corretto funzionamento del metodo template. In particolare che questo utilizzi correttamente il metodo astratto in aggiunta al controllo di posizionamento.
 - GravityImpl: classe testata per controllare il corretto funzionamento dell'algoritmo di gravità.
 - Position: classe testata per controllare il corretto funzionamento di conversione delle posizioni tra model e view.
+
+## Note di sviluppo
+
+### Utilizzo di Stream per la manipolazione di collezioni
+
+**Dove** molte classi, ad esempio `it.unibo.chessgravity.model.impl.GravityNotifier`
+
+**Snippet**
+```java
+@Override
+public List<GravityObserver> notifyObservers(final SquarePosition pos) {
+    final int posX = pos.getPosX();
+    final int posY = pos.getPosY();
+    final List<GravityObserver> res;
+
+    res = observers.parallelStream()
+    .filter(x -> x.getPos().getPosX() == posX)
+    .filter(x -> x.getPos().getPosY() > posY)
+    .sorted((a, b) -> {
+        return Integer.compare(
+            a.getPos().getPosY(),
+            b.getPos().getPosY()
+        );
+    })
+    .toList();
+    
+    res.forEach(x -> x.gravity());
+
+    return res;
+}
+```
+
+### Utilizzo di un'interfaccia funzionale per lambda funtion
+
+**Dove**: `it.unibo.chessgravity.model.impl.move.base.BaseMoveAbstract`
+
+**Snippet**:
+```java
+public interface MoveChecker {
+    MoveResponse checkMove(SquarePosition pos, Board board);
+}
+
+public BaseMoveAbstract(final MoveChecker cheker) {
+    this.checker = cheker;
+}
+
+@Override
+public MoveResponse move(final SquarePosition start, final Board board) {
+    final SquarePosition pos = calculatePos(start.getPosX(), start.getPosY());
+
+    return checker.checkMove(pos, board);
+}
+```
+
+### Utilizzo di enum class
+
+**Dove**: `it.unibo.chessgravity.model.utils.PieceType`
+
+**Snippet**:
+```java
+public enum PieceType {
+    KING(STANDARD), 
+    QUEEN(STANDARD),
+    ROOK(STANDARD),
+    BISHOP(STANDARD),
+    KNIGHT(STANDARD);
+
+    private final PieceGroup group;
+
+    private PieceType(final PieceGroup group) {
+        this.group = group;
+    }
+
+    public PieceGroup getGroup() {
+        return this.group;
+    }
+}
+```
