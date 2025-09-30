@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+
+<Group xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="it.unibo.chessgravity.view.impl.ChessGravityViewImpl" onMousePressed="#onMousePressed" >
+	<children>
+		<Group fx:id="squares" />
+		<Group fx:id="piecesGroup" />
+		<Button fx:id="restart" text="Restart" onMousePressed="#restart" />
+		<Button fx:id="quit" text="Quit" onMousePressed="#quit" />
+		<Group fx:id="menu" />
+	</children>
+</Group>
