@@ -7,6 +7,7 @@ import it.unibo.chessgravity.model.api.exceptions.IllegalSquarePositionException
 import it.unibo.chessgravity.model.api.exceptions.InvalidSettingsException;
 import it.unibo.chessgravity.model.api.exceptions.SquareFullException;
 import it.unibo.chessgravity.model.api.move.MoveResponse;
+import it.unibo.chessgravity.model.api.square.Square;
 import it.unibo.chessgravity.model.api.square.SquarePiece;
 import it.unibo.chessgravity.model.api.square.SquarePosition;
 
@@ -19,7 +20,7 @@ public class BoardImpl implements Board {
     
     public static final int MIN_LEN = 1;
 
-    private final Set<SquarePiece> squareList;
+    private final Set<Square> squareList;
     private final Set<Piece> pieces;
     private final Enemy enemy;
     private final int xLen;
@@ -78,6 +79,8 @@ public class BoardImpl implements Board {
                 
                 if (!obstacles.contains(pos)) {
                     this.squareList.add(new SquarePieceImpl(pos));
+                } else {
+                    this.squareList.add(new SquareObstacleImpl(pos));
                 }
             }
         }
@@ -120,11 +123,6 @@ public class BoardImpl implements Board {
         }
 
         square = getSquare(pos);
-
-        // if there's an obstacle
-        if (square == null) {
-            throw new SquareFullException(pos);
-        }
 
         square.setPiece(piece);
 
@@ -190,11 +188,14 @@ public class BoardImpl implements Board {
         }
 
         try {
-            return this.squareList.stream()
+            return (SquarePiece) this.squareList.stream()
+            .filter(x -> x instanceof SquarePiece)
             .filter(x -> x.getPos().equals(pos))
             .findFirst()
             .get();
         } catch (NoSuchElementException e) {
+            throw new SquareFullException(pos);
+        } catch (ClassCastException e) {
             throw new SquareFullException(pos);
         }
     }

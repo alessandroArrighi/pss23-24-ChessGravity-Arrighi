@@ -39,22 +39,30 @@ public class ChessGravityObserverImpl extends Application implements ChessGravit
         final Set<SquarePosition> obs = new HashSet<>();
         final int len = 10;
         final int size = 50;
-        final SquarePosition enemy = new SquarePosition(2, 5);
+        final SquarePosition enemy = new SquarePosition(8, 1);
         stage = primaryStage;
 
         pieces.addAll(Arrays.asList(
                 new PieceSetting(new SquarePosition(1, 1), PieceType.ROOK),
-                new PieceSetting(new SquarePosition(2, 2), PieceType.KNIGHT),
-                new PieceSetting(new SquarePosition(3, 3), PieceType.BISHOP)
+                new PieceSetting(new SquarePosition(3, 3), PieceType.KNIGHT),
+                new PieceSetting(new SquarePosition(5, 5), PieceType.BISHOP)
             ));
 
         obs.addAll(Arrays.asList(
-            new SquarePosition(2, 4),
-            new SquarePosition(3, 4),
-            new SquarePosition(4, 4),
+            new SquarePosition(6, 1),
+            new SquarePosition(6, 2),
+            new SquarePosition(6, 3),
+            new SquarePosition(6, 4),
+            new SquarePosition(6, 5),
+            new SquarePosition(6, 6),
+            new SquarePosition(6, 7),
+            new SquarePosition(6, 9),
+            new SquarePosition(6, 10),
             new SquarePosition(7, 4),
-            new SquarePosition(8, 4),
-            new SquarePosition(9, 4)
+            new SquarePosition(9, 4),
+            new SquarePosition(10, 4),
+            new SquarePosition(7, 3),
+            new SquarePosition(9, 3)
         ));
 
         model = new MapImpl(pieces, obs, len, len, enemy);
